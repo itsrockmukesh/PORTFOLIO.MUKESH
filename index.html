@@ -109,50 +109,54 @@
          HERO SECTION (HEYKUBA GIANT EDITORIAL HEADLINE)
          ========================================================================== -->
     <section class="hero" id="hero">
-      <!-- Faded Editorial Portrait Backdrop -->
-      <div class="hero-photo-backdrop">
-        <div class="hero-backdrop-glow"></div>
-        <img src="assets/mukesh-kumar.jpg" alt="Mukesh Kumar Background Backdrop" class="hero-backdrop-img">
-      </div>
+      <div class="container">
+        <div class="hero-grid-split">
+          <!-- Left Column: Story, Headline, Actions -->
+          <div class="hero-content-col">
+            <div class="hero-status-tag">
+              <span class="status-pulse"></span>
+              <span>1st Year BE-CSE • Mirai School of Technology</span>
+            </div>
 
-      <div class="container hero-inner">
-        <!-- Status Pill -->
-        <div class="hero-status-tag">
-          <span class="status-pulse"></span>
-          <span>Available for Internships • 1st Year BE-CSE @ Mirai School of Tech</span>
-        </div>
+            <h1 class="hero-statement-title">
+              Hi, I'm Mukesh Kumar.<br>
+              <span class="hero-title-highlight">I build for the web &amp; cloud.</span>
+            </h1>
 
-        <!-- Giant Statement Title -->
-        <h1 class="hero-statement-title">
-          Engineering clean software from first principles.
-        </h1>
+            <div class="hero-typewriter-bar">
+              <span id="typewriter-text"></span>
+              <span class="typewriter-cursor"></span>
+            </div>
 
-        <!-- Typewriter Subtitle Line -->
-        <div class="hero-typewriter-bar">
-          <span id="typewriter-text"></span>
-          <span class="typewriter-cursor"></span>
-        </div>
+            <p class="hero-subtitle">
+              First-year engineering student learning modern web development with HTML &amp; CSS, and practicing Data Structures &amp; Algorithms in C++. This portfolio is my submission for the AWS Student Portfolio Hackathon, deployed on AWS Amplify.
+            </p>
 
-        <!-- Description -->
-        <p class="hero-subtitle">
-          First-year Computer Science &amp; Engineering student at Mirai School of Technology. Learning modern web development (HTML5/CSS3), Data Structures &amp; Algorithms in C++, and deploying cloud applications on AWS &amp; Google Cloud.
-        </p>
+            <div class="hero-actions">
+              <a href="#projects" class="btn-pill btn-pill-primary">
+                <span>See My Projects</span>
+                <span class="btn-arrow">↓</span>
+              </a>
 
-        <!-- Action Buttons -->
-        <div class="hero-actions">
-          <a href="#projects" class="btn-pill btn-pill-primary">
-            <span>Explore Featured Work</span>
-            <span class="btn-arrow">↓</span>
-          </a>
+              <button id="hero-terminal-trigger" class="btn-pill btn-pill-terminal">
+                <span>&gt;_</span>
+                <span>Open Terminal [~]</span>
+              </button>
 
-          <button id="hero-terminal-trigger" class="btn-pill btn-pill-terminal">
-            <span>&gt;_</span>
-            <span>Launch Secret Terminal</span>
-          </button>
+              <button class="btn-pill btn-pill-secondary trigger-resume-modal">
+                <span>Resume</span>
+              </button>
+            </div>
+          </div>
 
-          <button class="btn-pill btn-pill-secondary trigger-resume-modal">
-            <span>Inspect Resume</span>
-          </button>
+          <!-- Right Column: Sharp, Proud Human Photo Card -->
+          <div class="hero-photo-frame tilt-card">
+            <img src="assets/mukesh-kumar.jpg" alt="Mukesh Kumar holding AWS Builder Center Passport" class="hero-portrait-real">
+            <div class="hero-photo-footer">
+              <div class="hero-photo-name">Mukesh Kumar</div>
+              <div class="hero-photo-tag">AWS Builder Center</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -212,9 +216,9 @@
       <div class="container">
         <div class="section-header">
           <div class="section-label">Selected Works</div>
-          <h2 class="section-title">Projects &amp; Systems</h2>
+          <h2 class="section-title">Projects &amp; Code</h2>
           <p class="section-description">
-            A curated Bento showcase of responsive web layouts, algorithmic implementations, and an interactive cloud terminal built from first principles.
+            Projects I've built from scratch while learning web development, C++ algorithms, and cloud tools.
           </p>
         </div>
 
@@ -235,12 +239,12 @@
               <div>
                 <div class="bento-meta-bar">
                   <span class="bento-index">01</span>
-                  <span class="bento-badge-live"><span class="status-pulse"></span> Interactive Cyber Shell</span>
-                  <span class="bento-badge">AWS Hackathon Core</span>
+                  <span class="bento-badge-live"><span class="status-pulse"></span> Interactive Shell</span>
+                  <span class="bento-badge">AWS Hackathon Project</span>
                 </div>
-                <h3 class="bento-card-title">Secret Developer Terminal &amp; AWS Portfolio Engine</h3>
+                <h3 class="bento-card-title">Secret Developer Terminal &amp; AWS Showcase</h3>
                 <p class="bento-card-desc">
-                  An authentic in-browser terminal console built specifically for the AWS Student Portfolio Hackathon. Features a custom CLI command interpreter, Web Audio synthesizer feedback, command history buffer, Tab autocomplete, and secret cloud inspection utilities.
+                  An interactive terminal built with vanilla JavaScript for the AWS Student Portfolio Hackathon. Supports commands like <code>help</code>, <code>about</code>, <code>skills</code>, and <code>aws</code>, with sound synthesis and keyboard shortcuts.
                 </p>
                 <div class="bento-tags">
                   <span class="work-tag">Vanilla JS</span>
@@ -288,11 +292,11 @@
               <div>
                 <div class="bento-meta-bar">
                   <span class="bento-index">02</span>
-                  <span class="bento-badge">Semantic Web</span>
+                  <span class="bento-badge">HTML &amp; CSS</span>
                 </div>
                 <h3 class="bento-card-title">Personal Developer Website Layout</h3>
                 <p class="bento-card-desc">
-                  A foundational developer portfolio layout crafted with pure semantic HTML5 and modular CSS3. Demonstrates mastery over the box model, responsive media queries, and typography without heavy framework dependencies.
+                  My first portfolio experiment built with pure HTML and CSS to learn how the box model, flexbox, grid, and responsive styling work without relying on CSS frameworks.
                 </p>
                 <div class="bento-tags">
                   <span class="work-tag">HTML5</span>
@@ -304,7 +308,7 @@
 
               <div class="work-card-actions">
                 <a href="https://github.com/itsrockmukesh/Personal-Website" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-primary btn-sm">
-                  <span>Inspect Repository</span>
+                  <span>View on GitHub</span>
                   <span class="btn-arrow">↗</span>
                 </a>
                 <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary btn-sm">
@@ -323,16 +327,15 @@
               <div>
                 <div class="bento-meta-bar">
                   <span class="bento-index">03</span>
-                  <span class="bento-badge">Layout Architecture</span>
+                  <span class="bento-badge">Practice Project</span>
                 </div>
-                <h3 class="bento-card-title">Wikipedia Article Layout Recreation</h3>
+                <h3 class="bento-card-title">Wikipedia Article Page Recreation</h3>
                 <p class="bento-card-desc">
-                  A pixel-precise recreation of the complex multi-column encyclopedic structure of Wikipedia, implementing structured tables, infobox sidebars, navigation panels, footnotes, and citation markup.
+                  A layout recreation of a Wikipedia article page to practice complex multi-column structures, tables, side infoboxes, and clean semantic markup.
                 </p>
                 <div class="bento-tags">
                   <span class="work-tag">Semantic HTML</span>
-                  <span class="work-tag">Typography Layout</span>
-                  <span class="work-tag">CSS Architecture</span>
+                  <span class="work-tag">CSS Layout</span>
                   <span class="work-tag">GitHub</span>
                 </div>
               </div>
@@ -360,7 +363,7 @@
                 </div>
                 <h3 class="bento-card-title">C++ Data Structures &amp; Problem Solving</h3>
                 <p class="bento-card-desc">
-                  Algorithmic problem-solving suite implementing arrays, pointers, linked lists, stacks, queues, recursion, and sorting/searching routines in modern C++20. Developed as part of core computer science engineering coursework at Mirai School of Technology.
+                  Daily problem-solving practice in C++ as part of my coursework at Mirai School of Technology. I write implementations for arrays, linked lists, stacks, queues, recursion, and sorting algorithms from scratch to understand memory allocation and Big-O efficiency.
                 </p>
                 
                 <div class="complexity-pills">
@@ -424,70 +427,80 @@
     <section class="info-section" id="about">
       <div class="container">
         <div class="section-header">
-          <div class="section-label">Background &amp; Story</div>
-          <h2 class="section-title">The Engineering Journey</h2>
+          <div class="section-label">A Little Bit About Me</div>
+          <h2 class="section-title">First-Year Student, Lifelong Builder</h2>
         </div>
 
         <div class="info-grid">
-          <!-- Left Column: Story & Narrative with Portrait -->
+          <!-- Left Column: Story & Personal Narrative -->
           <div class="info-story-col">
-            <div class="info-portrait-card">
-              <img src="assets/mukesh-kumar.jpg" alt="Mukesh Kumar at AWS Builder Center" class="info-portrait-img">
-              <div class="info-portrait-overlay">
-                <span class="info-portrait-chip">AWS Builder Center</span>
-                <span class="info-portrait-sub">Future Builders Connect • AWS Student Portfolio Hackathon</span>
-              </div>
+            <div class="info-badge-intro">
+              <span class="status-pulse"></span>
+              <span>1st Year BE-CSE • Open to Opportunities</span>
             </div>
 
             <p class="info-lead-p">
-              "I am a first-year Computer Science Engineering student at Mirai School of Technology, obsessed with writing clean, structured code and understanding systems from the ground up."
+              "I'm a first-year engineering student building real projects every week. No fluff, just clean code, curiosity, and continuous learning."
             </p>
             <p class="info-sub-p">
-              My engineering journey began with the building blocks of the web—crafting semantic HTML and responsive CSS layouts. Rather than jumping straight into heavy frameworks, I chose to understand foundational mechanics: how the browser parses the DOM, renders stylesheets, and creates responsive visual hierarchies.
+              I started my web development journey with pure HTML and CSS. Instead of copying templates or relying on frameworks, I wanted to understand how browsers actually render web pages — how semantic HTML shapes accessible structure, how CSS Flexbox and Grid create responsive flows, and how to write clean code from scratch.
             </p>
             <p class="info-sub-p">
-              In parallel, I am tackling Data Structures and Algorithms using C++, developing analytical problem-solving intuition and deep respect for algorithmic efficiency, time complexity, and memory management.
+              Alongside web development, I spend time every day practicing Data Structures and Algorithms in C++. Working with pointers, dynamic memory, recursion, and Big-O complexity teaches me how computers think at the hardware level and gives me solid problem-solving fundamentals.
             </p>
             <p class="info-sub-p">
-              To connect theoretical computer science with real-world infrastructure, I've earned 5 Google Cloud Skill Badges spanning Compute Engine, Cloud IAM security, data pipelines, and Generative AI prototyping in Google AI Studio. This website was built for the AWS Student Portfolio Hackathon and architected for continuous deployment on AWS Amplify.
+              I also love exploring the cloud. I've earned 5 Google Cloud skill badges covering Compute Engine, Cloud IAM, BigQuery, and Generative AI in Google AI Studio. Attending the AWS Builder Center: Future Builders Connect event inspired me to create this project for the AWS Student Portfolio Hackathon, deployed live on AWS Amplify.
             </p>
-            <div style="margin-top: 2rem;">
+            <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
               <button class="btn-pill btn-pill-primary trigger-resume-modal">
-                <span>View Complete Resume</span>
+                <span>View Full Resume</span>
                 <span class="btn-arrow">→</span>
               </button>
+              <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary">
+                <span>GitHub Profile ↗</span>
+              </a>
             </div>
           </div>
 
-          <!-- Right Column: Structured Metadata Blocks -->
+          <!-- Right Column: Structured Student Profile Blocks -->
           <div class="info-details-col">
             <!-- Block 1: Education -->
             <div class="info-block-item">
               <div class="info-block-header">Education &amp; Institution</div>
               <div class="info-block-content">
-                <strong>Bachelor of Engineering — Computer Science &amp; Engineering (BE-CSE)</strong><br>
-                <span>Mirai School of Technology • 1st Year (Class of 2029)</span><br>
-                <span style="color:var(--text-muted); font-size:0.88rem;">Key Subjects: Data Structures &amp; Algorithms in C++, Web Technologies (HTML/CSS), Computer Systems Architecture.</span>
+                <strong>Mirai School of Technology</strong><br>
+                <span>Bachelor of Engineering — Computer Science &amp; Engineering (BE-CSE)</span><br>
+                <span style="color:var(--text-muted); font-size:0.88rem;">1st Year (Class of 2029) • Core focus: C++ DSA, Web Technologies (HTML/CSS), Computer Systems.</span>
               </div>
             </div>
 
-            <!-- Block 2: Capabilities -->
+            <!-- Block 2: Daily Toolkit -->
             <div class="info-block-item">
-              <div class="info-block-header">Core Technical Capabilities</div>
+              <div class="info-block-header">Daily Technical Toolkit</div>
               <div class="info-block-content">
-                <strong>Programming &amp; Systems:</strong> C++ (C++20), Data Structures, Algorithms, Linux Terminal.<br>
-                <strong>Web Engineering:</strong> Semantic HTML5, CSS3 (Flexbox/Grid), JavaScript (ES6+), DOM APIs.<br>
-                <strong>Cloud &amp; Infrastructure:</strong> AWS Amplify Hosting, Google Cloud Platform, IAM Security.<br>
-                <strong>Artificial Intelligence:</strong> Google AI Studio, Gemini 1.5 Pro, Prompt Design.<br>
-                <strong>Version Control &amp; Workflow:</strong> Git, GitHub (<a href="https://github.com/itsrockmukesh" target="_blank" style="color:var(--text-primary); text-decoration:underline;">@itsrockmukesh</a>), VS Code.
+                <strong>Web Development:</strong> Semantic HTML5, CSS3 (Flexbox &amp; Grid), JavaScript (ES6+), DOM APIs.<br>
+                <strong>Programming &amp; DSA:</strong> C++ (C++20), Arrays, Linked Lists, Stacks, Queues, Recursion, Big-O.<br>
+                <strong>Cloud &amp; DevOps:</strong> AWS Amplify Hosting, Google Cloud Platform, IAM Policies, Git &amp; GitHub.<br>
+                <strong>AI Prototyping:</strong> Google AI Studio, Gemini 1.5 Pro, Prompt Engineering.
               </div>
             </div>
 
-            <!-- Block 3: Philosophy -->
+            <!-- Block 3: How I Approach Learning -->
             <div class="info-block-item">
-              <div class="info-block-header">Engineering Ethos</div>
+              <div class="info-block-header">How I Approach Learning</div>
               <div class="info-block-content">
-                <strong>Master fundamentals first.</strong> A solid foundation in data structures, algorithms, and web standards empowers a developer to master any framework or cloud ecosystem with confidence and speed.
+                <strong>Fundamentals first:</strong> Understand how the language and system work before reaching for high-level abstractions.<br>
+                <strong>Consistency:</strong> Code, practice, and commit to GitHub regularly. Learning happens by debugging real errors.
+              </div>
+            </div>
+
+            <!-- Block 4: Direct Reach -->
+            <div class="info-block-item">
+              <div class="info-block-header">Direct Communication</div>
+              <div class="info-block-content">
+                Email: <a href="mailto:techmukesh3124@gmail.com" style="color:var(--text-primary); text-decoration:underline;">techmukesh3124@gmail.com</a><br>
+                LinkedIn: <a href="https://www.linkedin.com/in/mukesh-kumar-06485222a" target="_blank" rel="noopener noreferrer" style="color:var(--text-primary); text-decoration:underline;">linkedin.com/in/mukesh-kumar-06485222a</a><br>
+                GitHub: <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" style="color:var(--text-primary); text-decoration:underline;">github.com/itsrockmukesh</a>
               </div>
             </div>
           </div>
@@ -504,7 +517,7 @@
           <div class="section-label">Credentials &amp; Milestones</div>
           <h2 class="section-title">5 Verified Google Cloud Skill Badges</h2>
           <p class="section-description">
-            Practical cloud engineering credentials earned on Google Cloud Platform, validating hands-on skills in infrastructure, IAM policies, data pipelines, and generative AI prototypes.
+            Hands-on cloud engineering labs completed on Google Cloud Skills Boost, covering compute provisioning, IAM access controls, cloud storage datasets, and generative AI prototyping.
           </p>
         </div>
 
@@ -515,7 +528,7 @@
             <span class="badge-verified-badge">✓ Google Cloud Verified</span>
             <h3 class="badge-item-title">The Basics of Google Cloud Compute</h3>
             <p class="badge-item-desc">
-              Hands-on mastery over virtual machine provisioning in Google Compute Engine, custom firewall configurations, persistent storage disks, and startup script automation.
+              Hands-on lab setting up virtual machines in Google Compute Engine, configuring custom firewall rules, persistent disks, and startup scripts.
             </p>
             <button class="btn-pill btn-pill-secondary btn-sm badge-verify-btn" data-badge="compute">
               <span>Inspect Credential</span>
@@ -529,7 +542,7 @@
             <span class="badge-verified-badge">✓ Google Cloud Verified</span>
             <h3 class="badge-item-title">Service Accounts &amp; IAM Roles</h3>
             <p class="badge-item-desc">
-              Implementation of enterprise cloud security policies, least-privilege IAM access controls, custom role bindings, and service account key management.
+              Practiced configuring least-privilege IAM policies, service account credentials, and security role bindings across cloud resources.
             </p>
             <button class="btn-pill btn-pill-secondary btn-sm badge-verify-btn" data-badge="iam">
               <span>Inspect Credential</span>
@@ -543,7 +556,7 @@
             <span class="badge-verified-badge">✓ Google Cloud Verified</span>
             <h3 class="badge-item-title">Store, Process &amp; Manage Data</h3>
             <p class="badge-item-desc">
-              Practical execution of structured and unstructured cloud storage lifecycles with Google Cloud Storage (GCS) and analytical queries with BigQuery.
+              Hands-on lab organizing cloud storage buckets, file lifecycle policies, and querying public datasets with BigQuery.
             </p>
             <button class="btn-pill btn-pill-secondary btn-sm badge-verify-btn" data-badge="data">
               <span>Inspect Credential</span>
@@ -557,7 +570,7 @@
             <span class="badge-verified-badge">✓ Google Cloud Verified</span>
             <h3 class="badge-item-title">AI Prototypes in Google AI Studio</h3>
             <p class="badge-item-desc">
-              Prototyping Generative AI applications with Google AI Studio, multi-modal prompt engineering, system instructions, few-shot conditioning, and Gemini API integration.
+              Designed prompt templates, system instructions, and tested multimodal prototypes using the Gemini API in Google AI Studio.
             </p>
             <button class="btn-pill btn-pill-secondary btn-sm badge-verify-btn" data-badge="ai-studio">
               <span>Inspect Credential</span>
@@ -571,7 +584,7 @@
             <span class="badge-verified-badge">✓ Google Cloud Verified</span>
             <h3 class="badge-item-title">Gemini Enterprise Applications</h3>
             <p class="badge-item-desc">
-              Architecting production applications powered by the Gemini multimodal foundation model, API authentication, and robust end-to-end cloud deployment.
+              Explored building and deploying generative AI applications powered by Gemini multimodal foundation models and cloud APIs.
             </p>
             <button class="btn-pill btn-pill-secondary btn-sm badge-verify-btn" data-badge="gemini">
               <span>Inspect Credential</span>

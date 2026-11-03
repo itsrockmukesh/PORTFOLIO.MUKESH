@@ -28,10 +28,10 @@ function initTypewriter() {
   if (!targetEl) return;
 
   const roles = [
+    'Learning Web Development with HTML & CSS',
+    'Solving Data Structures & Algorithms in C++',
     '1st Year BE-CSE @ Mirai School of Technology',
-    'Web Developer (HTML5 & CSS3)',
-    'Learning Data Structures & Algorithms in C++',
-    'Cloud Computing & AWS Enthusiast',
+    'Building for the AWS Student Portfolio Hackathon',
     'Holder of 5 Google Cloud Skill Badges'
   ];
 
