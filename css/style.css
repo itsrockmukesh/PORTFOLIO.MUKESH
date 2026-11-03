@@ -410,12 +410,47 @@ a {
    HERO SECTION (HEYKUBA GIANT STATEMENT HEADLINE)
    ========================================================================== */
 .hero {
-  min-height: 85vh;
+  min-height: 88vh;
   display: flex;
   align-items: center;
-  padding-top: calc(var(--nav-height) + 4rem);
-  padding-bottom: 4rem;
+  padding-top: calc(var(--nav-height) + 4.5rem);
+  padding-bottom: 5rem;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hero Background Photo Backdrop */
+.hero-photo-backdrop {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1400px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.hero-backdrop-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  opacity: 0.28;
+  filter: contrast(1.18) brightness(0.92);
+  mask-image: radial-gradient(ellipse at 50% 38%, rgba(0, 0, 0, 0.95) 15%, rgba(0, 0, 0, 0.5) 45%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 38%, rgba(0, 0, 0, 0.95) 15%, rgba(0, 0, 0, 0.5) 45%, transparent 75%);
+  transition: opacity var(--transition-smooth);
+}
+
+.hero-backdrop-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 38%, transparent 20%, rgba(10, 10, 10, 0.72) 60%, var(--bg-black) 95%),
+              linear-gradient(to bottom, transparent 40%, var(--bg-black) 100%);
 }
 
 .hero-inner {
@@ -424,47 +459,8 @@ a {
   align-items: center;
   max-width: 960px;
   margin: 0 auto;
-}
-
-/* Hero Avatar & Identity */
-.hero-avatar-wrap {
   position: relative;
-  margin-bottom: 1.5rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero-avatar-img {
-  width: 108px;
-  height: 108px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: center 20%;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.2);
-  transition: transform var(--transition-smooth), border-color var(--transition-smooth);
-}
-
-.hero-avatar-wrap:hover .hero-avatar-img {
-  transform: scale(1.05);
-  border-color: rgba(255, 255, 255, 0.5);
-}
-
-.hero-avatar-badge {
-  position: absolute;
-  bottom: -4px;
-  right: -6px;
-  background: #18181B;
-  color: var(--accent-aws);
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 600;
-  padding: 0.2rem 0.55rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid rgba(255, 153, 0, 0.4);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  white-space: nowrap;
+  z-index: 2;
 }
 
 .hero-status-tag {
