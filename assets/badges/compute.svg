@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none">
+  <defs>
+    <linearGradient id="bgGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="borderGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4285F4"/>
+      <stop offset="50%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#34A853"/>
+    </linearGradient>
+    <filter id="badgeGlow1">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#4285F4" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+  <!-- Outer Octagon Shield -->
+  <polygon points="80,10 135,32 150,90 115,142 80,154 45,142 10,90 25,32" 
+           fill="url(#bgGrad1)" stroke="url(#borderGrad1)" stroke-width="4" filter="url(#badgeGlow1)"/>
+  
+  <!-- Inner Ring -->
+  <circle cx="80" cy="78" r="48" fill="#131D31" stroke="#38BDF8" stroke-width="1.5" stroke-dasharray="4 2"/>
+  
+  <!-- Server / Compute VM Icon -->
+  <rect x="54" y="52" width="52" height="16" rx="4" fill="#1E293B" stroke="#4285F4" stroke-width="2"/>
+  <circle cx="62" cy="60" r="2.5" fill="#34A853"/>
+  <line x1="72" y1="60" x2="98" y2="60" stroke="#64748B" stroke-width="2" stroke-linecap="round"/>
+
+  <rect x="54" y="74" width="52" height="16" rx="4" fill="#1E293B" stroke="#38BDF8" stroke-width="2"/>
+  <circle cx="62" cy="82" r="2.5" fill="#34A853"/>
+  <line x1="72" y1="82" x2="98" y2="82" stroke="#64748B" stroke-width="2" stroke-linecap="round"/>
+
+  <rect x="54" y="96" width="52" height="16" rx="4" fill="#1E293B" stroke="#818CF8" stroke-width="2"/>
+  <circle cx="62" cy="104" r="2.5" fill="#34A853"/>
+  <line x1="72" y1="104" x2="98" y2="104" stroke="#64748B" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Mini Cloud node indicator -->
+  <path d="M72 40a5 5 0 0 1 9.5-1.5A4 4 0 0 1 89 42h-17z" fill="#38BDF8"/>
+  
+  <!-- Verified Star Seal -->
+  <circle cx="80" cy="132" r="9" fill="#4285F4"/>
+  <path d="M77 132l2 2 4-4" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

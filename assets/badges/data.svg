@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none">
+  <defs>
+    <linearGradient id="bgGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="borderGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34A853"/>
+      <stop offset="50%" stop-color="#4285F4"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <filter id="badgeGlow3">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#34A853" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <!-- Outer Octagon Shield -->
+  <polygon points="80,10 135,32 150,90 115,142 80,154 45,142 10,90 25,32" 
+           fill="url(#bgGrad3)" stroke="url(#borderGrad3)" stroke-width="4" filter="url(#badgeGlow3)"/>
+  
+  <!-- Inner Ring -->
+  <circle cx="80" cy="78" r="48" fill="#131E2A" stroke="#34A853" stroke-width="1.5" stroke-dasharray="4 2"/>
+  
+  <!-- Data Cylinder 1 (Top) -->
+  <ellipse cx="80" cy="54" rx="26" ry="8" fill="#1E293B" stroke="#34A853" stroke-width="2"/>
+  <path d="M54 54v14c0 4.4 11.6 8 26 8s26-3.6 26-8V54" fill="#1E293B" stroke="#34A853" stroke-width="2"/>
+  
+  <!-- Data Cylinder 2 (Middle) -->
+  <path d="M54 68v14c0 4.4 11.6 8 26 8s26-3.6 26-8V68" fill="#1E293B" stroke="#4285F4" stroke-width="2"/>
+
+  <!-- Data Cylinder 3 (Bottom) -->
+  <path d="M54 82v14c0 4.4 11.6 8 26 8s26-3.6 26-8V82" fill="#1E293B" stroke="#06B6D4" stroke-width="2"/>
+  
+  <!-- Analytics / Data Signal Rays -->
+  <circle cx="68" cy="61" r="2.5" fill="#34A853"/>
+  <circle cx="68" cy="75" r="2.5" fill="#4285F4"/>
+  <circle cx="68" cy="89" r="2.5" fill="#06B6D4"/>
+  
+  <line x1="76" y1="61" x2="94" y2="61" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"/>
+  <line x1="76" y1="75" x2="94" y2="75" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"/>
+  <line x1="76" y1="89" x2="94" y2="89" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Verified Star Seal -->
+  <circle cx="80" cy="132" r="9" fill="#34A853"/>
+  <path d="M77 132l2 2 4-4" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

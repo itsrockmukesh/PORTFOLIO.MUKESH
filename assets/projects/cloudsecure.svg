@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" fill="none">
+  <defs>
+    <linearGradient id="csBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="csShield" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="380" rx="16" fill="url(#csBg)"/>
+  <rect x="1" y="1" width="598" height="378" rx="15" stroke="#1E293B" stroke-width="1.5"/>
+
+  <!-- Top App Bar -->
+  <rect x="0" y="0" width="600" height="42" rx="16" fill="#1E293B"/>
+  <circle cx="28" cy="21" r="5" fill="#EF4444"/>
+  <circle cx="44" cy="21" r="5" fill="#F59E0B"/>
+  <circle cx="60" cy="21" r="5" fill="#10B981"/>
+  <rect x="90" y="12" width="230" height="18" rx="6" fill="#0F172A"/>
+  <text x="105" y="25" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">cloudsecure.guard/audit-matrix</text>
+
+  <rect x="450" y="11" width="120" height="20" rx="10" fill="#06B6D4" fill-opacity="0.2"/>
+  <text x="462" y="25" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="11" font-weight="bold">🛡️ Zero Trust IAM</text>
+
+  <!-- Left Score Ring -->
+  <rect x="30" y="65" width="170" height="290" rx="10" fill="#111827" stroke="#1F2937"/>
+  <circle cx="115" cy="140" r="50" stroke="#1E293B" stroke-width="10" fill="none"/>
+  <circle cx="115" cy="140" r="50" stroke="#10B981" stroke-width="10" stroke-dasharray="280" stroke-dashoffset="35" stroke-linecap="round" fill="none"/>
+  <text x="115" y="142" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="24" font-weight="bold" text-anchor="middle">98%</text>
+  <text x="115" y="162" fill="#10B981" font-family="-apple-system, sans-serif" font-size="11" text-anchor="middle">Security Score</text>
+
+  <text x="50" y="225" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">✓ Overprivileged Roles: 0</text>
+  <text x="50" y="250" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">✓ Service Accounts: 12</text>
+  <text x="50" y="275" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">✓ MFA Enforced: 100%</text>
+  <text x="50" y="300" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">✓ Least Privilege: PASSED</text>
+
+  <!-- Right IAM Policy Inspection Table -->
+  <rect x="220" y="65" width="350" height="290" rx="10" fill="#111827" stroke="#1F2937"/>
+  <text x="240" y="95" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="13" font-weight="bold">IAM Role Governance Policy Matrix</text>
+
+  <!-- Table Header -->
+  <rect x="235" y="115" width="320" height="28" rx="6" fill="#1E293B"/>
+  <text x="245" y="133" fill="#94A3B8" font-family="monospace" font-size="10">ROLE / PRINCIPAL</text>
+  <text x="390" y="133" fill="#94A3B8" font-family="monospace" font-size="10">SCOPE</text>
+  <text x="495" y="133" fill="#94A3B8" font-family="monospace" font-size="10">STATUS</text>
+
+  <!-- Row 1 -->
+  <text x="245" y="170" fill="#38BDF8" font-family="monospace" font-size="10">aws-lambda-dynamo-rw</text>
+  <text x="390" y="170" fill="#CBD5E1" font-family="monospace" font-size="10">arn:aws:dynamodb</text>
+  <text x="500" y="170" fill="#10B981" font-family="monospace" font-size="10">COMPLIANT</text>
+  <line x1="235" y1="185" x2="555" y2="185" stroke="#1F2937"/>
+
+  <!-- Row 2 -->
+  <text x="245" y="210" fill="#38BDF8" font-family="monospace" font-size="10">gcp-sa-ai-studio-exec</text>
+  <text x="390" y="210" fill="#CBD5E1" font-family="monospace" font-size="10">roles/aiplatform</text>
+  <text x="500" y="210" fill="#10B981" font-family="monospace" font-size="10">COMPLIANT</text>
+  <line x1="235" y1="225" x2="555" y2="225" stroke="#1F2937"/>
+
+  <!-- Row 3 -->
+  <text x="245" y="250" fill="#38BDF8" font-family="monospace" font-size="10">amplify-cicd-pipeline</text>
+  <text x="390" y="250" fill="#CBD5E1" font-family="monospace" font-size="10">amplify:Deploy</text>
+  <text x="500" y="250" fill="#10B981" font-family="monospace" font-size="10">COMPLIANT</text>
+  <line x1="235" y1="265" x2="555" y2="265" stroke="#1F2937"/>
+
+  <!-- Row 4 -->
+  <text x="245" y="290" fill="#38BDF8" font-family="monospace" font-size="10">cloud-compute-worker</text>
+  <text x="390" y="290" fill="#CBD5E1" font-family="monospace" font-size="10">compute.instance</text>
+  <text x="500" y="290" fill="#10B981" font-family="monospace" font-size="10">COMPLIANT</text>
+
+  <!-- Auto remediate chip -->
+  <rect x="235" y="315" width="320" height="26" rx="6" fill="#047857" fill-opacity="0.2"/>
+  <text x="310" y="332" fill="#34D399" font-family="-apple-system, sans-serif" font-size="11" font-weight="600">⚡ Continuous Least-Privilege Scan Active</text>
+</svg>
