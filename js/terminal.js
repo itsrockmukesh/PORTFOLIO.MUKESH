@@ -184,10 +184,10 @@ cloud applications on AWS and Google Cloud."\x1b[0m
   \x1b[33mName:\x1b[0m     Mukesh Kumar (1st Year BE-CSE)
   \x1b[33mCollege:\x1b[0m  Mirai School of Technology
   \x1b[35mGitHub:\x1b[0m   https://github.com/itsrockmukesh
-  \x1b[34mLinkedIn:\x1b[0m https://linkedin.com/in/mukesh-kumar-cloud
-  \x1b[32mEmail:\x1b[0m    mukesh.kumar.dev@example.com
+  \x1b[34mLinkedIn:\x1b[0m https://www.linkedin.com/in/mukesh-kumar-06485222a
+  \x1b[32mEmail:\x1b[0m    techmukesh3124@gmail.com
 
-Feel free to send a message via the website contact form or connect on GitHub!`;
+Feel free to send a message via the website contact form or connect on LinkedIn / GitHub!`;
       }
     },
 

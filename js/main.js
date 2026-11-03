@@ -332,7 +332,7 @@ function initContactForm() {
         return;
       }
 
-      const mailtoUrl = `mailto:mukesh.kumar.dev@example.com?subject=${encodeURIComponent(subject || 'Portfolio Inquiry from ' + name)}&body=${encodeURIComponent('From: ' + name + ' (' + email + ')\n\n' + message)}`;
+      const mailtoUrl = `mailto:techmukesh3124@gmail.com?subject=${encodeURIComponent(subject || 'Portfolio Inquiry from ' + name)}&body=${encodeURIComponent('From: ' + name + ' (' + email + ')\n\n' + message)}`;
 
       if (feedbackEl) {
         feedbackEl.className = 'form-feedback success';
@@ -354,7 +354,7 @@ function initContactForm() {
   copyBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      const email = 'mukesh.kumar.dev@example.com';
+      const email = 'techmukesh3124@gmail.com';
       navigator.clipboard.writeText(email).then(() => {
         showToast('📋 Email copied to clipboard: ' + email);
         playHapticTone(900);

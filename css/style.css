@@ -426,6 +426,47 @@ a {
   margin: 0 auto;
 }
 
+/* Hero Avatar & Identity */
+.hero-avatar-wrap {
+  position: relative;
+  margin-bottom: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-avatar-img {
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 20%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.2);
+  transition: transform var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.hero-avatar-wrap:hover .hero-avatar-img {
+  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.hero-avatar-badge {
+  position: absolute;
+  bottom: -4px;
+  right: -6px;
+  background: #18181B;
+  color: var(--accent-aws);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 153, 0, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+}
+
 .hero-status-tag {
   display: inline-flex;
   align-items: center;
@@ -688,6 +729,59 @@ a {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
+  align-items: start;
+}
+
+/* Info Section Portrait Card */
+.info-portrait-card {
+  position: relative;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  margin-bottom: 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  transition: all var(--transition-smooth);
+}
+
+.info-portrait-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-3px);
+}
+
+.info-portrait-img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+
+.info-portrait-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  background: linear-gradient(to top, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.65) 60%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.info-portrait-chip {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-aws);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.info-portrait-sub {
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  font-weight: 500;
 }
 
 .info-lead-p {

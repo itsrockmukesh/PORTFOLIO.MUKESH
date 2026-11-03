@@ -141,8 +141,8 @@ git push -u origin main
 - **Student:** Mukesh Kumar
 - **College:** Mirai School of Technology (1st Year BE-CSE)
 - **GitHub:** [https://github.com/itsrockmukesh](https://github.com/itsrockmukesh)
-- **Email:** mukesh.kumar.dev@example.com
-- **LinkedIn:** [linkedin.com/in/mukesh-kumar-cloud](https://linkedin.com/in/mukesh-kumar-cloud)
+- **Email:** techmukesh3124@gmail.com
+- **LinkedIn:** [https://www.linkedin.com/in/mukesh-kumar-06485222a](https://www.linkedin.com/in/mukesh-kumar-06485222a)
 
 ---
 *Created for the AWS Student Portfolio Hackathon 2026.*

@@ -14,13 +14,13 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Mukesh Kumar — 1st Year BE-CSE Student Portfolio">
   <meta property="og:description" content="Computer Science student at Mirai School of Technology learning HTML/CSS, C++ DSA, and Cloud. Featuring a working Secret Developer Terminal and 5 Google Cloud badges.">
-  <meta property="og:image" content="assets/projects/personal-web.svg">
+  <meta property="og:image" content="assets/mukesh-kumar.jpg">
 
   <!-- Twitter Meta -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Mukesh Kumar — Portfolio">
   <meta name="twitter:description" content="1st Year BE-CSE student at Mirai School of Technology. Built for the AWS Student Portfolio Hackathon.">
-  <meta name="twitter:image" content="assets/projects/personal-web.svg">
+  <meta name="twitter:image" content="assets/mukesh-kumar.jpg">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
@@ -110,6 +110,12 @@
          ========================================================================== -->
     <section class="hero" id="hero">
       <div class="container hero-inner">
+        <!-- Mukesh Kumar Avatar with AWS Builder Center Badge -->
+        <div class="hero-avatar-wrap">
+          <img src="assets/mukesh-kumar.jpg" alt="Mukesh Kumar — 1st Year BE-CSE @ Mirai School of Technology" class="hero-avatar-img">
+          <span class="hero-avatar-badge">AWS Builder</span>
+        </div>
+
         <!-- Status Pill -->
         <div class="hero-status-tag">
           <span class="status-pulse"></span>
@@ -358,8 +364,16 @@
         </div>
 
         <div class="info-grid">
-          <!-- Left Column: Story & Narrative -->
+          <!-- Left Column: Story & Narrative with Portrait -->
           <div class="info-story-col">
+            <div class="info-portrait-card">
+              <img src="assets/mukesh-kumar.jpg" alt="Mukesh Kumar at AWS Builder Center" class="info-portrait-img">
+              <div class="info-portrait-overlay">
+                <span class="info-portrait-chip">AWS Builder Center</span>
+                <span class="info-portrait-sub">Future Builders Connect • AWS Student Portfolio Hackathon</span>
+              </div>
+            </div>
+
             <p class="info-lead-p">
               "I am a first-year Computer Science Engineering student at Mirai School of Technology, obsessed with writing clean, structured code and understanding systems from the ground up."
             </p>
@@ -588,14 +602,18 @@ frontend:
 
         <!-- Big Action Buttons -->
         <div class="footer-actions">
-          <a href="mailto:mukesh.kumar.dev@example.com" class="btn-pill btn-pill-primary">
-            <span>Get in touch: mukesh.kumar.dev@example.com</span>
+          <a href="mailto:techmukesh3124@gmail.com" class="btn-pill btn-pill-primary">
+            <span>Get in touch: techmukesh3124@gmail.com</span>
             <span class="btn-arrow">→</span>
           </a>
 
           <button class="btn-pill btn-pill-secondary copy-email-btn">
             <span>Copy Email Address</span>
           </button>
+
+          <a href="https://www.linkedin.com/in/mukesh-kumar-06485222a" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary">
+            <span>LinkedIn Profile ↗</span>
+          </a>
 
           <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary">
             <span>GitHub: @itsrockmukesh ↗</span>
@@ -653,8 +671,8 @@ frontend:
           </div>
           <div class="footer-socials">
             <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://linkedin.com/in/mukesh-kumar-cloud" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href="mailto:mukesh.kumar.dev@example.com">Email</a>
+            <a href="https://www.linkedin.com/in/mukesh-kumar-06485222a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="mailto:techmukesh3124@gmail.com">Email</a>
             <button style="background:none; border:none; color:inherit; font:inherit; cursor:pointer;" onclick="window.openSecretTerminal();">Terminal [~]</button>
           </div>
         </div>
@@ -756,12 +774,15 @@ frontend:
 
       <div class="resume-modal-body">
         <div class="resume-paper">
-          <div class="resume-head" style="margin-bottom:1.5rem; border-bottom:1px solid var(--border-subtle); padding-bottom:1rem;">
-            <h2 style="font-size:1.8rem; margin-bottom:0.25rem;">Mukesh Kumar</h2>
-            <p style="color:var(--accent-cyan); font-weight:600; font-size:1.05rem; margin-bottom:0.5rem;">1st Year BE (Computer Science &amp; Engineering) Student</p>
-            <p style="color:var(--text-secondary); font-size:0.85rem; font-family:var(--font-mono);">
-              College: Mirai School of Technology | GitHub: github.com/itsrockmukesh | Email: mukesh.kumar.dev@example.com
-            </p>
+          <div class="resume-head" style="margin-bottom:1.5rem; border-bottom:1px solid var(--border-subtle); padding-bottom:1.25rem; display:flex; align-items:center; gap:1.25rem; flex-wrap:wrap;">
+            <img src="assets/mukesh-kumar.jpg" alt="Mukesh Kumar" style="width:78px; height:78px; border-radius:50%; object-fit:cover; object-position:center 20%; border:2px solid rgba(255,255,255,0.25); flex-shrink:0;">
+            <div>
+              <h2 style="font-size:1.75rem; margin-bottom:0.25rem;">Mukesh Kumar</h2>
+              <p style="color:var(--accent-cyan); font-weight:600; font-size:1.02rem; margin-bottom:0.35rem;">1st Year BE (Computer Science &amp; Engineering) Student</p>
+              <p style="color:var(--text-secondary); font-size:0.82rem; font-family:var(--font-mono); line-height:1.5;">
+                Mirai School of Technology • <a href="https://github.com/itsrockmukesh" target="_blank" style="color:var(--text-primary); text-decoration:underline;">@itsrockmukesh</a> • <a href="mailto:techmukesh3124@gmail.com" style="color:var(--text-primary); text-decoration:underline;">techmukesh3124@gmail.com</a> • <a href="https://www.linkedin.com/in/mukesh-kumar-06485222a" target="_blank" style="color:var(--text-primary); text-decoration:underline;">LinkedIn</a>
+              </p>
+            </div>
           </div>
 
           <div class="resume-section-title">Education</div>
