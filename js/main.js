@@ -260,6 +260,7 @@ function initBadgeModal() {
   const closeBtn = document.getElementById('badge-modal-close');
   const modalBadgeImg = document.getElementById('modal-badge-img');
   const modalBadgeTitle = document.getElementById('modal-badge-title');
+  const modalBadgeMeta = document.getElementById('modal-badge-meta');
   const modalBadgeDesc = document.getElementById('modal-badge-desc');
   const modalBadgeSkills = document.getElementById('modal-badge-skills');
 
@@ -268,32 +269,37 @@ function initBadgeModal() {
   const badgeDetailsMap = {
     'compute': {
       title: 'The Basics of Google Cloud Compute',
-      desc: 'Demonstrates proficiency in Google Cloud Compute Engine, including virtual machine (VM) creation, persistent disk configuration, network firewall rules, and startup script automation.',
-      img: 'assets/badges/compute.svg',
+      meta: 'Track: Infrastructure Modernization • Earned: Oct 23, 2026 • Recipient: Mukesh Kumar',
+      desc: 'Demonstrates proficiency in Google Cloud Compute Engine, including virtual machine (VM) creation, persistent disk configuration, custom network firewall rules, and startup script automation.',
+      img: 'assets/badges/compute-cert.png',
       skills: ['Compute Engine', 'Virtual Machines', 'Cloud VPC', 'Firewall Rules', 'Startup Scripts']
     },
     'iam': {
       title: 'Configure Service Accounts and IAM Roles for Google Cloud',
+      meta: 'Track: Security • Earned: Oct 23, 2026 • Recipient: Mukesh Kumar',
       desc: 'Validates mastery over cloud security policies, IAM user and service account provisioning, granular custom role definitions, and principle of least privilege auditing.',
-      img: 'assets/badges/iam.svg',
+      img: 'assets/badges/iam-cert.png',
       skills: ['Cloud IAM', 'Service Accounts', 'Least Privilege Security', 'IAM Roles & Bindings', 'Audit Logs']
     },
     'data': {
       title: 'Store, Process, and Manage Data on Google Cloud – Console',
+      meta: 'Track: Data Management • Earned: Oct 24, 2026 • Recipient: Mukesh Kumar',
       desc: 'Covers practical implementation of structured and unstructured data storage, Google Cloud Storage bucket lifecycles, and BigQuery data exploration via the GCP Console.',
-      img: 'assets/badges/data.svg',
-      skills: ['Cloud Storage (GCS)', 'BigQuery', 'Cloud SQL', 'Console Management', 'Data Pipelines']
+      img: 'assets/badges/data-cert.png',
+      skills: ['Cloud Storage (GCS)', 'BigQuery SQL', 'Cloud SQL', 'Console Management', 'Data Pipelines']
     },
     'ai-studio': {
       title: 'Develop AI-Powered Prototypes in Google AI Studio',
+      meta: 'Track: Artificial Intelligence • Earned: Oct 21, 2026 • Recipient: Mukesh Kumar',
       desc: 'Validates practical skills in rapid prototyping of Generative AI applications using Google AI Studio, multi-turn system prompts, few-shot tuning, and Gemini API integration.',
-      img: 'assets/badges/ai-studio.svg',
+      img: 'assets/badges/ai-studio-cert.png',
       skills: ['Google AI Studio', 'Prompt Engineering', 'Gemini 1.5 Pro', 'Few-Shot Learning', 'Python AI SDK']
     },
     'gemini': {
       title: 'Create Your First Gemini Enterprise Application',
-      desc: 'Focuses on building production-ready enterprise applications powered by the Gemini multimodal foundation model, API authentication, and robust end-to-end cloud deployment.',
-      img: 'assets/badges/gemini.svg',
+      meta: 'Track: Artificial Intelligence • Earned: Oct 21, 2026 • Recipient: Mukesh Kumar',
+      desc: 'Focuses on building production-ready applications powered by the Gemini multimodal foundation model, API authentication, and robust end-to-end cloud deployment.',
+      img: 'assets/badges/gemini-cert.png',
       skills: ['Gemini Multimodal API', 'Enterprise GenAI', 'Cloud App Deployment', 'REST Endpoints', 'Response Streaming']
     }
   };
@@ -307,10 +313,11 @@ function initBadgeModal() {
       if (data) {
         if (modalBadgeImg) modalBadgeImg.src = data.img;
         if (modalBadgeTitle) modalBadgeTitle.textContent = data.title;
+        if (modalBadgeMeta) modalBadgeMeta.textContent = data.meta;
         if (modalBadgeDesc) modalBadgeDesc.textContent = data.desc;
         if (modalBadgeSkills) {
           modalBadgeSkills.innerHTML = data.skills
-            .map(s => `<span class="badge-skill-tag" style="background:rgba(66,133,244,0.15); color:#60A5FA; border:1px solid rgba(66,133,244,0.3);">${s}</span>`)
+            .map(s => `<span class="badge-skill-tag" style="background:rgba(66,133,244,0.15); color:#60A5FA; border:1px solid rgba(66,133,244,0.3); padding:0.25rem 0.65rem; border-radius:9999px; font-size:0.75rem; font-family:var(--font-mono);">${s}</span>`)
             .join('');
         }
         badgeModal.classList.add('active');
