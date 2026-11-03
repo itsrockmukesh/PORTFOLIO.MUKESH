@@ -1986,3 +1986,134 @@ a {
   border-radius: var(--radius-pill);
 }
 
+/* ==========================================================================
+   MOBILE RESPONSIVE ENHANCEMENTS (< 640px & < 480px)
+   ========================================================================== */
+@media (max-width: 640px) {
+  section {
+    padding: 4.5rem 0;
+  }
+
+  .container {
+    padding-left: 1.15rem;
+    padding-right: 1.15rem;
+  }
+
+  .hero-statement-title {
+    font-size: clamp(1.85rem, 7.5vw, 2.75rem);
+  }
+
+  .hero-photo-frame {
+    max-width: 100%;
+  }
+
+  .hero-portrait-real {
+    height: 380px;
+  }
+
+  .bento-body {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .bento-mini-terminal {
+    margin: 1rem 0.5rem 1.25rem;
+  }
+
+  .bento-code-box {
+    margin: 1rem 0.5rem 1.25rem;
+    padding: 1rem;
+  }
+
+  .badges-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .badge-item-card {
+    padding: 1.25rem;
+  }
+
+  .aws-topology-container {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .aws-metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .footer-statement {
+    font-size: clamp(1.85rem, 6.8vw, 3rem);
+  }
+
+  .footer-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .footer-actions .btn-pill {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .footer-bottom-row {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.25rem;
+  }
+
+  .footer-socials {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .contact-form-card {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .resume-modal-body {
+    padding: 1rem;
+  }
+
+  .resume-paper {
+    padding: 1.25rem;
+  }
+
+  .terminal-window {
+    height: 90vh;
+    border-radius: 12px;
+  }
+
+  .term-banner-ascii {
+    font-size: clamp(0.32rem, 1.6vw, 0.65rem);
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-portrait-real {
+    height: 320px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-actions .btn-pill {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .work-card-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .work-card-actions .btn-pill {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
