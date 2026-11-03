@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTypewriter();
   initNavbar();
   initProjectsFilter();
+  initArchTabs();
   initResumeModal();
   initBadgeModal();
   initContactForm();
@@ -172,7 +173,7 @@ function initProjectsFilter() {
       projectCards.forEach(card => {
         const category = card.getAttribute('data-category');
         if (filter === 'all' || category === filter || category.includes(filter)) {
-          card.style.display = 'flex';
+          card.style.display = '';
           setTimeout(() => {
             card.style.opacity = '1';
             card.style.transform = 'translateY(0)';
@@ -185,6 +186,29 @@ function initProjectsFilter() {
           }, 250);
         }
       });
+    });
+  });
+}
+
+/* ==========================================================================
+   4B. AWS ARCHITECTURE TABS SWITCHER
+   ========================================================================== */
+function initArchTabs() {
+  const tabBtns = document.querySelectorAll('.aws-tab-btn');
+  const tabPanes = document.querySelectorAll('.aws-tab-pane');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabPanes.forEach(p => p.classList.remove('active'));
+
+      btn.classList.add('active');
+      const targetId = btn.getAttribute('data-tab');
+      const targetPane = document.getElementById(targetId);
+      if (targetPane) {
+        targetPane.classList.add('active');
+      }
+      playHapticTone(650);
     });
   });
 }

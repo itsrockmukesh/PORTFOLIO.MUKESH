@@ -627,13 +627,211 @@ a {
   border-color: var(--text-primary);
 }
 
+/* Bento Work Grid (Asymmetric Modern Layout) */
+.bento-work-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.75rem;
+}
+
+.bento-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-smooth);
+}
+
+.bento-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Col Spans */
+.bento-card-hero {
+  grid-column: span 12;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+}
+
+.bento-card-half {
+  grid-column: span 6;
+  display: flex;
+  flex-direction: column;
+}
+
+.bento-card-wide {
+  grid-column: span 12;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
+.bento-body {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.bento-meta-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.bento-index {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.bento-badge-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: var(--accent-green);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+}
+
+.bento-badge {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-pill);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+}
+
+.bento-card-title {
+  font-size: 1.55rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.bento-card-desc {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.bento-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.bento-visual-preview {
+  background: #080808;
+  border-bottom: 1px solid var(--border-subtle);
+  overflow: hidden;
+  height: 240px;
+  position: relative;
+}
+
+.bento-visual-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-smooth);
+}
+
+.bento-card:hover .bento-visual-preview img {
+  transform: scale(1.04);
+}
+
+/* Simulated mini terminal in hero card */
+.bento-mini-terminal {
+  background: #0A0A0A;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  margin: 2rem;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+}
+
+.bento-mini-terminal:hover {
+  border-color: var(--accent-green);
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.18);
+  transform: scale(1.01);
+}
+
+.mini-term-header {
+  background: #141414;
+  padding: 0.65rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mini-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.mini-term-body {
+  padding: 1.35rem;
+  line-height: 1.7;
+}
+
+/* C++ Algorithmic code box */
+.bento-code-box {
+  background: #0A0A0A;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  margin: 2rem;
+  padding: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+.complexity-pills {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.complexity-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  color: var(--accent-cyan);
+}
+
+/* Compatibility classes */
 .work-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 3rem;
 }
 
-/* Large Project Showcase Card */
 .work-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
@@ -1387,69 +1585,274 @@ a {
 }
 
 /* ==========================================================================
-   AWS SHOWCASE SECTION
+   INTERACTIVE AWS CLOUD PIPELINE TOPOLOGY (HACKATHON SHOWCASE)
    ========================================================================== */
-.aws-card {
+.aws-topology-container {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-card);
-  padding: 3rem;
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 3rem;
-  align-items: center;
+  padding: 3rem 2.75rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
   transition: all var(--transition-smooth);
 }
 
-.aws-card:hover {
+.aws-topology-container:hover {
+  border-color: var(--border-hover);
+}
+
+.aws-topology-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 2.75rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.aws-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent-aws);
+  background: rgba(255, 153, 0, 0.1);
+  border: 1px solid rgba(255, 153, 0, 0.3);
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--radius-pill);
+}
+
+.aws-status-beacon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent-green);
+}
+
+/* Flowchart Pipeline Nodes */
+.aws-pipeline-flow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.25rem;
+  position: relative;
+  margin-bottom: 3.5rem;
+}
+
+.aws-flow-node {
+  background: #0E0E0E;
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  position: relative;
+  transition: all var(--transition-smooth);
+}
+
+.aws-flow-node:hover {
+  border-color: var(--accent-aws);
+  transform: translateY(-3px);
+  background: #141414;
+  box-shadow: 0 10px 25px rgba(255, 153, 0, 0.12);
+}
+
+.node-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-white);
+  transition: all var(--transition-fast);
+}
+
+.aws-flow-node:hover .node-icon-circle {
+  border-color: var(--accent-aws);
+  color: var(--accent-aws);
+  background: rgba(255, 153, 0, 0.12);
+}
+
+.node-step-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  color: var(--accent-aws);
+  margin-bottom: 0.35rem;
+  font-weight: 700;
+}
+
+.node-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.45rem;
+}
+
+.node-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+/* Connecting arrows between nodes on desktop */
+.aws-flow-node:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  right: -0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  z-index: 3;
+}
+
+/* Interactive Tabs */
+.aws-tabs-nav {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+
+.aws-tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.aws-tab-btn:hover {
+  color: var(--text-primary);
+}
+
+.aws-tab-btn.active {
+  color: var(--accent-aws);
+  border-bottom-color: var(--accent-aws);
+}
+
+.aws-tab-pane {
+  display: none;
+}
+
+.aws-tab-pane.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Specs & Metrics Cards */
+.aws-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.aws-metric-card {
+  background: #0E0E0E;
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  transition: all var(--transition-smooth);
+}
+
+.aws-metric-card:hover {
   border-color: var(--border-hover);
   transform: translateY(-2px);
 }
 
-.aws-arch-step {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+.aws-metric-val {
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--accent-aws);
+  font-family: var(--font-mono);
+  margin-bottom: 0.35rem;
 }
 
-.aws-step-num {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgba(255, 153, 0, 0.15);
-  color: var(--accent-aws);
-  border: 1px solid rgba(255, 153, 0, 0.3);
+.aws-metric-label {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+/* Three pillar cards for Infra Tab */
+.aws-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.aws-pillar-card {
+  background: #0E0E0E;
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 1.75rem;
+  transition: all var(--transition-smooth);
+}
+
+.aws-pillar-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+.aws-pillar-card h4 {
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  font-weight: 700;
-  flex-shrink: 0;
+  gap: 0.5rem;
 }
 
-.aws-step-content h4 {
-  font-size: 1.05rem;
-  margin-bottom: 0.25rem;
-}
-
-.aws-step-content p {
+.aws-pillar-card p {
   font-size: 0.88rem;
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
-.aws-code-snippet {
-  background: #0B0B0B;
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  padding: 1.25rem;
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  overflow-x: auto;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 960px) {
+  .bento-card-hero,
+  .bento-card-wide {
+    grid-template-columns: 1fr;
+  }
+  .bento-card-half {
+    grid-column: span 12;
+  }
+  .aws-pipeline-flow {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .aws-flow-node:not(:last-child)::after {
+    content: '↓';
+    right: 50%;
+    top: auto;
+    bottom: -0.85rem;
+    transform: translateX(50%);
+  }
+  .aws-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .aws-pillars-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .badge-skill-tag {
