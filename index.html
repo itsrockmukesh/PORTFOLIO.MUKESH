@@ -25,68 +25,67 @@
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 
-  <!-- Google Fonts: Outfit (Headings), Inter (Body), JetBrains Mono (Terminal/Code) -->
+  <!-- Google Fonts: Inter (Body & Sans), JetBrains Mono (Terminal/Code) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- Ambient Animated Lighting & Grid Background -->
-  <div class="bg-ambient">
-    <div class="ambient-orb ambient-orb-1"></div>
-    <div class="ambient-orb ambient-orb-2"></div>
-    <div class="ambient-orb ambient-orb-3"></div>
-  </div>
-  <div class="bg-grid"></div>
+  <!-- HeyKuba Grain / Noise Overlay -->
+  <div class="bg-noise-overlay"></div>
 
-  <!-- Interactive Particle Background Canvas -->
+  <!-- Ambient Glow Behind Hero -->
+  <div class="bg-ambient-glow"></div>
+
+  <!-- Particle Background Canvas -->
   <canvas id="particle-canvas"></canvas>
 
   <!-- ==========================================================================
-       NAVIGATION BAR
+       NAVIGATION BAR (HEYKUBA FLOATING PILL NAVBAR)
        ========================================================================== -->
   <nav class="navbar" id="navbar">
     <div class="container">
       <a href="#hero" class="nav-brand" aria-label="Mukesh Kumar Home">
-        <div class="brand-badge">MK</div>
-        <span>Mukesh<span class="brand-dot">.</span>dev</span>
+        <div class="brand-monogram">MK</div>
+        <span>Mukesh Kumar</span>
       </a>
 
+      <!-- Center Pill Navigation -->
       <ul class="nav-links" id="nav-links">
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#skills" class="nav-link">Skills</a></li>
-        <li><a href="#achievements" class="nav-link">Achievements</a></li>
-        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#projects" class="nav-link">Work</a></li>
+        <li><a href="#about" class="nav-link">Info</a></li>
+        <li><a href="#achievements" class="nav-link">Badges</a></li>
         <li><a href="#aws-showcase" class="nav-link">AWS Setup</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
 
+      <!-- Action Items on Right -->
       <div class="nav-actions">
         <!-- Sound FX Synth Toggle -->
         <button id="sound-toggle-btn" class="sound-toggle-btn" title="Toggle Cyber Audio Feedback" aria-label="Toggle Audio">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
             <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
           </svg>
         </button>
 
         <!-- Quick Terminal Launcher in Nav -->
-        <button id="nav-terminal-trigger" class="btn btn-terminal btn-sm" title="Open Secret Terminal (~)">
-          <span style="color:var(--accent-green); font-weight:bold;">&gt;_</span> Terminal
+        <button id="nav-terminal-trigger" class="btn-pill btn-pill-terminal btn-sm" title="Open Secret Terminal (~)">
+          <span>&gt;_</span> Terminal
         </button>
 
         <!-- Resume Modal Trigger -->
-        <button class="btn btn-primary btn-sm trigger-resume-modal">
+        <button class="btn-pill btn-pill-primary btn-sm trigger-resume-modal">
           Resume
         </button>
 
         <!-- Mobile Drawer Toggle -->
         <button class="mobile-menu-btn" aria-label="Toggle navigation menu">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="3" y1="12" x2="21" y2="12"></line>
             <line x1="3" y1="6" x2="21" y2="6"></line>
             <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -99,826 +98,537 @@
   <!-- ==========================================================================
        CREATIVE INTERACTIVE FEATURE — FLOATING TERMINAL HINT PILL
        ========================================================================== -->
-  <div id="terminal-hint-trigger" class="secret-terminal-hint" role="button" tabindex="0" aria-label="Open Secret Developer Terminal">
+  <div id="terminal-hint-trigger" class="secret-terminal-hint" title="Click or press ~ key to launch terminal">
     <div class="hint-dot"></div>
-    <div class="hint-text">
-      <span>✨ Curious? Try the secret terminal — press</span>
-      <span class="hint-key">~</span>
-      <span>or click here!</span>
-    </div>
+    <span class="hint-text">Secret Terminal</span>
+    <span class="hint-key">~</span>
   </div>
 
   <main>
     <!-- ==========================================================================
-         HERO SECTION
+         HERO SECTION (HEYKUBA GIANT EDITORIAL HEADLINE)
          ========================================================================== -->
     <section class="hero" id="hero">
-      <div class="container hero-grid">
-        <div class="hero-content">
-          <div class="hero-status-pill">
-            <span class="status-beacon"></span>
-            <span>Mirai School of Technology • 1st Year BE-CSE</span>
-          </div>
+      <div class="container hero-inner">
+        <!-- Status Pill -->
+        <div class="hero-status-tag">
+          <span class="status-pulse"></span>
+          <span>Available for Internships • 1st Year BE-CSE @ Mirai School of Tech</span>
+        </div>
 
-          <h1 class="hero-title">
-            Hi, I'm <span class="text-gradient">Mukesh Kumar</span>
-          </h1>
+        <!-- Giant Statement Title -->
+        <h1 class="hero-statement-title">
+          Engineering clean software from first principles.
+        </h1>
 
-          <div class="hero-role-wrapper">
-            <span class="role-prefix">&gt;</span>
-            <span id="typewriter-text">1st Year BE-CSE @ Mirai School of Technology</span>
-            <span class="typewriter-cursor"></span>
-          </div>
+        <!-- Typewriter Subtitle Line -->
+        <div class="hero-typewriter-bar">
+          <span id="typewriter-text"></span>
+          <span class="typewriter-cursor"></span>
+        </div>
 
-          <p class="hero-bio">
-            First-year <strong>Computer Science &amp; Engineering</strong> student at <strong>Mirai School of Technology</strong>. Currently learning <strong>Web Development</strong> (HTML5 &amp; CSS3) and mastering <strong>Data Structures &amp; Algorithms in C++</strong>. Holder of <strong>5 Google Cloud Skill Badges</strong>, building scalable web projects and competing in the <strong>AWS Student Portfolio Hackathon</strong>.
+        <!-- Description -->
+        <p class="hero-subtitle">
+          First-year Computer Science &amp; Engineering student at Mirai School of Technology. Learning modern web development (HTML5/CSS3), Data Structures &amp; Algorithms in C++, and deploying cloud applications on AWS &amp; Google Cloud.
+        </p>
+
+        <!-- Action Buttons -->
+        <div class="hero-actions">
+          <a href="#projects" class="btn-pill btn-pill-primary">
+            <span>Explore Featured Work</span>
+            <span class="btn-arrow">↓</span>
+          </a>
+
+          <button id="hero-terminal-trigger" class="btn-pill btn-pill-terminal">
+            <span>&gt;_</span>
+            <span>Launch Secret Terminal</span>
+          </button>
+
+          <button class="btn-pill btn-pill-secondary trigger-resume-modal">
+            <span>Inspect Resume</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         INFINITE MARQUEE TICKER (HEYKUBA LOGO TICKER)
+         ========================================================================== -->
+    <div class="ticker-section">
+      <div class="ticker-label">Core Technologies &amp; Verified Credentials</div>
+      <div class="ticker-wrapper">
+        <div class="ticker-track">
+          <div class="ticker-item">AWS Amplify Hosting</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Google Cloud Platform</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">C++ &amp; Data Structures (DSA)</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Semantic HTML5 &amp; CSS3</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Mirai School of Technology</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">GitHub (@itsrockmukesh)</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Google AI Studio &amp; Gemini</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Linux CLI &amp; Bash</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Responsive Web Systems</div>
+          <div class="ticker-dot"></div>
+          <!-- Repeat for infinite loop -->
+          <div class="ticker-item">AWS Amplify Hosting</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Google Cloud Platform</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">C++ &amp; Data Structures (DSA)</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Semantic HTML5 &amp; CSS3</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Mirai School of Technology</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">GitHub (@itsrockmukesh)</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Google AI Studio &amp; Gemini</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Linux CLI &amp; Bash</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Responsive Web Systems</div>
+          <div class="ticker-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         FEATURED WORK / PROJECTS (HEYKUBA LARGE SHOWCASE CARDS)
+         ========================================================================== -->
+    <section id="projects">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Selected Works</div>
+          <h2 class="section-title">Projects &amp; Architectures</h2>
+          <p class="section-description">
+            A showcase of real code, responsive interfaces, algorithmic problem solving, and cloud deployments from my engineering journey.
           </p>
-
-          <div class="hero-actions">
-            <a href="#projects" class="btn btn-primary">
-              <span>View Projects</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </a>
-
-            <a href="#contact" class="btn btn-secondary">
-              Contact Me
-            </a>
-
-            <button class="btn btn-secondary trigger-resume-modal">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-              </svg>
-              Resume
-            </button>
-
-            <!-- Hero direct launcher for the secret terminal -->
-            <button id="hero-terminal-trigger" class="btn btn-terminal">
-              <span>&gt;_ Launch Terminal</span>
-            </button>
-          </div>
-
-          <div class="hero-socials">
-            <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="social-pill" title="GitHub: @itsrockmukesh">
-              <svg viewBox="0 0 24 24">
-                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-              </svg>
-              <span>github.com/itsrockmukesh</span>
-            </a>
-
-            <a href="https://linkedin.com/in/mukesh-kumar-cloud" target="_blank" rel="noopener noreferrer" class="social-pill" title="LinkedIn Profile">
-              <svg viewBox="0 0 24 24">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-              </svg>
-              <span>LinkedIn</span>
-            </a>
-
-            <button class="social-pill copy-email-btn" title="Copy Email Address">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                <polyline points="22,6 12,13 2,6"/>
-              </svg>
-              <span>Email</span>
-            </button>
-          </div>
         </div>
 
-        <!-- Hero High-Tech Interactive Terminal/Card Display -->
-        <div class="hero-visual-card tilt-card">
-          <div class="hero-visual-inner">
-            <div class="hero-code-header">
-              <div class="window-dots">
-                <span class="w-dot w-red"></span>
-                <span class="w-dot w-yellow"></span>
-                <span class="w-dot w-green"></span>
-              </div>
-              <span class="file-tab">mukesh_student_profile.cpp</span>
-              <span style="font-family:var(--font-mono); font-size:0.75rem; color:#10B981;">● COMPILED</span>
-            </div>
-
-            <div class="hero-code-body">
-              <p><span class="code-keyword">struct</span> <span class="code-func">Student</span> {</p>
-              <p style="padding-left: 1.25rem;">name: <span class="code-str">"Mukesh Kumar"</span>,</p>
-              <p style="padding-left: 1.25rem;">year: <span class="code-num">1</span>, <span class="code-comment">// 1st Year BE-CSE</span></p>
-              <p style="padding-left: 1.25rem;">college: <span class="code-str">"Mirai School of Technology"</span>,</p>
-              <p style="padding-left: 1.25rem;">github: <span class="code-str">"github.com/itsrockmukesh"</span>,</p>
-              <p style="padding-left: 1.25rem;">learning: [</p>
-              <p style="padding-left: 2.25rem;"><span class="code-str">"Web Development (HTML5, CSS3)"</span>,</p>
-              <p style="padding-left: 2.25rem;"><span class="code-str">"Data Structures &amp; Algorithms in C++"</span>,</p>
-              <p style="padding-left: 2.25rem;"><span class="code-str">"Cloud Computing &amp; AWS Amplify"</span></p>
-              <p style="padding-left: 1.25rem;">],</p>
-              <p style="padding-left: 1.25rem;">googleCloudBadges: <span class="code-num">5</span>, <span class="code-comment">// Verified</span></p>
-              <p style="padding-left: 1.25rem;">secretTerminal: <span class="code-keyword">true</span> <span class="code-comment">// Press `~` anytime</span></p>
-              <p>};</p>
-            </div>
-
-            <div class="hero-stats-row">
-              <div class="hero-stat-box">
-                <div class="hero-stat-val text-gradient">1st Year</div>
-                <div class="hero-stat-lbl">BE-CSE Mirai</div>
-              </div>
-              <div class="hero-stat-box">
-                <div class="hero-stat-val text-cyan">5</div>
-                <div class="hero-stat-lbl">GCP Badges</div>
-              </div>
-              <div class="hero-stat-box">
-                <div class="hero-stat-val text-aws">AWS</div>
-                <div class="hero-stat-lbl">Amplify CI/CD</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-         ABOUT ME SECTION
-         ========================================================================== -->
-    <section class="about-section" id="about">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Identity &amp; Story</span>
-          <h2 class="section-title">My Journey in Tech &amp; Engineering</h2>
-          <p class="section-subtitle">First-year engineering student building real-world projects, mastering algorithms, and exploring cloud systems.</p>
+        <!-- Filter Bar -->
+        <div class="work-filter-bar">
+          <button class="work-filter-btn filter-btn active" data-filter="all">All (4)</button>
+          <button class="work-filter-btn filter-btn" data-filter="web">Web Development</button>
+          <button class="work-filter-btn filter-btn" data-filter="cpp">C++ &amp; DSA</button>
+          <button class="work-filter-btn filter-btn" data-filter="cloud">Cloud &amp; Interactive</button>
         </div>
 
-        <div class="about-grid">
-          <div class="about-narrative">
-            <p>
-              Hello! I am <strong>Mukesh Kumar</strong>, a first-year Bachelor of Engineering (BE-CSE) student at <strong>Mirai School of Technology</strong>.
-            </p>
-            <p>
-              Right now, I am actively immersing myself in <strong>Web Development</strong>, having mastered the foundations of <strong>HTML5 and CSS3</strong> by building real projects on my GitHub. In parallel, I am studying <strong>Data Structures and Algorithms (DSA) in C++</strong>, sharpening my analytical problem-solving and algorithmic thinking.
-            </p>
-            <p>
-              I believe in learning by doing. Outside of my college coursework, I dove into cloud infrastructure and successfully earned <strong>5 Google Cloud Skill Badges</strong> covering Compute Engine, IAM security governance, and Generative AI prototyping with Google AI Studio and Gemini.
-            </p>
-            <p>
-              This website is my official submission for the <strong>AWS Student Portfolio Hackathon</strong>, built to showcase my GitHub work, cloud achievements, and an interactive retro hacker terminal deployed seamlessly via <strong>AWS Amplify Hosting</strong>.
-            </p>
-
-            <div class="about-features-list">
-              <div class="about-feat-item">
-                <div class="feat-icon-wrap">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="16 18 22 12 16 6"></polyline>
-                    <polyline points="8 6 2 12 8 18"></polyline>
-                  </svg>
+        <!-- Work Grid -->
+        <div class="work-grid">
+          
+          <!-- PROJECT 1: Secret Developer Terminal & AWS Portfolio Engine -->
+          <article class="work-card project-card tilt-card" data-category="cloud web">
+            <div class="work-card-visual">
+              <img src="assets/projects/devterminal.svg" alt="Secret Developer Terminal Interface Preview" loading="lazy">
+            </div>
+            <div class="work-card-content">
+              <div class="work-card-left">
+                <div class="work-card-tags">
+                  <span class="work-tag">Vanilla JS</span>
+                  <span class="work-tag">Web Audio API</span>
+                  <span class="work-tag">CLI Shell Engine</span>
+                  <span class="work-tag">AWS Amplify</span>
                 </div>
-                <div class="feat-content">
-                  <h4>Web Development</h4>
-                  <p>HTML5, CSS3, responsive layouts, modern UI styling.</p>
-                </div>
+                <h3 class="work-card-title">Secret Developer Terminal &amp; AWS Showcase</h3>
+                <p class="work-card-desc">
+                  An in-browser retro-futuristic developer terminal built specifically for the AWS Student Portfolio Hackathon. Features real command parsing, tab autocomplete, command history buffer, custom synthesizer sound feedback, and hidden AWS cloud architecture blueprints.
+                </p>
               </div>
-
-              <div class="about-feat-item">
-                <div class="feat-icon-wrap cyan">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                    <polyline points="2 17 12 22 22 17"></polyline>
-                    <polyline points="2 12 12 17 22 12"></polyline>
-                  </svg>
-                </div>
-                <div class="feat-content">
-                  <h4>C++ &amp; DSA</h4>
-                  <p>Data Structures, Algorithms, problem solving logic.</p>
-                </div>
-              </div>
-
-              <div class="about-feat-item">
-                <div class="feat-icon-wrap aws">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                  </svg>
-                </div>
-                <div class="feat-content">
-                  <h4>Cloud &amp; AWS</h4>
-                  <p>AWS Amplify CI/CD, Google Cloud Skill Badges.</p>
-                </div>
-              </div>
-
-              <div class="about-feat-item">
-                <div class="feat-icon-wrap green">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-                  </svg>
-                </div>
-                <div class="feat-content">
-                  <h4>Generative AI</h4>
-                  <p>Google AI Studio, Gemini 1.5 Pro multimodal prototypes.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Journey Card Stack -->
-          <div class="about-card-stack">
-            <div class="glass-card journey-card">
-              <span class="journey-badge badge-code">College &amp; Core</span>
-              <div class="journey-text">
-                <h3>BE-CSE @ Mirai School of Technology</h3>
-                <p>Starting strong in first year, building fundamental competence in C++, algorithms, and computer systems.</p>
-              </div>
-            </div>
-
-            <div class="glass-card journey-card">
-              <span class="journey-badge badge-cloud">Frontend Journey</span>
-              <div class="journey-text">
-                <h3>Web Development Foundations</h3>
-                <p>Constructed real projects on GitHub using HTML5 and CSS3, focusing on clean structure, visual hierarchy, and styling.</p>
-              </div>
-            </div>
-
-            <div class="glass-card journey-card">
-              <span class="journey-badge badge-ai">Cloud &amp; Certifications</span>
-              <div class="journey-text">
-                <h3>5 Google Cloud Badges &amp; AWS Deployment</h3>
-                <p>Achieved 5 verified cloud badges in Compute, IAM, Data, and AI Studio, culminating in deploying this portfolio on AWS Amplify.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-         SKILLS / TECH SUPERPOWERS SECTION
-         ========================================================================== -->
-    <section class="skills-section" id="skills">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag cyan">Technical Arsenal</span>
-          <h2 class="section-title">My Tech Superpowers</h2>
-          <p class="section-subtitle">The tools, languages, and cloud frameworks I actively learn and use.</p>
-        </div>
-
-        <div class="skills-categories">
-          <!-- Category 1: Web Development -->
-          <div class="glass-card skill-category-card">
-            <div class="cat-header">
-              <div class="cat-icon-badge" style="background: rgba(6, 182, 212, 0.15); color: #22D3EE;">🌐</div>
-              <h3 class="cat-title">Web Development</h3>
-            </div>
-            <div class="skills-list">
-              <div class="skill-item-row">
-                <div class="skill-meta">
-                  <span class="skill-name">HTML5 (Semantic Web, Structure)</span>
-                  <span class="skill-tag">95%</span>
-                </div>
-                <div class="skill-bar-track">
-                  <div class="skill-bar-fill cyan" style="width: 95%;"></div>
-                </div>
-              </div>
-
-              <div class="skill-item-row">
-                <div class="skill-meta">
-                  <span class="skill-name">CSS3 (Styling, Flexbox, Animations)</span>
-                  <span class="skill-tag">90%</span>
-                </div>
-                <div class="skill-bar-track">
-                  <div class="skill-bar-fill purple" style="width: 90%;"></div>
-                </div>
-              </div>
-
-              <div class="skill-item-row">
-                <div class="skill-meta">
-                  <span class="skill-name">JavaScript (ES6+, DOM, Interactivity)</span>
-                  <span class="skill-tag">80%</span>
-                </div>
-                <div class="skill-bar-track">
-                  <div class="skill-bar-fill blue" style="width: 80%;"></div>
-                </div>
-              </div>
-
-              <div class="skill-item-row">
-                <div class="skill-meta">
-                  <span class="skill-name">Responsive Design (Desktop/Mobile)</span>
-                  <span class="skill-tag">92%</span>
-                </div>
-                <div class="skill-bar-track">
-                  <div class="skill-bar-fill cyan" style="width: 92%;"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Category 2: Core Programming & DSA -->
-          <div class="glass-card skill-category-card">
-            <div class="cat-header">
-              <div class="cat-icon-badge" style="background: rgba(59, 130, 246, 0.15); color: #60A5FA;">⚡</div>
-              <h3 class="cat-title">C++ &amp; Algorithms</h3>
-            </div>
-            <div class="skills-list">
-              <div class="skill-item-row">
-                <div class="skill-meta">
-                  <span class="skill-name">C++ Programming (C++20)</span>
-                  <span class="skill-tag">85%</span>
-                </div>
-                <div class="skill-bar-track">
-                  <div class="skill-bar-fill blue" style="width: 85%;"></div>
-                </div>
-              </div>
-
-              <div class="skill-item-row">
-                <div class="skill-meta">
-                  <span class="skill-name">Data Structures &amp; Algorithms (DSA)</span>
-                  <span class="skill-tag">82%</span>
-                </div>
-                <div class="skill-bar-track">
-                  <div class="skill-bar-fill purple" style="width: 82%;"></div>
-                </div>
-              </div>
-
-              <div class="skill-item-row">
-                <div class="skill-meta">
-                  <span class="skill-name">Problem Solving &amp; Logic</span>
-                  <span class="skill-tag">88%</span>
-                </div>
-                <div class="skill-bar-track">
-                  <div class="skill-bar-fill cyan" style="width: 88%;"></div>
-                </div>
-              </div>
-
-              <div class="skill-item-row">
-                <div class="skill-meta">
-                  <span class="skill-name">Git &amp; GitHub Version Control</span>
-                  <span class="skill-tag">90%</span>
-                </div>
-                <div class="skill-bar-track">
-                  <div class="skill-bar-fill aws" style="width: 90%;"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Category 3: Cloud & Generative AI -->
-          <div class="glass-card skill-category-card">
-            <div class="cat-header">
-              <div class="cat-icon-badge" style="background: rgba(255, 153, 0, 0.15); color: #FF9900;">☁️</div>
-              <h3 class="cat-title">Cloud &amp; GenAI</h3>
-            </div>
-            <div class="skills-list">
-              <div class="skill-item-row">
-                <div class="skill-meta">
-                  <span class="skill-name">AWS Amplify Hosting (CI/CD)</span>
-                  <span class="skill-tag">88%</span>
-                </div>
-                <div class="skill-bar-track">
-                  <div class="skill-bar-fill aws" style="width: 88%;"></div>
-                </div>
-              </div>
-
-              <div class="skill-item-row">
-                <div class="skill-meta">
-                  <span class="skill-name">Google Cloud (Compute, IAM, Data)</span>
-                  <span class="skill-tag">92%</span>
-                </div>
-                <div class="skill-bar-track">
-                  <div class="skill-bar-fill blue" style="width: 92%;"></div>
-                </div>
-              </div>
-
-              <div class="skill-item-row">
-                <div class="skill-meta">
-                  <span class="skill-name">Google AI Studio Prototyping</span>
-                  <span class="skill-tag">90%</span>
-                </div>
-                <div class="skill-bar-track">
-                  <div class="skill-bar-fill purple" style="width: 90%;"></div>
-                </div>
-              </div>
-
-              <div class="skill-item-row">
-                <div class="skill-meta">
-                  <span class="skill-name">Gemini Enterprise AI Apps</span>
-                  <span class="skill-tag">87%</span>
-                </div>
-                <div class="skill-bar-track">
-                  <div class="skill-bar-fill cyan" style="width: 87%;"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Quick Interactive Chips Cluster -->
-        <div class="quick-chips-wrap">
-          <div class="quick-chips-title">Current Skills &amp; Competencies</div>
-          <div class="chips-cluster">
-            <span class="tech-chip">HTML5</span>
-            <span class="tech-chip">CSS3</span>
-            <span class="tech-chip">C++</span>
-            <span class="tech-chip">Data Structures &amp; Algorithms (DSA)</span>
-            <span class="tech-chip">JavaScript</span>
-            <span class="tech-chip">AWS Amplify Hosting</span>
-            <span class="tech-chip">Google Cloud Platform</span>
-            <span class="tech-chip">Compute Engine</span>
-            <span class="tech-chip">Cloud IAM Security</span>
-            <span class="tech-chip">Google AI Studio</span>
-            <span class="tech-chip">Gemini 1.5 Pro</span>
-            <span class="tech-chip">Git &amp; GitHub (@itsrockmukesh)</span>
-            <span class="tech-chip">Mirai School of Technology</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-         ACHIEVEMENTS SECTION — 5 GOOGLE CLOUD SKILL BADGES
-         ========================================================================== -->
-    <section class="achievements-section" id="achievements">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Verified Credentials</span>
-          <h2 class="section-title">5 Google Cloud Skill Badges</h2>
-          <p class="section-subtitle">Earned through technical hands-on labs validating practical ability in compute infrastructure, security policies, data storage, and generative AI.</p>
-        </div>
-
-        <div class="achievements-grid">
-          <!-- Badge 1: Compute Engine -->
-          <div class="glass-card badge-card tilt-card">
-            <div class="badge-glow-halo"></div>
-            <div class="badge-img-wrapper">
-              <img src="assets/badges/compute.svg" alt="The Basics of Google Cloud Compute Badge" loading="lazy">
-            </div>
-            <span class="badge-verified-tag">✓ Verified Skill Badge</span>
-            <h3 class="badge-title">The Basics of Google Cloud Compute</h3>
-            <p class="badge-desc">Proficiency in provisioning Compute Engine VM instances, persistent disk configurations, and network firewall rules.</p>
-            <div class="badge-skills-covered">
-              <span class="badge-skill-tag">Compute Engine</span>
-              <span class="badge-skill-tag">Cloud VMs</span>
-              <span class="badge-skill-tag">Firewall Rules</span>
-            </div>
-            <button class="btn btn-secondary btn-sm badge-verify-btn" data-badge="compute">
-              Inspect Credential
-            </button>
-          </div>
-
-          <!-- Badge 2: IAM & Service Accounts -->
-          <div class="glass-card badge-card tilt-card">
-            <div class="badge-glow-halo"></div>
-            <div class="badge-img-wrapper">
-              <img src="assets/badges/iam.svg" alt="Configure Service Accounts and IAM Roles for Google Cloud Badge" loading="lazy">
-            </div>
-            <span class="badge-verified-tag">✓ Verified Skill Badge</span>
-            <h3 class="badge-title">Configure Service Accounts &amp; IAM Roles</h3>
-            <p class="badge-desc">Mastery over Cloud IAM policies, least-privilege role bindings, service account authentication, and audit logs.</p>
-            <div class="badge-skills-covered">
-              <span class="badge-skill-tag">Cloud IAM</span>
-              <span class="badge-skill-tag">Service Accounts</span>
-              <span class="badge-skill-tag">Zero Trust Security</span>
-            </div>
-            <button class="btn btn-secondary btn-sm badge-verify-btn" data-badge="iam">
-              Inspect Credential
-            </button>
-          </div>
-
-          <!-- Badge 3: Data Management -->
-          <div class="glass-card badge-card tilt-card">
-            <div class="badge-glow-halo"></div>
-            <div class="badge-img-wrapper">
-              <img src="assets/badges/data.svg" alt="Store, Process, and Manage Data on Google Cloud Console Badge" loading="lazy">
-            </div>
-            <span class="badge-verified-tag">✓ Verified Skill Badge</span>
-            <h3 class="badge-title">Store, Process, and Manage Data on GCP</h3>
-            <p class="badge-desc">Hands-on data storage in GCP Console, utilizing Cloud Storage bucket lifecycles and BigQuery analytics.</p>
-            <div class="badge-skills-covered">
-              <span class="badge-skill-tag">Cloud Storage</span>
-              <span class="badge-skill-tag">BigQuery</span>
-              <span class="badge-skill-tag">Data Management</span>
-            </div>
-            <button class="btn btn-secondary btn-sm badge-verify-btn" data-badge="data">
-              Inspect Credential
-            </button>
-          </div>
-
-          <!-- Badge 4: Google AI Studio -->
-          <div class="glass-card badge-card tilt-card">
-            <div class="badge-glow-halo"></div>
-            <div class="badge-img-wrapper">
-              <img src="assets/badges/ai-studio.svg" alt="Develop AI-Powered Prototypes in Google AI Studio Badge" loading="lazy">
-            </div>
-            <span class="badge-verified-tag">✓ Verified Skill Badge</span>
-            <h3 class="badge-title">Develop AI Prototypes in Google AI Studio</h3>
-            <p class="badge-desc">Rapid design and prototyping of Generative AI applications, multi-turn prompt engineering, and parameter tuning.</p>
-            <div class="badge-skills-covered">
-              <span class="badge-skill-tag">Google AI Studio</span>
-              <span class="badge-skill-tag">Prompt Engineering</span>
-              <span class="badge-skill-tag">GenAI Prototypes</span>
-            </div>
-            <button class="btn btn-secondary btn-sm badge-verify-btn" data-badge="ai-studio">
-              Inspect Credential
-            </button>
-          </div>
-
-          <!-- Badge 5: Gemini Enterprise -->
-          <div class="glass-card badge-card tilt-card">
-            <div class="badge-glow-halo"></div>
-            <div class="badge-img-wrapper">
-              <img src="assets/badges/gemini.svg" alt="Create Your First Gemini Enterprise Application Badge" loading="lazy">
-            </div>
-            <span class="badge-verified-tag">✓ Verified Skill Badge</span>
-            <h3 class="badge-title">Create Your First Gemini Enterprise App</h3>
-            <p class="badge-desc">Constructing production-ready enterprise applications utilizing Google Gemini multimodal APIs and response streaming.</p>
-            <div class="badge-skills-covered">
-              <span class="badge-skill-tag">Gemini 1.5 Pro</span>
-              <span class="badge-skill-tag">Enterprise AI</span>
-              <span class="badge-skill-tag">Multimodal Systems</span>
-            </div>
-            <button class="btn btn-secondary btn-sm badge-verify-btn" data-badge="gemini">
-              Inspect Credential
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-         PROJECTS SECTION
-         ========================================================================== -->
-    <section class="projects-section" id="projects">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag cyan">Real Work</span>
-          <h2 class="section-title">My Featured Projects</h2>
-          <p class="section-subtitle">Real projects available on my GitHub (<a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" style="color:var(--accent-cyan); text-decoration:underline;">@itsrockmukesh</a>), along with my AWS Hackathon flagship portfolio.</p>
-        </div>
-
-        <!-- Category Filters -->
-        <div class="projects-filter-bar">
-          <button class="filter-btn active" data-filter="all">All Projects</button>
-          <button class="filter-btn" data-filter="web">Web Development</button>
-          <button class="filter-btn" data-filter="dsa">C++ &amp; DSA</button>
-          <button class="filter-btn" data-filter="hackathon">AWS Hackathon</button>
-        </div>
-
-        <div class="projects-grid">
-          <!-- Project 1: Personal-Website (Real GitHub Project) -->
-          <div class="glass-card project-card tilt-card" data-category="web">
-            <div class="project-thumbnail">
-              <img src="assets/projects/personal-web.svg" alt="Personal Website Project Mockup" loading="lazy">
-              <span class="project-badge-pill badge-pill-ai">HTML &amp; CSS</span>
-            </div>
-            <div class="project-content">
-              <h3 class="project-title">Personal-Website — Portfolio Webpage</h3>
-              <p class="project-desc">
-                My personal developer webpage crafted using clean CSS3 and HTML5, showcasing profile details, skills, and responsive styling. Live on my GitHub profile.
-              </p>
-              <div class="project-tags">
-                <span class="tech-tag">HTML5</span>
-                <span class="tech-tag">CSS3</span>
-                <span class="tech-tag">Responsive Layout</span>
-                <span class="tech-tag">GitHub Pages</span>
-              </div>
-              <div class="project-footer-actions">
-                <a href="https://github.com/itsrockmukesh/Personal-Website" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm project-btn">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-                  </svg>
-                  <span>GitHub Repo</span>
-                </a>
-                <a href="https://github.com/itsrockmukesh/Personal-Website" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm project-btn">
-                  <span>View Project</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-                  </svg>
+              <div class="work-card-actions">
+                <button class="btn-pill btn-pill-primary btn-sm" onclick="window.openSecretTerminal();">
+                  <span>Launch Terminal [~]</span>
+                  <span class="btn-arrow">→</span>
+                </button>
+                <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary btn-sm">
+                  <span>GitHub ↗</span>
                 </a>
               </div>
             </div>
-          </div>
+          </article>
 
-          <!-- Project 2: Wikipedia (Real GitHub Project) -->
-          <div class="glass-card project-card tilt-card" data-category="web">
-            <div class="project-thumbnail">
-              <img src="assets/projects/wikipedia.svg" alt="Wikipedia Layout Recreation Mockup" loading="lazy">
-              <span class="project-badge-pill badge-pill-sec">HTML Recreation</span>
+          <!-- PROJECT 2: Personal-Website (HTML/CSS) -->
+          <article class="work-card project-card tilt-card" data-category="web">
+            <div class="work-card-visual">
+              <img src="assets/projects/personal-web.svg" alt="Personal-Website Project Mockup" loading="lazy">
             </div>
-            <div class="project-content">
-              <h3 class="project-title">Wikipedia — Encyclopedic Web Layout</h3>
-              <p class="project-desc">
-                A structured recreation of the Wikipedia encyclopedic interface focusing on semantic HTML elements, content navigation menus, infoboxes, and document hierarchy.
-              </p>
-              <div class="project-tags">
-                <span class="tech-tag">HTML5</span>
-                <span class="tech-tag">Semantic Tags</span>
-                <span class="tech-tag">Document Structure</span>
-                <span class="tech-tag">Wiki UI</span>
+            <div class="work-card-content">
+              <div class="work-card-left">
+                <div class="work-card-tags">
+                  <span class="work-tag">HTML5</span>
+                  <span class="work-tag">CSS3</span>
+                  <span class="work-tag">Responsive Flexbox/Grid</span>
+                  <span class="work-tag">GitHub Repository</span>
+                </div>
+                <h3 class="work-card-title">Personal Developer Website Layout</h3>
+                <p class="work-card-desc">
+                  A foundational developer portfolio layout crafted from scratch with semantic HTML5 and modular CSS3. Demonstrates mastery over box model mechanics, responsive media queries, accessible heading structures, and modern styling without heavy framework dependencies.
+                </p>
               </div>
-              <div class="project-footer-actions">
-                <a href="https://github.com/itsrockmukesh/Wikipedia" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm project-btn">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-                  </svg>
-                  <span>GitHub Repo</span>
+              <div class="work-card-actions">
+                <a href="https://github.com/itsrockmukesh/Personal-Website" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-primary btn-sm">
+                  <span>Inspect Repository</span>
+                  <span class="btn-arrow">↗</span>
                 </a>
-                <a href="https://github.com/itsrockmukesh/Wikipedia" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm project-btn">
-                  <span>View Project</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-                  </svg>
+                <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary btn-sm">
+                  <span>@itsrockmukesh</span>
                 </a>
               </div>
             </div>
-          </div>
+          </article>
 
-          <!-- Project 3: DevTerminal Portfolio (AWS Hackathon Flagship) -->
-          <div class="glass-card project-card tilt-card" data-category="hackathon">
-            <div class="project-thumbnail">
-              <img src="assets/projects/devterminal.svg" alt="DevTerminal Portfolio Engine" loading="lazy">
-              <span class="project-badge-pill badge-pill-term">AWS Hackathon</span>
+          <!-- PROJECT 3: Wikipedia Web Recreation -->
+          <article class="work-card project-card tilt-card" data-category="web">
+            <div class="work-card-visual">
+              <img src="assets/projects/wikipedia.svg" alt="Wikipedia Recreation Layout Preview" loading="lazy">
             </div>
-            <div class="project-content">
-              <h3 class="project-title">DevTerminal — Interactive Cyber Portfolio</h3>
-              <p class="project-desc">
-                My flagship web application built for the AWS Student Portfolio Hackathon! Features an interactive retro CLI terminal, Web Audio API synthesis, and continuous AWS Amplify deployment.
-              </p>
-              <div class="project-tags">
-                <span class="tech-tag">AWS Amplify</span>
-                <span class="tech-tag">HTML5 / CSS3</span>
-                <span class="tech-tag">Web Audio API</span>
-                <span class="tech-tag">JavaScript CLI</span>
+            <div class="work-card-content">
+              <div class="work-card-left">
+                <div class="work-card-tags">
+                  <span class="work-tag">Semantic HTML</span>
+                  <span class="work-tag">Typography Architecture</span>
+                  <span class="work-tag">CSS Layouts</span>
+                  <span class="work-tag">GitHub Repository</span>
+                </div>
+                <h3 class="work-card-title">Wikipedia Article Layout Recreation</h3>
+                <p class="work-card-desc">
+                  A pixel-precise recreation of the complex multi-column encyclopedic structure of Wikipedia. Implements structured data tables, infobox sidebars, navigation panels, footnotes, and citation markup, strictly adhering to semantic HTML standards.
+                </p>
               </div>
-              <div class="project-footer-actions">
-                <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm project-btn">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-                  </svg>
-                  <span>GitHub</span>
+              <div class="work-card-actions">
+                <a href="https://github.com/itsrockmukesh/Wikipedia" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-primary btn-sm">
+                  <span>Inspect Repository</span>
+                  <span class="btn-arrow">↗</span>
                 </a>
-                <button class="btn btn-primary btn-sm project-btn" onclick="window.openSecretTerminal();">
-                  <span>Open Terminal</span>
-                  <span style="font-family:var(--font-mono); font-size:0.8rem;">[~]</span>
+                <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary btn-sm">
+                  <span>@itsrockmukesh</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROJECT 4: C++ Data Structures & Algorithms Suite -->
+          <article class="work-card project-card tilt-card" data-category="cpp">
+            <div class="work-card-visual">
+              <img src="assets/projects/cpp-dsa.svg" alt="C++ DSA Algorithms Preview" loading="lazy">
+            </div>
+            <div class="work-card-content">
+              <div class="work-card-left">
+                <div class="work-card-tags">
+                  <span class="work-tag">C++20</span>
+                  <span class="work-tag">Algorithms</span>
+                  <span class="work-tag">Time &amp; Space Complexity</span>
+                  <span class="work-tag">Mirai School</span>
+                </div>
+                <h3 class="work-card-title">C++ Data Structures &amp; Problem Solving</h3>
+                <p class="work-card-desc">
+                  Algorithmic problem-solving suite implementing arrays, pointers, linked lists, stacks, queues, recursion, and sorting/searching routines in modern C++. Developed as part of computer science core engineering coursework at Mirai School of Technology.
+                </p>
+              </div>
+              <div class="work-card-actions">
+                <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-primary btn-sm">
+                  <span>View Solutions</span>
+                  <span class="btn-arrow">↗</span>
+                </a>
+                <button class="btn-pill btn-pill-secondary btn-sm trigger-resume-modal">
+                  <span>View Coursework</span>
                 </button>
               </div>
             </div>
-          </div>
+          </article>
 
-          <!-- Project 4: C++ DSA & Algorithms Lab -->
-          <div class="glass-card project-card tilt-card" data-category="dsa">
-            <div class="project-thumbnail">
-              <img src="assets/projects/cpp-dsa.svg" alt="C++ DSA Algorithms Workbench" loading="lazy">
-              <span class="project-badge-pill badge-pill-aws">C++ &amp; DSA</span>
-            </div>
-            <div class="project-content">
-              <h3 class="project-title">C++ DSA — Data Structures &amp; Algorithms</h3>
-              <p class="project-desc">
-                My ongoing problem-solving journey implementing core data structures (arrays, linked lists, trees, recursion, search algorithms) and practicing algorithmic problem solving in C++.
-              </p>
-              <div class="project-tags">
-                <span class="tech-tag">C++20</span>
-                <span class="tech-tag">Data Structures</span>
-                <span class="tech-tag">Algorithms</span>
-                <span class="tech-tag">Time Complexity</span>
-              </div>
-              <div class="project-footer-actions">
-                <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm project-btn">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-                  </svg>
-                  <span>GitHub</span>
-                </a>
-                <a href="#projects" class="btn btn-primary btn-sm project-btn" onclick="showToast('C++ DSA code sample previewed'); return false;">
-                  <span>Inspect Code</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
 
     <!-- ==========================================================================
-         AWS SHOWCASE & DEPLOYMENT ARCHITECTURE BANNER
+         INFO / ABOUT SECTION (HEYKUBA EDITORIAL 2-COLUMN GRID)
          ========================================================================== -->
-    <section class="aws-showcase-section" id="aws-showcase">
-      <div class="container">
-        <div class="aws-banner-card">
-          <div class="aws-banner-text">
-            <span class="section-tag aws">AWS Amplify Hosting Architecture</span>
-            <h3>Deployed on AWS Global Cloud Infrastructure</h3>
-            <p>
-              This entire portfolio is architected for continuous deployment using <strong>AWS Amplify Hosting</strong>. Connected directly to my GitHub (<a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" style="color:var(--accent-aws); text-decoration:underline;">@itsrockmukesh</a>), every push to the <code>main</code> branch triggers automated build distribution across Amazon CloudFront global edge points with automatic HTTPS SSL termination.
-            </p>
-            <div style="display:flex; gap:1rem; flex-wrap:wrap;">
-              <a href="#projects" class="btn btn-primary" onclick="window.openSecretTerminal(); return false;">
-                <span>Test AWS Commands in Terminal</span>
-              </a>
-              <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                <span>View My GitHub Repositories</span>
-              </a>
-            </div>
-          </div>
-
-          <div class="aws-pipeline-steps">
-            <div class="pipeline-step">
-              <span class="step-number">1</span>
-              <span><strong>Git Push to GitHub:</strong> Code pushed to @itsrockmukesh</span>
-            </div>
-            <div class="pipeline-step">
-              <span class="step-number">2</span>
-              <span><strong>AWS Amplify Webhook:</strong> Instant build trigger</span>
-            </div>
-            <div class="pipeline-step">
-              <span class="step-number">3</span>
-              <span><strong>Amazon CloudFront CDN:</strong> Edge distribution &lt; 30s</span>
-            </div>
-            <div class="pipeline-step">
-              <span class="step-number">4</span>
-              <span><strong>Free SSL &amp; HTTPS:</strong> Zero exposed access keys</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-         CONTACT SECTION
-         ========================================================================== -->
-    <section class="contact-section" id="contact">
+    <section class="info-section" id="about">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">Direct Communication</span>
-          <h2 class="section-title">Let's Connect &amp; Collaborate</h2>
-          <p class="section-subtitle">Interested in discussing web development, C++ DSA, cloud architectures, or student hackathon collaboration? Reach out below!</p>
+          <div class="section-label">Background &amp; Story</div>
+          <h2 class="section-title">The Engineering Journey</h2>
         </div>
 
-        <div class="contact-grid">
-          <div class="contact-info-col">
-            <!-- Email Item -->
-            <div class="glass-card contact-card-item">
-              <div class="contact-card-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                  <polyline points="22,6 12,13 2,6"/>
-                </svg>
-              </div>
-              <div class="contact-card-info">
-                <h4>Direct Email</h4>
-                <div class="contact-val-link">
-                  <a href="mailto:mukesh.kumar.dev@example.com">mukesh.kumar.dev@example.com</a>
-                  <button class="copy-btn-inline copy-email-btn" title="Copy email">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- GitHub Item -->
-            <div class="glass-card contact-card-item">
-              <div class="contact-card-icon cyan">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-                </svg>
-              </div>
-              <div class="contact-card-info">
-                <h4>GitHub Profile</h4>
-                <div class="contact-val-link">
-                  <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer">github.com/itsrockmukesh</a>
-                </div>
-              </div>
-            </div>
-
-            <!-- College Item -->
-            <div class="glass-card contact-card-item">
-              <div class="contact-card-icon purple">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                  <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
-                </svg>
-              </div>
-              <div class="contact-card-info">
-                <h4>Education &amp; Institution</h4>
-                <div class="contact-val-link">
-                  <span>Mirai School of Technology (BE-CSE)</span>
-                </div>
-              </div>
+        <div class="info-grid">
+          <!-- Left Column: Story & Narrative -->
+          <div class="info-story-col">
+            <p class="info-lead-p">
+              "I am a first-year Computer Science Engineering student at Mirai School of Technology, obsessed with writing clean, structured code and understanding systems from the ground up."
+            </p>
+            <p class="info-sub-p">
+              My engineering journey began with the building blocks of the web—crafting semantic HTML and responsive CSS layouts. Rather than jumping straight into heavy frameworks, I chose to understand foundational mechanics: how the browser parses the DOM, renders stylesheets, and creates responsive visual hierarchies.
+            </p>
+            <p class="info-sub-p">
+              In parallel, I am tackling Data Structures and Algorithms using C++, developing analytical problem-solving intuition and deep respect for algorithmic efficiency, time complexity, and memory management.
+            </p>
+            <p class="info-sub-p">
+              To connect theoretical computer science with real-world infrastructure, I've earned 5 Google Cloud Skill Badges spanning Compute Engine, Cloud IAM security, data pipelines, and Generative AI prototyping in Google AI Studio. This website was built for the AWS Student Portfolio Hackathon and architected for continuous deployment on AWS Amplify.
+            </p>
+            <div style="margin-top: 2rem;">
+              <button class="btn-pill btn-pill-primary trigger-resume-modal">
+                <span>View Complete Resume</span>
+                <span class="btn-arrow">→</span>
+              </button>
             </div>
           </div>
 
-          <!-- Interactive Contact Form -->
-          <div class="glass-card contact-form-card">
-            <form id="contact-form">
-              <div class="form-group">
-                <label for="contact-name" class="form-label">Your Name</label>
-                <input type="text" id="contact-name" class="form-input" placeholder="e.g. Alex Johnson" required>
+          <!-- Right Column: Structured Metadata Blocks -->
+          <div class="info-details-col">
+            <!-- Block 1: Education -->
+            <div class="info-block-item">
+              <div class="info-block-header">Education &amp; Institution</div>
+              <div class="info-block-content">
+                <strong>Bachelor of Engineering — Computer Science &amp; Engineering (BE-CSE)</strong><br>
+                <span>Mirai School of Technology • 1st Year (Class of 2029)</span><br>
+                <span style="color:var(--text-muted); font-size:0.88rem;">Key Subjects: Data Structures &amp; Algorithms in C++, Web Technologies (HTML/CSS), Computer Systems Architecture.</span>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label for="contact-email" class="form-label">Email Address</label>
-                <input type="email" id="contact-email" class="form-input" placeholder="alex@company.com" required>
+            <!-- Block 2: Capabilities -->
+            <div class="info-block-item">
+              <div class="info-block-header">Core Technical Capabilities</div>
+              <div class="info-block-content">
+                <strong>Programming &amp; Systems:</strong> C++ (C++20), Data Structures, Algorithms, Linux Terminal.<br>
+                <strong>Web Engineering:</strong> Semantic HTML5, CSS3 (Flexbox/Grid), JavaScript (ES6+), DOM APIs.<br>
+                <strong>Cloud &amp; Infrastructure:</strong> AWS Amplify Hosting, Google Cloud Platform, IAM Security.<br>
+                <strong>Artificial Intelligence:</strong> Google AI Studio, Gemini 1.5 Pro, Prompt Design.<br>
+                <strong>Version Control &amp; Workflow:</strong> Git, GitHub (<a href="https://github.com/itsrockmukesh" target="_blank" style="color:var(--text-primary); text-decoration:underline;">@itsrockmukesh</a>), VS Code.
+              </div>
+            </div>
+
+            <!-- Block 3: Philosophy -->
+            <div class="info-block-item">
+              <div class="info-block-header">Engineering Ethos</div>
+              <div class="info-block-content">
+                <strong>Master fundamentals first.</strong> A solid foundation in data structures, algorithms, and web standards empowers a developer to master any framework or cloud ecosystem with confidence and speed.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         ACHIEVEMENTS (5 GOOGLE CLOUD SKILL BADGES)
+         ========================================================================== -->
+    <section id="achievements">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Credentials &amp; Milestones</div>
+          <h2 class="section-title">5 Verified Google Cloud Skill Badges</h2>
+          <p class="section-description">
+            Practical cloud engineering credentials earned on Google Cloud Platform, validating hands-on skills in infrastructure, IAM policies, data pipelines, and generative AI prototypes.
+          </p>
+        </div>
+
+        <div class="badges-grid">
+          <!-- BADGE 1: Compute Engine -->
+          <div class="badge-item-card">
+            <img src="assets/badges/compute.svg" alt="Compute Engine Badge" class="badge-card-icon" loading="lazy">
+            <span class="badge-verified-badge">✓ Google Cloud Verified</span>
+            <h3 class="badge-item-title">The Basics of Google Cloud Compute</h3>
+            <p class="badge-item-desc">
+              Hands-on mastery over virtual machine provisioning in Google Compute Engine, custom firewall configurations, persistent storage disks, and startup script automation.
+            </p>
+            <button class="btn-pill btn-pill-secondary btn-sm badge-verify-btn" data-badge="compute">
+              <span>Inspect Credential</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+
+          <!-- BADGE 2: IAM & Service Accounts -->
+          <div class="badge-item-card">
+            <img src="assets/badges/iam.svg" alt="IAM Badge" class="badge-card-icon" loading="lazy">
+            <span class="badge-verified-badge">✓ Google Cloud Verified</span>
+            <h3 class="badge-item-title">Service Accounts &amp; IAM Roles</h3>
+            <p class="badge-item-desc">
+              Implementation of enterprise cloud security policies, least-privilege IAM access controls, custom role bindings, and service account key management.
+            </p>
+            <button class="btn-pill btn-pill-secondary btn-sm badge-verify-btn" data-badge="iam">
+              <span>Inspect Credential</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+
+          <!-- BADGE 3: Data Management & BigQuery -->
+          <div class="badge-item-card">
+            <img src="assets/badges/data.svg" alt="Data Management Badge" class="badge-card-icon" loading="lazy">
+            <span class="badge-verified-badge">✓ Google Cloud Verified</span>
+            <h3 class="badge-item-title">Store, Process &amp; Manage Data</h3>
+            <p class="badge-item-desc">
+              Practical execution of structured and unstructured cloud storage lifecycles with Google Cloud Storage (GCS) and analytical queries with BigQuery.
+            </p>
+            <button class="btn-pill btn-pill-secondary btn-sm badge-verify-btn" data-badge="data">
+              <span>Inspect Credential</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+
+          <!-- BADGE 4: Google AI Studio Prototypes -->
+          <div class="badge-item-card">
+            <img src="assets/badges/ai-studio.svg" alt="AI Studio Badge" class="badge-card-icon" loading="lazy">
+            <span class="badge-verified-badge">✓ Google Cloud Verified</span>
+            <h3 class="badge-item-title">AI Prototypes in Google AI Studio</h3>
+            <p class="badge-item-desc">
+              Prototyping Generative AI applications with Google AI Studio, multi-modal prompt engineering, system instructions, few-shot conditioning, and Gemini API integration.
+            </p>
+            <button class="btn-pill btn-pill-secondary btn-sm badge-verify-btn" data-badge="ai-studio">
+              <span>Inspect Credential</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+
+          <!-- BADGE 5: Gemini Enterprise Applications -->
+          <div class="badge-item-card">
+            <img src="assets/badges/gemini.svg" alt="Gemini Enterprise Badge" class="badge-card-icon" loading="lazy">
+            <span class="badge-verified-badge">✓ Google Cloud Verified</span>
+            <h3 class="badge-item-title">Gemini Enterprise Applications</h3>
+            <p class="badge-item-desc">
+              Architecting production applications powered by the Gemini multimodal foundation model, API authentication, and robust end-to-end cloud deployment.
+            </p>
+            <button class="btn-pill btn-pill-secondary btn-sm badge-verify-btn" data-badge="gemini">
+              <span>Inspect Credential</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         AWS SHOWCASE SECTION (HACKATHON REQUIREMENT)
+         ========================================================================== -->
+    <section id="aws-showcase">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">AWS Student Portfolio Hackathon</div>
+          <h2 class="section-title">Architected for AWS Amplify</h2>
+          <p class="section-description">
+            This portfolio is built to leverage AWS Amplify Hosting for lightning-fast edge delivery, automated CI/CD builds, and global SSL termination.
+          </p>
+        </div>
+
+        <div class="aws-card">
+          <!-- Architecture Flow Steps -->
+          <div class="aws-arch-steps">
+            <div class="aws-arch-step">
+              <div class="aws-step-num">1</div>
+              <div class="aws-step-content">
+                <h4>Git Push to Repository</h4>
+                <p>Code changes pushed to GitHub (@itsrockmukesh) automatically trigger an AWS Amplify webhook.</p>
+              </div>
+            </div>
+
+            <div class="aws-arch-step">
+              <div class="aws-step-num">2</div>
+              <div class="aws-step-content">
+                <h4>Automated Build &amp; Syntax Verification</h4>
+                <p>AWS Amplify provisions a managed container running the <code>amplify.yml</code> build specifications.</p>
+              </div>
+            </div>
+
+            <div class="aws-arch-step">
+              <div class="aws-step-num">3</div>
+              <div class="aws-step-content">
+                <h4>Global CDN Edge Distribution</h4>
+                <p>Artifacts are distributed across Amazon CloudFront global edge locations with automatic HTTPS certificates.</p>
+              </div>
+            </div>
+
+            <div style="margin-top: 1.5rem;">
+              <button class="btn-pill btn-pill-terminal btn-sm" onclick="window.openSecretTerminal();">
+                <span>&gt;_ View AWS Setup in Terminal</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- amplify.yml Code View -->
+          <div class="aws-code-view">
+            <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-aws); margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem;">
+              <span>●</span> amplify.yml (Continuous Deployment Spec)
+            </div>
+            <pre class="aws-code-snippet"><code>version: 1
+frontend:
+  phases:
+    build:
+      commands: []
+  artifacts:
+    baseDirectory: /
+    files:
+      - '**/*'
+  cache:
+    paths: []</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         BIG STATEMENT FOOTER & CONTACT (HEYKUBA SIGNATURE)
+         ========================================================================== -->
+    <section class="footer-cta-section" id="contact">
+      <div class="container">
+        <div class="section-label" style="justify-content:center;">Direct Communication</div>
+        
+        <h2 class="footer-statement">
+          Let's build something remarkable together.
+        </h2>
+
+        <p style="color:var(--text-secondary); max-width:640px; margin:0 auto 2.5rem; font-size:1.05rem; line-height:1.65;">
+          Available for software engineering internships, open-source web and C++ projects, or student hackathon collaboration. Feel free to reach out directly or send a message below.
+        </p>
+
+        <!-- Big Action Buttons -->
+        <div class="footer-actions">
+          <a href="mailto:mukesh.kumar.dev@example.com" class="btn-pill btn-pill-primary">
+            <span>Get in touch: mukesh.kumar.dev@example.com</span>
+            <span class="btn-arrow">→</span>
+          </a>
+
+          <button class="btn-pill btn-pill-secondary copy-email-btn">
+            <span>Copy Email Address</span>
+          </button>
+
+          <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary">
+            <span>GitHub: @itsrockmukesh ↗</span>
+          </a>
+
+          <button class="btn-pill btn-pill-terminal" onclick="window.openSecretTerminal();">
+            <span>&gt;_ Secret Terminal [~]</span>
+          </button>
+        </div>
+
+        <!-- Embedded Clean Contact Form -->
+        <div class="contact-container">
+          <div class="contact-form-card">
+            <h3 style="font-size:1.35rem; margin-bottom:0.5rem; text-align:left;">Send a Direct Message</h3>
+            <p style="color:var(--text-secondary); font-size:0.88rem; margin-bottom:1.75rem; text-align:left;">
+              Fill in your details and click send. This will open your preferred email client with your pre-formatted note.
+            </p>
+
+            <form id="contact-form">
+              <div class="form-grid-row">
+                <div class="form-group">
+                  <label for="contact-name" class="form-label">Your Name</label>
+                  <input type="text" id="contact-name" class="form-input" placeholder="e.g. Alex Johnson" required>
+                </div>
+                <div class="form-group">
+                  <label for="contact-email" class="form-label">Email Address</label>
+                  <input type="email" id="contact-email" class="form-input" placeholder="alex@company.com" required>
+                </div>
               </div>
 
               <div class="form-group">
                 <label for="contact-subject" class="form-label">Subject</label>
-                <input type="text" id="contact-subject" class="form-input" placeholder="Web / C++ / Hackathon Collaboration" required>
+                <input type="text" id="contact-subject" class="form-input" placeholder="Internship / Web / C++ Collaboration" required>
               </div>
 
               <div class="form-group">
@@ -926,47 +636,31 @@
                 <textarea id="contact-message" class="form-textarea" placeholder="Hi Mukesh, I saw your portfolio and your projects on GitHub..." required></textarea>
               </div>
 
-              <button type="submit" class="btn btn-primary" style="width: 100%;">
-                <span>Send Message</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <line x1="22" y1="2" x2="11" y2="13"></line>
-                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                </svg>
+              <button type="submit" class="btn-pill btn-pill-primary" style="width:100%;">
+                <span>Send Message Note</span>
+                <span class="btn-arrow">→</span>
               </button>
 
               <div id="form-feedback" class="form-feedback"></div>
             </form>
           </div>
         </div>
+
+        <!-- Bottom Row -->
+        <div class="footer-bottom-row" style="margin-top: 5rem;">
+          <div>
+            &copy; 2026 Mukesh Kumar • Mirai School of Technology • Built for AWS Student Portfolio Hackathon
+          </div>
+          <div class="footer-socials">
+            <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://linkedin.com/in/mukesh-kumar-cloud" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="mailto:mukesh.kumar.dev@example.com">Email</a>
+            <button style="background:none; border:none; color:inherit; font:inherit; cursor:pointer;" onclick="window.openSecretTerminal();">Terminal [~]</button>
+          </div>
+        </div>
       </div>
     </section>
   </main>
-
-  <!-- ==========================================================================
-       FOOTER
-       ========================================================================== -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <h3>Mukesh Kumar</h3>
-          <p>1st Year BE-CSE Student • Mirai School of Technology • @itsrockmukesh</p>
-        </div>
-
-        <div class="footer-social-links">
-          <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="social-pill">GitHub</a>
-          <a href="https://linkedin.com/in/mukesh-kumar-cloud" target="_blank" rel="noopener noreferrer" class="social-pill">LinkedIn</a>
-          <button class="social-pill copy-email-btn">Email</button>
-          <button class="social-pill" onclick="window.openSecretTerminal();">Terminal [~]</button>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <p>&copy; 2026 Mukesh Kumar. Built for the AWS Student Portfolio Hackathon.</p>
-        <p>Deployed with <span style="color:var(--accent-aws);">AWS Amplify Hosting</span> • GitHub: <a href="https://github.com/itsrockmukesh" target="_blank">@itsrockmukesh</a></p>
-      </div>
-    </div>
-  </footer>
 
   <!-- ==========================================================================
        SECRET DEVELOPER TERMINAL MODAL (CORE HACKATHON FEATURE)
@@ -1022,7 +716,7 @@
 
       <!-- Quick Suggested Command Chips -->
       <div class="terminal-quick-chips">
-        <span class="chip-hint-label">Quick Commands:</span>
+        <span class="chip-hint-label" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); margin-right:0.25rem;">Quick:</span>
         <button class="term-chip-btn" data-cmd="help">help</button>
         <button class="term-chip-btn" data-cmd="about">about</button>
         <button class="term-chip-btn" data-cmd="skills">skills</button>
@@ -1044,41 +738,41 @@
     <div class="resume-modal-card">
       <div class="resume-modal-header">
         <div style="display:flex; align-items:center; gap:0.75rem;">
-          <span style="font-family:var(--font-mono); font-size:0.9rem; color:var(--accent-cyan); font-weight:700;">RESUME.PDF</span>
-          <span style="font-size:0.8rem; color:var(--text-dim);">Mukesh Kumar • 1st Year BE-CSE</span>
+          <span style="font-family:var(--font-mono); font-size:0.85rem; color:var(--accent-cyan); font-weight:700;">RESUME.PDF</span>
+          <span style="font-size:0.8rem; color:var(--text-secondary);">Mukesh Kumar • 1st Year BE-CSE</span>
         </div>
         <div style="display:flex; gap:0.5rem;">
-          <button id="resume-print-btn" class="btn btn-secondary btn-sm" title="Print / Save PDF">
+          <button id="resume-print-btn" class="btn-pill btn-pill-secondary btn-sm" title="Print / Save PDF">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="6 9 6 2 18 2 18 9"></polyline>
               <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
               <rect x="6" y="14" width="12" height="8"></rect>
             </svg>
-            <span>Print / PDF</span>
+            <span>Print</span>
           </button>
-          <button id="resume-modal-close" class="btn btn-secondary btn-sm" style="padding:0.4rem 0.8rem;">✕</button>
+          <button id="resume-modal-close" class="btn-pill btn-pill-secondary btn-sm" style="padding:0.4rem 0.8rem;">✕</button>
         </div>
       </div>
 
       <div class="resume-modal-body">
         <div class="resume-paper">
-          <div class="resume-head">
+          <div class="resume-head" style="margin-bottom:1.5rem; border-bottom:1px solid var(--border-subtle); padding-bottom:1rem;">
             <h2 style="font-size:1.8rem; margin-bottom:0.25rem;">Mukesh Kumar</h2>
             <p style="color:var(--accent-cyan); font-weight:600; font-size:1.05rem; margin-bottom:0.5rem;">1st Year BE (Computer Science &amp; Engineering) Student</p>
-            <p style="color:var(--text-dim); font-size:0.85rem; font-family:var(--font-mono);">
+            <p style="color:var(--text-secondary); font-size:0.85rem; font-family:var(--font-mono);">
               College: Mirai School of Technology | GitHub: github.com/itsrockmukesh | Email: mukesh.kumar.dev@example.com
             </p>
           </div>
 
           <div class="resume-section-title">Education</div>
-          <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.7;">
+          <p style="font-size:0.92rem; color:var(--text-secondary); line-height:1.7;">
             <strong>Bachelor of Engineering — Computer Science &amp; Engineering (BE-CSE)</strong><br>
-            <em>Mirai School of Technology</em> (1st Year, 2026 – Present)<br>
-            Current coursework: Data Structures &amp; Algorithms in C++, Web Technologies (HTML/CSS), Computer Systems.
+            <em>Mirai School of Technology</em> (1st Year, Class of 2029)<br>
+            Current coursework: Data Structures &amp; Algorithms in C++, Web Technologies (HTML/CSS), Computer Systems Architecture.
           </p>
 
           <div class="resume-section-title">Verified Cloud Certifications &amp; Badges</div>
-          <ul style="padding-left:1.25rem; font-size:0.9rem; color:var(--text-muted); line-height:1.8;">
+          <ul style="padding-left:1.25rem; font-size:0.9rem; color:var(--text-secondary); line-height:1.8;">
             <li><strong>The Basics of Google Cloud Compute:</strong> Virtual Machines, Compute Engine, VPC networks, firewall rules.</li>
             <li><strong>Configure Service Accounts and IAM Roles for Google Cloud:</strong> Least-privilege IAM policies, service account credentials.</li>
             <li><strong>Store, Process, and Manage Data on Google Cloud – Console:</strong> Cloud Storage bucket lifecycles, BigQuery analytics.</li>
@@ -1087,7 +781,7 @@
           </ul>
 
           <div class="resume-section-title">Technical Skills</div>
-          <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.7;">
+          <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7;">
             <strong>Web Development:</strong> HTML5 (Semantic Structure), CSS3 (Flexbox, Grid, Responsive UI), JavaScript (DOM).<br>
             <strong>Programming &amp; Algorithms:</strong> C++ Programming (C++20), Data Structures &amp; Algorithms (DSA), Problem Solving.<br>
             <strong>Cloud &amp; AI:</strong> AWS Amplify Hosting, Google Cloud Platform, Google AI Studio, Gemini 1.5 Pro.<br>
@@ -1095,7 +789,7 @@
           </p>
 
           <div class="resume-section-title">Projects</div>
-          <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.7;">
+          <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7;">
             • <strong>DevTerminal Portfolio (AWS Hackathon):</strong> Interactive hacker terminal portfolio deployed with AWS Amplify.<br>
             • <strong>Personal-Website:</strong> Clean developer web layout built using HTML5 and CSS3 (github.com/itsrockmukesh/Personal-Website).<br>
             • <strong>Wikipedia Web Recreation:</strong> Semantic HTML recreation of the Wikipedia encyclopedic layout (github.com/itsrockmukesh/Wikipedia).<br>
@@ -1112,23 +806,26 @@
   <div id="badge-modal" class="resume-modal-overlay" role="dialog" aria-modal="true" aria-label="Credential Verification">
     <div class="resume-modal-card" style="max-width: 560px;">
       <div class="resume-modal-header">
-        <span style="font-family:var(--font-mono); font-size:0.85rem; color:var(--accent-green); font-weight:700;">✓ VERIFIED GOOGLE CLOUD SKILL BADGE</span>
-        <button id="badge-modal-close" class="btn btn-secondary btn-sm" style="padding:0.4rem 0.8rem;">✕</button>
+        <span style="font-family:var(--font-mono); font-size:0.82rem; color:var(--accent-green); font-weight:700;">✓ VERIFIED GOOGLE CLOUD SKILL BADGE</span>
+        <button id="badge-modal-close" class="btn-pill btn-pill-secondary btn-sm" style="padding:0.35rem 0.75rem;">✕</button>
       </div>
       <div class="resume-modal-body" style="text-align:center; padding:2rem;">
         <img id="modal-badge-img" src="assets/badges/compute.svg" alt="Badge Insignia" style="width:120px; height:120px; margin:0 auto 1.5rem;">
         <h3 id="modal-badge-title" style="font-size:1.3rem; margin-bottom:0.75rem;">Badge Title</h3>
-        <p id="modal-badge-desc" style="color:var(--text-muted); font-size:0.92rem; line-height:1.6; margin-bottom:1.5rem;">Badge description details...</p>
+        <p id="modal-badge-desc" style="color:var(--text-secondary); font-size:0.92rem; line-height:1.6; margin-bottom:1.5rem;">Badge description details...</p>
         
-        <div style="font-size:0.8rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.75rem;">Skills Demonstrated:</div>
+        <div style="font-size:0.78rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.75rem; font-family:var(--font-mono);">Skills Demonstrated:</div>
         <div id="modal-badge-skills" style="display:flex; flex-wrap:wrap; gap:0.5rem; justify-content:center; margin-bottom:2rem;"></div>
 
-        <button class="btn btn-primary btn-sm" style="width:100%;" onclick="document.getElementById('badge-modal').classList.remove('active'); showToast('Badge credential validated.');">
-          Done
+        <button class="btn-pill btn-pill-primary btn-sm" style="width:100%;" onclick="document.getElementById('badge-modal').classList.remove('active'); showToast('Badge credential validated.');">
+          <span>Done</span>
         </button>
       </div>
     </div>
   </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-notification" class="toast-notification"></div>
 
   <!-- Scripts -->
   <script src="js/canvas.js"></script>
