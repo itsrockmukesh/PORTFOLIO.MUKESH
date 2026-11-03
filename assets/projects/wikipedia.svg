@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" fill="none">
+  <defs>
+    <linearGradient id="wpBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="380" rx="16" fill="url(#wpBg)"/>
+  <rect x="1" y="1" width="598" height="378" rx="15" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Top App Bar -->
+  <rect x="0" y="0" width="600" height="42" rx="16" fill="#1E293B"/>
+  <circle cx="28" cy="21" r="5" fill="#EF4444"/>
+  <circle cx="44" cy="21" r="5" fill="#F59E0B"/>
+  <circle cx="60" cy="21" r="5" fill="#10B981"/>
+  <rect x="90" y="12" width="240" height="18" rx="6" fill="#0F172A"/>
+  <text x="105" y="25" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">github.com/itsrockmukesh/Wikipedia</text>
+
+  <rect x="475" y="11" width="95" height="20" rx="10" fill="#E34C26" fill-opacity="0.25"/>
+  <text x="490" y="25" fill="#FF7769" font-family="-apple-system, sans-serif" font-size="11" font-weight="bold">HTML Project</text>
+
+  <!-- Wikipedia Header Simulation -->
+  <rect x="30" y="65" width="540" height="60" rx="8" fill="#1E293B" stroke="#334155"/>
+  <text x="50" y="102" fill="#E2E8F0" font-family="serif" font-size="24" font-weight="bold">WIKIPEDIA</text>
+  <text x="180" y="100" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">The Free Encyclopedia Layout Recreation</text>
+  <rect x="420" y="80" width="130" height="26" rx="6" fill="#0F172A" stroke="#475569"/>
+  <text x="435" y="97" fill="#64748B" font-family="-apple-system, sans-serif" font-size="11">🔍 Search Wiki...</text>
+
+  <!-- Left Sidebar + Main Content Layout -->
+  <rect x="30" y="140" width="130" height="210" rx="8" fill="#111827" stroke="#1E293B"/>
+  <text x="45" y="170" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="11" font-weight="bold">Navigation</text>
+  <text x="45" y="195" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10">• Main page</text>
+  <text x="45" y="215" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10">• Contents</text>
+  <text x="45" y="235" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10">• Current events</text>
+  <text x="45" y="255" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10">• Random article</text>
+  <text x="45" y="275" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10">• Donate</text>
+
+  <!-- Article Body -->
+  <rect x="175" y="140" width="395" height="210" rx="8" fill="#111827" stroke="#1E293B"/>
+  <text x="195" y="170" fill="#F8FAFC" font-family="serif" font-size="18" font-weight="bold">Computer Science &amp; Cloud Systems</text>
+  <line x1="195" y1="182" x2="550" y2="182" stroke="#334155"/>
+  <rect x="195" y="198" width="220" height="8" rx="4" fill="#475569"/>
+  <rect x="195" y="214" width="200" height="8" rx="4" fill="#475569"/>
+  <rect x="195" y="230" width="210" height="8" rx="4" fill="#475569"/>
+  <rect x="195" y="246" width="180" height="8" rx="4" fill="#475569"/>
+  <rect x="195" y="262" width="220" height="8" rx="4" fill="#475569"/>
+
+  <!-- InfoBox on right -->
+  <rect x="430" y="195" width="125" height="135" rx="6" fill="#1E293B" stroke="#334155"/>
+  <rect x="440" y="205" width="105" height="50" rx="4" fill="#0F172A"/>
+  <text x="492" y="235" fill="#38BDF8" font-family="monospace" font-size="16" text-anchor="middle">&lt;/&gt;</text>
+  <text x="440" y="275" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="10" font-weight="bold">Structured Markup</text>
+  <text x="440" y="295" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="9">Semantic HTML5</text>
+  <text x="440" y="310" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="9">Clean Hierarchy</text>
+</svg>

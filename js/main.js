@@ -1,6 +1,7 @@
 /**
  * Main Application Logic & Interactivity
  * Mukesh Kumar Portfolio — AWS Student Portfolio Hackathon
+ * 1st Year BE-CSE @ Mirai School of Technology
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -26,17 +27,17 @@ function initTypewriter() {
   if (!targetEl) return;
 
   const roles = [
-    'Computer Science Student',
-    'Cloud Computing Enthusiast (AWS & GCP)',
-    'Generative AI & LLM Builder',
-    'Full-Stack Web Developer',
-    'Problem Solver & Systems Thinker'
+    '1st Year BE-CSE @ Mirai School of Technology',
+    'Web Developer (HTML5 & CSS3)',
+    'Learning Data Structures & Algorithms in C++',
+    'Cloud Computing & AWS Enthusiast',
+    'Holder of 5 Google Cloud Skill Badges'
   ];
 
   let roleIdx = 0;
   let charIdx = 0;
   let isDeleting = false;
-  let typingSpeed = 90;
+  let typingSpeed = 85;
 
   function type() {
     const currentRole = roles[roleIdx];
@@ -44,21 +45,20 @@ function initTypewriter() {
     if (isDeleting) {
       targetEl.textContent = currentRole.substring(0, charIdx - 1);
       charIdx--;
-      typingSpeed = 40;
+      typingSpeed = 35;
     } else {
       targetEl.textContent = currentRole.substring(0, charIdx + 1);
       charIdx++;
-      typingSpeed = 90;
+      typingSpeed = 85;
     }
 
     if (!isDeleting && charIdx === currentRole.length) {
-      // Pause at end of text
-      typingSpeed = 1800;
+      typingSpeed = 1900;
       isDeleting = true;
     } else if (isDeleting && charIdx === 0) {
       isDeleting = false;
       roleIdx = (roleIdx + 1) % roles.length;
-      typingSpeed = 450;
+      typingSpeed = 400;
     }
 
     setTimeout(type, typingSpeed);
@@ -77,7 +77,6 @@ function initNavbar() {
   const navLinksContainer = document.querySelector('.nav-links');
   const sections = document.querySelectorAll('section[id]');
 
-  // Scroll header styling
   window.addEventListener('scroll', () => {
     if (window.scrollY > 40) {
       navbar.classList.add('scrolled');
@@ -85,7 +84,6 @@ function initNavbar() {
       navbar.classList.remove('scrolled');
     }
 
-    // Scrollspy
     const scrollPos = window.scrollY + 120;
     sections.forEach(section => {
       const top = section.offsetTop;
@@ -103,17 +101,11 @@ function initNavbar() {
     });
   });
 
-  // Mobile menu toggle
   if (mobileMenuBtn && navLinksContainer) {
     mobileMenuBtn.addEventListener('click', () => {
       navLinksContainer.classList.toggle('open');
-      const icon = mobileMenuBtn.querySelector('svg');
-      if (icon) {
-        icon.classList.toggle('open');
-      }
     });
 
-    // Close on link click
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
         navLinksContainer.classList.remove('open');
@@ -340,7 +332,6 @@ function initContactForm() {
         return;
       }
 
-      // Simulate instantaneous success + mailto link trigger
       const mailtoUrl = `mailto:mukesh.kumar.dev@example.com?subject=${encodeURIComponent(subject || 'Portfolio Inquiry from ' + name)}&body=${encodeURIComponent('From: ' + name + ' (' + email + ')\n\n' + message)}`;
 
       if (feedbackEl) {
@@ -401,11 +392,11 @@ function showToast(message) {
 }
 
 /* ==========================================================================
-   9. CARD 3D TILT EFFECT (Subtle Micro-Interaction)
+   9. CARD 3D TILT EFFECT
    ========================================================================== */
 function initCardTilt() {
   const cards = document.querySelectorAll('.tilt-card');
-  if (window.innerWidth < 768) return; // Skip on mobile for battery / performance
+  if (window.innerWidth < 768) return;
 
   cards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
