@@ -25,15 +25,66 @@
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 
-  <!-- Google Fonts: Inter (Body & Sans), JetBrains Mono (Terminal/Code) -->
+  <!-- Google Fonts: Inter (Body), JetBrains Mono (Code), Orbitron (Gamer HUD) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+  <!-- ==========================================================================
+       CINEMATIC GAME OPENING SCREEN (FEELING WITH OPENING)
+       ========================================================================== -->
+  <div id="game-start-gate" class="game-start-gate">
+    <div class="game-start-inner">
+      <div class="game-start-hud-frame">
+        <div class="hud-top-bar">
+          <span class="hud-tag"><span class="hud-pulse-dot"></span> SYSTEM READY // NET.ONLINE</span>
+          <span class="hud-coords">PORT: 3000 // REGION: GLOBAL EDGE</span>
+        </div>
+
+        <div class="game-start-hero">
+          <div class="game-badge-chip">⚔️ DEV QUEST 2026 • PLAYER SELECT</div>
+          <h1 class="game-start-title">MUKESH KUMAR</h1>
+          <div class="game-start-class">
+            <span class="class-bracket">[</span>
+            <span class="class-name">LVL 01 • ALGORITHMIC ARCHITECT &amp; CLOUD EXPLORER</span>
+            <span class="class-bracket">]</span>
+          </div>
+
+          <!-- Quick RPG Stats Bar -->
+          <div class="game-stats-row">
+            <div class="stat-pill"><span class="stat-label">EXP:</span> <span class="stat-val">2,450 / 3,000 XP</span></div>
+            <div class="stat-pill"><span class="stat-label">HP:</span> <span class="stat-val">100% (CLEAN CODE)</span></div>
+            <div class="stat-pill"><span class="stat-label">GUILD:</span> <span class="stat-val">MIRAI SCHOOL OF TECH</span></div>
+          </div>
+
+          <p class="game-start-desc">
+            Welcome, Player! Explore my learning journey from C++ Data Structures to AWS Amplify Cloud Architecture.
+          </p>
+
+          <!-- The Start Button -->
+          <div class="game-start-action-row">
+            <button id="press-start-btn" class="btn-press-start">
+              <span class="start-icon">🕹️</span>
+              <span class="start-text">PRESS START TO ENTER</span>
+              <span class="start-arrow">▶</span>
+            </button>
+            <button id="quick-enter-btn" class="btn-skip-intro">
+              <span>Skip Intro &amp; Scroll</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="hud-bottom-bar">
+          <span>HINT: 🔒 A secret developer console is hidden inside. Complete the Cyber Hack or find the Secret Tool to breach it!</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- HeyKuba Grain / Noise Overlay -->
   <div class="bg-noise-overlay"></div>
@@ -45,23 +96,23 @@
   <canvas id="particle-canvas"></canvas>
 
   <!-- ==========================================================================
-       NAVIGATION BAR (HEYKUBA FLOATING PILL NAVBAR)
+       NAVIGATION BAR (GAMER HUD FLOATING NAVBAR)
        ========================================================================== -->
   <nav class="navbar" id="navbar">
     <div class="container">
       <a href="#hero" class="nav-brand" aria-label="Mukesh Kumar Home">
-        <div class="brand-monogram">MK</div>
+        <div class="brand-monogram">MK <span class="lvl-badge">LV1</span></div>
         <span>Mukesh Kumar</span>
       </a>
 
-      <!-- Center Pill Navigation -->
+      <!-- Center Pill Navigation with Gamer Labels -->
       <ul class="nav-links" id="nav-links">
-        <li><a href="#about" class="nav-link">About Me</a></li>
-        <li><a href="#skills" class="nav-link">Superpowers</a></li>
-        <li><a href="#projects" class="nav-link">Projects</a></li>
-        <li><a href="#achievements" class="nav-link">Badges</a></li>
-        <li><a href="#aws-showcase" class="nav-link">AWS Setup</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li><a href="#about" class="nav-link">👤 Profile</a></li>
+        <li><a href="#skills" class="nav-link">⚡ Abilities</a></li>
+        <li><a href="#projects" class="nav-link">⚔️ Missions</a></li>
+        <li><a href="#achievements" class="nav-link">🏆 Trophies</a></li>
+        <li><a href="#aws-showcase" class="nav-link">☁️ AWS Citadel</a></li>
+        <li><a href="#contact" class="nav-link">📡 Comms</a></li>
       </ul>
 
       <!-- Action Items on Right -->
@@ -74,14 +125,14 @@
           </svg>
         </button>
 
-        <!-- Quick Terminal Launcher in Nav -->
-        <button id="nav-terminal-trigger" class="btn-pill btn-pill-terminal btn-sm" title="Open Secret Terminal (~)">
-          <span>&gt;_</span> Terminal
+        <!-- Cyber Hack Mini-Game Launcher (No Direct Terminal Button) -->
+        <button id="nav-hack-trigger" class="btn-pill btn-pill-hack btn-sm" title="Launch Cyber Hack to breach Root Access">
+          <span>🎮 Secret Hack 🔒</span>
         </button>
 
         <!-- Resume Modal Trigger -->
         <button class="btn-pill btn-pill-primary btn-sm trigger-resume-modal">
-          Resume
+          Dossier
         </button>
 
         <!-- Mobile Drawer Toggle -->
@@ -97,17 +148,17 @@
   </nav>
 
   <!-- ==========================================================================
-       CREATIVE INTERACTIVE FEATURE — FLOATING TERMINAL HINT PILL
+       CREATIVE INTERACTIVE FEATURE — FLOATING LOCKED CYBER HINT
        ========================================================================== -->
-  <div id="terminal-hint-trigger" class="secret-terminal-hint" title="Click or press ~ key to launch terminal">
-    <div class="hint-dot"></div>
-    <span class="hint-text">Secret Terminal</span>
-    <span class="hint-key">~</span>
+  <div id="cyber-hack-hint-trigger" class="secret-cyber-hint" title="Play Cyber Hack to unlock Root Console">
+    <div class="hint-dot locked"></div>
+    <span class="hint-text">Cyber Hack 🔒</span>
+    <span class="hint-key">HACK</span>
   </div>
 
   <main>
     <!-- ==========================================================================
-         HERO SECTION (HEYKUBA GIANT EDITORIAL HEADLINE)
+         HERO SECTION (GAMING HERO EDITORIAL & PLAYER CARD)
          ========================================================================== -->
     <section class="hero" id="hero">
       <div class="container">
@@ -116,17 +167,24 @@
           <div class="hero-content-col">
             <div class="hero-status-tag">
               <span class="status-pulse"></span>
-              <span>1st Year BE-CSE • Mirai School of Technology</span>
+              <span>PLAYER_01 // LVL 01 BE-CSE • Mirai School of Technology</span>
             </div>
 
             <h1 class="hero-statement-title">
               Hi, I'm Mukesh Kumar.<br>
-              <span class="hero-title-highlight">I build for the web &amp; cloud.</span>
+              <span class="hero-title-highlight">Leveling up in Web &amp; Cloud.</span>
             </h1>
 
             <div class="hero-typewriter-bar">
               <span id="typewriter-text"></span>
               <span class="typewriter-cursor"></span>
+            </div>
+
+            <!-- RPG Player Stats Bar in Hero -->
+            <div class="game-stats-row" style="margin: 1rem 0;">
+              <div class="stat-pill"><span class="stat-label">HP:</span> <span class="stat-val" style="color:#00FF88;">100% CLEAN CODE</span></div>
+              <div class="stat-pill"><span class="stat-label">MP:</span> <span class="stat-val" style="color:#00F0FF;">100% C++ LOGIC</span></div>
+              <div class="stat-pill"><span class="stat-label">EXP:</span> <span class="stat-val" style="color:#FF9900;">2,450 / 3,000</span></div>
             </div>
 
             <p class="hero-subtitle">
@@ -135,38 +193,43 @@
 
             <div class="hero-actions">
               <a href="#projects" class="btn-pill btn-pill-primary">
-                <span>See My Projects</span>
+                <span>⚔️ View Missions</span>
                 <span class="btn-arrow">↓</span>
               </a>
 
-              <button id="hero-terminal-trigger" class="btn-pill btn-pill-terminal">
-                <span>&gt;_</span>
-                <span>Open Terminal [~]</span>
+              <!-- Secret Tool Mini-Game Launcher (No Direct Terminal Button) -->
+              <button id="hero-hack-trigger" class="btn-pill btn-pill-hack">
+                <span>🎮</span>
+                <span>Play Cyber Hack 🔒</span>
               </button>
 
               <button class="btn-pill btn-pill-secondary trigger-resume-modal">
-                <span>Resume</span>
+                <span>📜 Player Dossier</span>
               </button>
             </div>
 
-            <!-- Visible Hint Callout for AWS Hackathon Judges -->
-            <div class="creative-feature-callout" onclick="window.openSecretTerminal();" role="button" title="Click to open Secret Developer Terminal [~]">
+            <!-- Visible Quest Hint Callout for AWS Hackathon Judges -->
+            <div class="creative-feature-callout" id="callout-hack-trigger" role="button" title="Click to play Cyber Hack mini-game or use the Secret Tool">
               <div class="callout-badge-row">
-                <span class="callout-pill"><span class="status-pulse"></span> CREATIVE FEATURE HINT</span>
-                <span class="callout-sub">Press [~] or click here</span>
+                <span class="callout-pill"><span class="status-pulse"></span> SECRET ACCESS QUEST</span>
+                <span class="callout-sub">Crack Mini-Game or use Secret Tool</span>
               </div>
               <p class="callout-text">
-                This portfolio features an interactive <strong>Secret Developer Terminal</strong> with live CLI commands (<code>help</code>, <code>vending</code>, <code>theme</code>, <code>aws</code>), retro audio synthesis, and theme switching.
+                The <strong>Root Developer Terminal</strong> is locked behind security protocols! Play the quick <strong>Cyber Hack</strong> mini-game, equip the <strong>Secret Bypass Tool</strong>, or press [~] to unlock root access.
               </p>
             </div>
           </div>
 
-          <!-- Right Column: Sharp, Proud Human Photo Card -->
-          <div class="hero-photo-frame tilt-card">
+          <!-- Right Column: Sharp Epic Player Trading Card -->
+          <div class="hero-photo-frame gamer-card tilt-card">
+            <div class="gamer-card-hud-top">
+              <span class="gamer-rarity-chip">★ RARE // LVL 01</span>
+              <span class="gamer-hp-chip">HP 100/100</span>
+            </div>
             <img src="assets/mukesh-kumar.jpg" alt="Mukesh Kumar holding AWS Builder Center Passport" class="hero-portrait-real">
             <div class="hero-photo-footer">
               <div class="hero-photo-name">Mukesh Kumar</div>
-              <div class="hero-photo-tag">AWS Builder Center</div>
+              <div class="hero-photo-tag">AWS Builder Center // Class: Cloud Engineer</div>
             </div>
           </div>
         </div>
@@ -227,8 +290,8 @@
     <section class="info-section" id="about">
       <div class="container">
         <div class="section-header">
-          <div class="section-label">Core Section • About Me</div>
-          <h2 class="section-title">First-Year Student, Lifelong Builder</h2>
+          <div class="section-label">Core Section 01 // Character Profile &amp; Stats</div>
+          <h2 class="section-title">Player Origin: 1st-Year Student, Lifelong Builder</h2>
         </div>
 
         <div class="info-grid">
@@ -236,7 +299,7 @@
           <div class="info-story-col">
             <div class="info-badge-intro">
               <span class="status-pulse"></span>
-              <span>1st Year BE-CSE • Mirai School of Technology</span>
+              <span>PLAYER BIO • 1st Year BE-CSE • Mirai School of Technology</span>
             </div>
 
             <p class="info-lead-p">
@@ -262,8 +325,45 @@
             </div>
           </div>
 
-          <!-- Right Column: Structured Student Profile Blocks -->
+          <!-- Right Column: Structured Student Profile & RPG Stats Blocks -->
           <div class="info-details-col">
+            <!-- RPG Attribute Meters Block -->
+            <div class="info-block-item" style="border-color:rgba(0,240,255,0.25);">
+              <div class="info-block-header" style="color:#00F0FF; font-family:var(--font-gamer); font-size:0.8rem;">
+                ⚔️ Character Attributes // Proficiency
+              </div>
+              <div class="info-block-content" style="margin-top:0.6rem;">
+                <div class="rpg-meter-row">
+                  <div class="rpg-meter-labels">
+                    <span class="rpg-meter-name">Data Structures &amp; C++ (DSA)</span>
+                    <span class="rpg-meter-score">88 / 100</span>
+                  </div>
+                  <div class="rpg-meter-track"><div class="rpg-meter-fill" style="width:88%;"></div></div>
+                </div>
+                <div class="rpg-meter-row">
+                  <div class="rpg-meter-labels">
+                    <span class="rpg-meter-name">Semantic Web Architecture (HTML/CSS)</span>
+                    <span class="rpg-meter-score">94 / 100</span>
+                  </div>
+                  <div class="rpg-meter-track"><div class="rpg-meter-fill" style="width:94%;"></div></div>
+                </div>
+                <div class="rpg-meter-row">
+                  <div class="rpg-meter-labels">
+                    <span class="rpg-meter-name">Cloud Edge Infrastructure (Amplify/GCP)</span>
+                    <span class="rpg-meter-score">85 / 100</span>
+                  </div>
+                  <div class="rpg-meter-track"><div class="rpg-meter-fill" style="width:85%;"></div></div>
+                </div>
+                <div class="rpg-meter-row" style="margin-bottom:0;">
+                  <div class="rpg-meter-labels">
+                    <span class="rpg-meter-name">Curiosity &amp; Learning Stamina</span>
+                    <span class="rpg-meter-score">100 / 100</span>
+                  </div>
+                  <div class="rpg-meter-track"><div class="rpg-meter-fill" style="width:100%; background:linear-gradient(90deg, #FF9900, #00FF88);"></div></div>
+                </div>
+              </div>
+            </div>
+
             <!-- Block 1: Education -->
             <div class="info-block-item">
               <div class="info-block-header">Education &amp; Institution</div>
@@ -314,7 +414,7 @@
     <section class="skills-section" id="skills">
       <div class="container">
         <div class="section-header">
-          <div class="section-label">Core Section • Tech Superpowers</div>
+          <div class="section-label">Core Section 02 // Tech Ability Trees</div>
           <h2 class="section-title">Technical Superpowers &amp; Capabilities</h2>
           <p class="section-description">
             Foundational computer science competencies, web engineering standards, and cloud tooling developed through hands-on practice, 5 Google Cloud badges, and coursework at Mirai School of Technology.
@@ -411,19 +511,19 @@
           </div>
         </div>
 
-        <!-- Interactive Vending Machine Callout in Skills Section -->
-        <div class="superpower-vending-bar">
+        <!-- Cyber Security Hack Challenge Bar (Creative Feature Entryway) -->
+        <div class="superpower-vending-bar" style="border-color:rgba(0,240,255,0.3); background:linear-gradient(145deg, rgba(14,20,36,0.95), rgba(7,11,20,0.98));">
           <div class="vending-info">
-            <span class="vending-emoji">🎰</span>
+            <span class="vending-emoji" style="color:#00F0FF;">🎮</span>
             <div>
-              <strong>Superpower Vending Machine (Creative Feature):</strong>
+              <strong style="color:#00F0FF; font-family:var(--font-gamer); font-size:0.95rem;">Cyber Security Breach // Secret Access Quest:</strong>
               <p style="color:var(--text-secondary); font-size:0.88rem; margin:0.25rem 0 0;">
-                Click below or type <code>vending</code> in the terminal to randomly dispense a hidden skill, secret story, or engineering motto!
+                The Root Developer Terminal is encrypted! Play the 3-core mini-game or equip the Secret Bypass Tool to override the firewall and unlock terminal root privileges.
               </p>
             </div>
           </div>
-          <button class="btn-pill btn-pill-terminal" onclick="window.openSecretTerminal('vending');">
-            <span>🎰 Dispense Random Superpower</span>
+          <button class="btn-pill btn-pill-hack" id="skills-hack-trigger">
+            <span>🎮 Play Cyber Hack 🔒</span>
             <span class="btn-arrow">→</span>
           </button>
         </div>
@@ -436,8 +536,8 @@
     <section id="projects">
       <div class="container">
         <div class="section-header">
-          <div class="section-label">Selected Works</div>
-          <h2 class="section-title">Projects &amp; Code</h2>
+          <div class="section-label">Core Section 03 // Quest Log: Missions &amp; Projects</div>
+          <h2 class="section-title">Completed Quests &amp; Code</h2>
           <p class="section-description">
             Projects I've built from scratch while learning web development, C++ algorithms, and cloud tools.
           </p>
@@ -648,8 +748,8 @@
     <section id="achievements">
       <div class="container">
         <div class="section-header">
-          <div class="section-label">Credentials &amp; Milestones</div>
-          <h2 class="section-title">5 Verified Google Cloud Skill Badges</h2>
+          <div class="section-label">Core Section 03B // Boss Trophies &amp; Credentials</div>
+          <h2 class="section-title">5 Verified Google Cloud Boss Trophies</h2>
           <p class="section-description">
             Hands-on cloud engineering labs completed on Google Cloud Skills Boost, covering compute provisioning, IAM access controls, cloud storage datasets, and generative AI prototyping.
           </p>
@@ -1059,12 +1159,86 @@ frontend:
             <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer">GitHub</a>
             <a href="https://www.linkedin.com/in/mukesh-kumar-06485222a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             <a href="mailto:techmukesh3124@gmail.com">Email</a>
-            <button style="background:none; border:none; color:inherit; font:inherit; cursor:pointer;" onclick="window.openSecretTerminal();">Terminal [~]</button>
+            <button style="background:none; border:none; color:inherit; font:inherit; cursor:pointer;" id="footer-hack-trigger">Cyber Hack 🔒</button>
           </div>
         </div>
       </div>
     </section>
   </main>
+
+  <!-- ==========================================================================
+       CYBER HACK MINI-GAME & SECRET TOOL MODAL (OFFICIAL CREATIVE FEATURE)
+       ========================================================================== -->
+  <div id="cyber-hack-modal" class="cyber-hack-overlay" role="dialog" aria-modal="true" aria-label="Cyber Hack Mini-Game">
+    <div class="cyber-hack-card">
+      <div class="hack-card-header">
+        <div class="hack-header-left">
+          <span class="hack-chip"><span class="hack-dot-siren"></span> SECURITY FIREWALL v2.6</span>
+          <h3 class="hack-card-title">Cyber Security Breach</h3>
+        </div>
+        <button id="hack-close-btn" class="hack-close-btn" aria-label="Close Mini-Game">✕</button>
+      </div>
+
+      <div class="hack-card-body">
+        <p class="hack-instruction">
+          <strong>MISSION:</strong> Overload the 3 Cyber Cores in sequence, or equip the <strong>Secret Bypass Tool</strong> to breach the firewall and unlock the Root Developer Terminal!
+        </p>
+
+        <!-- Breach Progress Bar -->
+        <div class="hack-progress-bar-wrap">
+          <div class="hack-progress-labels">
+            <span>FIREWALL INTEGRITY</span>
+            <span id="hack-progress-pct">100% LOCKED 🔒</span>
+          </div>
+          <div class="hack-progress-track">
+            <div id="hack-progress-fill" class="hack-progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- 3 Interactive Cyber Cores -->
+        <div class="cyber-cores-grid">
+          <button class="cyber-core-btn" id="core-1" data-core="1">
+            <span class="core-num">01</span>
+            <span class="core-icon">⚡</span>
+            <span class="core-name">CORE ALPHA</span>
+            <span class="core-status" id="core-status-1">LOCKED</span>
+          </button>
+          <button class="cyber-core-btn" id="core-2" data-core="2">
+            <span class="core-num">02</span>
+            <span class="core-icon">🧠</span>
+            <span class="core-name">CORE BETA</span>
+            <span class="core-status" id="core-status-2">LOCKED</span>
+          </button>
+          <button class="cyber-core-btn" id="core-3" data-core="3">
+            <span class="core-num">03</span>
+            <span class="core-icon">🚀</span>
+            <span class="core-name">CORE GAMMA</span>
+            <span class="core-status" id="core-status-3">LOCKED</span>
+          </button>
+        </div>
+
+        <!-- The Secret Bypass Tool Bar -->
+        <div class="secret-tool-chute">
+          <div class="secret-tool-info">
+            <span class="tool-emoji">🗝️</span>
+            <div>
+              <div class="tool-title">SECRET BYPASS TOOL (ONE-CLICK OVERRIDE)</div>
+              <div class="tool-desc">In a hurry? Equip the secret bypass key to instantly override security protocols.</div>
+            </div>
+          </div>
+          <button id="equip-secret-tool-btn" class="btn-equip-tool">
+            <span>⚡ EQUIP SECRET TOOL</span>
+          </button>
+        </div>
+
+        <!-- Live Hacker Terminal Status Stream -->
+        <div class="hack-terminal-stream" id="hack-terminal-stream">
+          <span class="stream-line">&gt; [FIREWALL]: Active defense protocol engaged...</span>
+          <span class="stream-line">&gt; [SYSTEM]: Click Core 01, 02, 03 or equip Secret Tool to proceed.</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ==========================================================================
        SECRET DEVELOPER TERMINAL MODAL (CORE HACKATHON FEATURE)

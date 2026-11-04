@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initSoundToggle();
   initCardTilt();
+  initGameStartGate();
+  initCyberHackMiniGame();
 });
 
 /* ==========================================================================
@@ -447,3 +449,184 @@ function initCardTilt() {
     });
   });
 }
+
+/* ==========================================================================
+   10. GAMING PORTFOLIO EXPERIENCE — THE OPENING GATE
+   ========================================================================== */
+function initGameStartGate() {
+  const gate = document.getElementById('game-start-gate');
+  const startBtn = document.getElementById('press-start-btn');
+  const skipBtn = document.getElementById('quick-enter-btn');
+  if (!gate) return;
+
+  function openGate() {
+    if (gate.classList.contains('opened')) return;
+    playHapticTone(520);
+    setTimeout(() => playHapticTone(650), 100);
+    setTimeout(() => playHapticTone(880), 200);
+    gate.classList.add('opened');
+    showToast('🎮 LEVEL 01 INITIATED: Welcome to Mukesh Kumar\'s Portfolio!');
+  }
+
+  if (startBtn) startBtn.addEventListener('click', openGate);
+  if (skipBtn) skipBtn.addEventListener('click', openGate);
+
+  // Auto-open on scroll
+  let scrolled = false;
+  window.addEventListener('scroll', () => {
+    if (!scrolled && window.scrollY > 30) {
+      scrolled = true;
+      openGate();
+    }
+  }, { passive: true });
+}
+
+/* ==========================================================================
+   11. CYBER HACK MINI-GAME & SECRET TOOL (CREATIVE FEATURE)
+   ========================================================================== */
+function initCyberHackMiniGame() {
+  const modal = document.getElementById('cyber-hack-modal');
+  const closeBtn = document.getElementById('hack-close-btn');
+  const core1 = document.getElementById('core-1');
+  const core2 = document.getElementById('core-2');
+  const core3 = document.getElementById('core-3');
+  const cores = [core1, core2, core3];
+  const progressFill = document.getElementById('hack-progress-fill');
+  const progressPct = document.getElementById('hack-progress-pct');
+  const equipToolBtn = document.getElementById('equip-secret-tool-btn');
+  const stream = document.getElementById('hack-terminal-stream');
+
+  // Trigger buttons across navbar, hero, callouts, and footer
+  const triggers = [
+    document.getElementById('nav-hack-trigger'),
+    document.getElementById('hero-hack-trigger'),
+    document.getElementById('callout-hack-trigger'),
+    document.getElementById('cyber-hack-hint-trigger'),
+    document.getElementById('skills-hack-trigger'),
+    document.getElementById('footer-hack-trigger')
+  ].filter(Boolean);
+
+  if (!modal) return;
+
+  let activatedCores = new Set();
+  let isBreached = false;
+
+  function openModal() {
+    isBreached = false;
+    activatedCores.clear();
+    resetCores();
+    modal.classList.add('active');
+    playHapticTone(440);
+    logStream('> [FIREWALL]: Security checkpoint active. Breach cores or equip Secret Tool.');
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+  }
+
+  function resetCores() {
+    cores.forEach(c => {
+      if (c) {
+        c.classList.remove('activated');
+        const st = c.querySelector('.core-status');
+        if (st) st.textContent = 'LOCKED';
+      }
+    });
+    if (progressFill) progressFill.style.width = '0%';
+    if (progressPct) progressPct.textContent = '100% LOCKED 🔒';
+  }
+
+  function logStream(msg) {
+    if (!stream) return;
+    const line = document.createElement('span');
+    line.className = 'stream-line';
+    line.textContent = msg;
+    stream.appendChild(line);
+    stream.scrollTop = stream.scrollHeight;
+  }
+
+  triggers.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal();
+    });
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Handle Core clicks
+  cores.forEach((coreBtn, idx) => {
+    if (!coreBtn) return;
+    coreBtn.addEventListener('click', () => {
+      if (isBreached) return;
+      const coreNum = idx + 1;
+      if (activatedCores.has(coreNum)) return;
+
+      activatedCores.add(coreNum);
+      coreBtn.classList.add('activated');
+      const st = coreBtn.querySelector('.core-status');
+      if (st) st.textContent = 'OVERLOADED';
+
+      playHapticTone(520 + coreNum * 120);
+
+      const count = activatedCores.size;
+      const pct = Math.round((count / 3) * 100);
+      if (progressFill) progressFill.style.width = `${pct}%`;
+      if (progressPct) progressPct.textContent = `${100 - pct}% INTEGRITY`;
+
+      logStream(`> [CORE ${coreNum}]: Overloaded successfully! (${count}/3 Cores offline)`);
+
+      if (count === 3) {
+        triggerBreachSuccess('CORES OVERLOADED!');
+      }
+    });
+  });
+
+  // Handle Secret Bypass Tool
+  if (equipToolBtn) {
+    equipToolBtn.addEventListener('click', () => {
+      if (isBreached) return;
+      playHapticTone(880);
+      setTimeout(() => playHapticTone(1050), 120);
+      logStream('> [SECRET TOOL]: EMP Cyber Key equipped! Security protocols bypassed!');
+      
+      cores.forEach(c => {
+        if (c) {
+          c.classList.add('activated');
+          const st = c.querySelector('.core-status');
+          if (st) st.textContent = 'BYPASSED';
+        }
+      });
+      if (progressFill) progressFill.style.width = '100%';
+      if (progressPct) progressPct.textContent = '0% INTEGRITY (BREACHED)';
+
+      triggerBreachSuccess('SECRET TOOL OVERRIDE!');
+    });
+  }
+
+  function triggerBreachSuccess(method) {
+    isBreached = true;
+    logStream(`> [ALERT]: FIREWALL CRACKED VIA ${method}! ACCESS GRANTED!`);
+    if (progressPct) progressPct.textContent = 'ACCESS GRANTED! 🔓';
+
+    // Victory sound fanfare
+    playHapticTone(520);
+    setTimeout(() => playHapticTone(650), 120);
+    setTimeout(() => playHapticTone(780), 240);
+    setTimeout(() => playHapticTone(1040), 380);
+
+    showToast('🔥 ACCESS GRANTED: Root Terminal Unlocked!');
+
+    setTimeout(() => {
+      closeModal();
+      if (typeof window.openSecretTerminal === 'function') {
+        window.openSecretTerminal('help');
+      }
+    }, 850);
+  }
+}
+
