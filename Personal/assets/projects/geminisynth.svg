@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" fill="none">
+  <defs>
+    <linearGradient id="gsBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0E0B1F"/>
+      <stop offset="100%" stop-color="#05030A"/>
+    </linearGradient>
+    <linearGradient id="gsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A855F7"/>
+      <stop offset="50%" stop-color="#EC4899"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="380" rx="16" fill="url(#gsBg)"/>
+  <rect x="1" y="1" width="598" height="378" rx="15" stroke="#3730A3" stroke-width="1.5"/>
+
+  <!-- Top App Bar -->
+  <rect x="0" y="0" width="600" height="42" rx="16" fill="#18132F"/>
+  <circle cx="28" cy="21" r="5" fill="#EF4444"/>
+  <circle cx="44" cy="21" r="5" fill="#F59E0B"/>
+  <circle cx="60" cy="21" r="5" fill="#10B981"/>
+  <rect x="90" y="12" width="240" height="18" rx="6" fill="#0D091D"/>
+  <text x="105" y="25" fill="#A5B4FC" font-family="-apple-system, sans-serif" font-size="11">geminisynth.ai/workspace/chat-v2</text>
+
+  <!-- Model Badge -->
+  <rect x="440" y="11" width="130" height="20" rx="10" fill="url(#gsGrad)" fill-opacity="0.3"/>
+  <text x="450" y="25" fill="#E9D5FF" font-family="-apple-system, sans-serif" font-size="11" font-weight="bold">✨ Gemini 1.5 Pro</text>
+
+  <!-- Left Sidebar (Sessions) -->
+  <rect x="25" y="60" width="135" height="295" rx="10" fill="#130E26" stroke="#2E1065"/>
+  <rect x="35" y="75" width="115" height="28" rx="6" fill="#3B0764"/>
+  <text x="45" y="93" fill="#E9D5FF" font-family="-apple-system, sans-serif" font-size="11" font-weight="600">+ New Prompt</text>
+  <text x="38" y="130" fill="#9CA3AF" font-family="-apple-system, sans-serif" font-size="10">Cloud Architecture...</text>
+  <text x="38" y="160" fill="#9CA3AF" font-family="-apple-system, sans-serif" font-size="10">AWS Lambda CodeGen</text>
+  <text x="38" y="190" fill="#9CA3AF" font-family="-apple-system, sans-serif" font-size="10">Multimodal Audit</text>
+
+  <!-- Chat Main Area -->
+  <rect x="175" y="60" width="395" height="235" rx="10" fill="#130E26" stroke="#2E1065"/>
+  
+  <!-- User Query Bubble -->
+  <rect x="250" y="80" width="305" height="42" rx="8" fill="#312E81"/>
+  <text x="265" y="105" fill="#E0E7FF" font-family="-apple-system, sans-serif" font-size="11">Synthesize an AWS CloudFormation template for serverless...</text>
+
+  <!-- AI Response Bubble -->
+  <rect x="195" y="135" width="360" height="145" rx="8" fill="#1E1B4B" stroke="#4338CA"/>
+  <circle cx="215" cy="155" r="9" fill="url(#gsGrad)"/>
+  <text x="211" y="159" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="10" font-weight="bold">G</text>
+  <text x="235" y="158" fill="#C4B5FD" font-family="-apple-system, sans-serif" font-size="11" font-weight="bold">Gemini Enterprise Engine</text>
+
+  <!-- Code snippet in reply -->
+  <rect x="210" y="175" width="330" height="90" rx="6" fill="#0B091A"/>
+  <text x="225" y="198" fill="#34D399" font-family="monospace" font-size="11">AWSTemplateFormatVersion: '2010-09-09'</text>
+  <text x="225" y="218" fill="#60A5FA" font-family="monospace" font-size="11">Resources:</text>
+  <text x="245" y="238" fill="#F472B6" font-family="monospace" font-size="11">ApiFunction: Type: AWS::Serverless::Function</text>
+  <text x="245" y="254" fill="#9CA3AF" font-family="monospace" font-size="10">  Properties: Runtime: python3.11, MemorySize: 512</text>
+
+  <!-- Input Bar -->
+  <rect x="175" y="310" width="395" height="45" rx="10" fill="#1F1A3A" stroke="#4C1D95"/>
+  <text x="195" y="337" fill="#818CF8" font-family="-apple-system, sans-serif" font-size="12">Ask Gemini or attach cloud diagrams...</text>
+  <rect x="525" y="318" width="32" height="28" rx="6" fill="url(#gsGrad)"/>
+  <path d="M537 332l8-4-8-4v3h-5v2h5v3z" fill="#FFFFFF"/>
+</svg>

@@ -1,0 +1,24 @@
+# Virtual environments & Dependencies
+venv/
+**/venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+
+# Heavy intermediate ML / processing artifacts
+Personal/venv/
+Personal/models/
+Personal/processed/
+Personal/output/
+Personal/inputs/
+Personal/standalone.html
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.log

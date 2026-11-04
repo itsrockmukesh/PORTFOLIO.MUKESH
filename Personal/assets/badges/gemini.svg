@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none">
+  <defs>
+    <linearGradient id="bgGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="geminiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A73E8"/>
+      <stop offset="35%" stop-color="#8AB4F8"/>
+      <stop offset="70%" stop-color="#9334E8"/>
+      <stop offset="100%" stop-color="#FF7769"/>
+    </linearGradient>
+    <filter id="badgeGlow5">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#9334E8" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+  <!-- Outer Octagon Shield -->
+  <polygon points="80,10 135,32 150,90 115,142 80,154 45,142 10,90 25,32" 
+           fill="url(#bgGrad5)" stroke="url(#geminiGrad)" stroke-width="4" filter="url(#badgeGlow5)"/>
+  
+  <!-- Inner Ring -->
+  <circle cx="80" cy="78" r="48" fill="#141829" stroke="#8AB4F8" stroke-width="1.5" stroke-dasharray="4 2"/>
+  
+  <!-- Gemini Iconic Starburst Sparkle -->
+  <path d="M80 38 C80 58 87 68 107 78 C87 88 80 98 80 118 C80 98 73 88 53 78 C73 68 80 58 80 38 Z" 
+        fill="url(#geminiGrad)"/>
+        
+  <!-- Core Glow -->
+  <circle cx="80" cy="78" r="7" fill="#FFFFFF" opacity="0.9"/>
+  <circle cx="80" cy="78" r="14" fill="#8AB4F8" opacity="0.4"/>
+  
+  <!-- Enterprise building / cloud brackets -->
+  <path d="M50 78L44 78" stroke="#38BDF8" stroke-width="2" stroke-linecap="round"/>
+  <path d="M116 78L110 78" stroke="#FF7769" stroke-width="2" stroke-linecap="round"/>
+  <path d="M80 44V40" stroke="#8AB4F8" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Verified Star Seal -->
+  <circle cx="80" cy="132" r="9" fill="#9334E8"/>
+  <path d="M77 132l2 2 4-4" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

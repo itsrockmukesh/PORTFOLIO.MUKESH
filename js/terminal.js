@@ -25,31 +25,254 @@
   let commandHistory = [];
   let historyIndex = -1;
 
-  // Sound Synthesizer via Web Audio API
+    // ==========================================================================
+  // CINEMATIC TERMINAL SOUND SYSTEM (Web Audio API)
+  // High-impact sub-bass BOOM on open, crisp mechanical keyboard typing sounds
+  // ==========================================================================
   let audioCtx = null;
+
+  function getAudioContext() {
+    if (!audioCtx) {
+      audioCtx = window.scrollAudioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    return audioCtx;
+  }
+
   function playBeep(freq = 600, duration = 0.05, type = 'sine') {
     if (window.portfolioAudioMuted) return;
     try {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
+      const ctx = getAudioContext();
+      if (!ctx) return;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
       osc.type = type;
-      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-      gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+      gain.gain.setValueAtTime(0.04, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
       osc.connect(gain);
-      gain.connect(audioCtx.destination);
+      gain.connect(ctx.destination);
       osc.start();
-      osc.stop(audioCtx.currentTime + duration);
+      osc.stop(ctx.currentTime + duration);
+    } catch (e) {}
+  }
+
+  // Cinematic Sci-Fi Terminal Open Boom Sound
+  function playTerminalBoomSound() {
+    if (window.portfolioAudioMuted) return;
+    try {
+      const ctx = getAudioContext();
+      if (!ctx) return;
+      const now = ctx.currentTime;
+
+      // 1. Heavy Sub-Bass Cinematic Boom (145Hz -> 28Hz over 0.78s)
+      const subOsc = ctx.createOscillator();
+      const subGain = ctx.createGain();
+      subOsc.type = 'sine';
+      subOsc.frequency.setValueAtTime(145, now);
+      subOsc.frequency.exponentialRampToValueAtTime(28, now + 0.75);
+
+      subGain.gain.setValueAtTime(0.24, now);
+      subGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.78);
+
+      subOsc.connect(subGain);
+      subGain.connect(ctx.destination);
+      subOsc.start(now);
+      subOsc.stop(now + 0.8);
+
+      // 2. Punch Transient / Mechanical Slam (240Hz -> 45Hz over 0.07s)
+      const punchOsc = ctx.createOscillator();
+      const punchGain = ctx.createGain();
+      punchOsc.type = 'triangle';
+      punchOsc.frequency.setValueAtTime(240, now);
+      punchOsc.frequency.exponentialRampToValueAtTime(45, now + 0.065);
+
+      punchGain.gain.setValueAtTime(0.18, now);
+      punchGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.07);
+
+      punchOsc.connect(punchGain);
+      punchGain.connect(ctx.destination);
+      punchOsc.start(now);
+      punchOsc.stop(now + 0.075);
+
+      // 3. Shockwave Air Sweep (Filtered Noise Burst sweeping down)
+      const bufferSize = Math.floor(ctx.sampleRate * 0.45);
+      const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const output = noiseBuffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = (Math.random() * 2 - 1) * 0.12;
+      }
+      const noiseSource = ctx.createBufferSource();
+      noiseSource.buffer = noiseBuffer;
+
+      const noiseFilter = ctx.createBiquadFilter();
+      noiseFilter.type = 'lowpass';
+      noiseFilter.frequency.setValueAtTime(2200, now);
+      noiseFilter.frequency.exponentialRampToValueAtTime(120, now + 0.42);
+
+      const noiseGain = ctx.createGain();
+      noiseGain.gain.setValueAtTime(0.14, now);
+      noiseGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.44);
+
+      noiseSource.connect(noiseFilter);
+      noiseFilter.connect(noiseGain);
+      noiseGain.connect(ctx.destination);
+      noiseSource.start(now);
+      noiseSource.stop(now + 0.45);
+
+      // 4. Futuristic High-Tech Resonance Shimmer (1350Hz -> 480Hz)
+      const cyberOsc = ctx.createOscillator();
+      const cyberGain = ctx.createGain();
+      cyberOsc.type = 'sine';
+      cyberOsc.frequency.setValueAtTime(1350, now);
+      cyberOsc.frequency.exponentialRampToValueAtTime(480, now + 0.28);
+
+      cyberGain.gain.setValueAtTime(0.045, now);
+      cyberGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.3);
+
+      cyberOsc.connect(cyberGain);
+      cyberGain.connect(ctx.destination);
+      cyberOsc.start(now);
+      cyberOsc.stop(now + 0.3);
+
     } catch (e) {
-      // Audio not supported or blocked
+      console.warn("Terminal boom error:", e);
     }
   }
+
+    // ==========================================================================
+  // UNIVERSAL MECHANICAL KEYBOARD CLICK ENGINE (Web Audio API)
+  // Produces instant, crisp, tactile switch clicks on EVERY key of the keyboard
+  // ==========================================================================
+  let lastKeyTime = 0;
+
+  function playKeyboardClickSound(key = 'a') {
+    if (window.portfolioAudioMuted) return;
+    const nowMs = performance.now();
+    if (nowMs - lastKeyTime < 10) return; // Prevent audio buffer saturation on hyper-fast repeat
+    lastKeyTime = nowMs;
+
+    try {
+      const ctx = getAudioContext();
+      if (!ctx) return;
+      const t = ctx.currentTime;
+
+      // Random micro-pitch jitter (±6%) gives authentic physical variance to each switch
+      const jitter = (Math.random() - 0.5) * 160;
+
+      if (key === ' ' || key === 'Space' || key === 'Spacebar') {
+        // Spacebar: deep, solid mechanical switch bar thud
+        const bodyOsc = ctx.createOscillator();
+        const bodyGain = ctx.createGain();
+        bodyOsc.type = 'triangle';
+        bodyOsc.frequency.setValueAtTime(220 + jitter * 0.2, t);
+        bodyOsc.frequency.exponentialRampToValueAtTime(75, t + 0.026);
+        bodyGain.gain.setValueAtTime(0.042, t);
+        bodyGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.028);
+        bodyOsc.connect(bodyGain);
+        bodyGain.connect(ctx.destination);
+        bodyOsc.start(t);
+        bodyOsc.stop(t + 0.03);
+
+        const clickOsc = ctx.createOscillator();
+        const clickGain = ctx.createGain();
+        clickOsc.type = 'sine';
+        clickOsc.frequency.setValueAtTime(1400 + jitter, t);
+        clickOsc.frequency.exponentialRampToValueAtTime(350, t + 0.012);
+        clickGain.gain.setValueAtTime(0.028, t);
+        clickGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.014);
+        clickOsc.connect(clickGain);
+        clickGain.connect(ctx.destination);
+        clickOsc.start(t);
+        clickOsc.stop(t + 0.015);
+
+      } else if (key === 'Enter') {
+        // Enter: punchy mechanical switch clack + confirmation chirp
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(560 + jitter, t);
+        osc.frequency.exponentialRampToValueAtTime(160, t + 0.032);
+        gain.gain.setValueAtTime(0.048, t);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.034);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.036);
+
+        const chirpOsc = ctx.createOscillator();
+        const chirpGain = ctx.createGain();
+        chirpOsc.type = 'sine';
+        chirpOsc.frequency.setValueAtTime(1250, t);
+        chirpGain.gain.setValueAtTime(0.024, t);
+        chirpGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.038);
+        chirpOsc.connect(chirpGain);
+        chirpGain.connect(ctx.destination);
+        chirpOsc.start(t);
+        chirpOsc.stop(t + 0.04);
+
+      } else if (key === 'Backspace' || key === 'Delete') {
+        // Backspace: snappy mechanical key release
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(2800 + jitter, t);
+        osc.frequency.exponentialRampToValueAtTime(750, t + 0.016);
+        gain.gain.setValueAtTime(0.034, t);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.018);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.02);
+
+      } else if (['Shift', 'Control', 'Alt', 'Meta', 'CapsLock', 'Tab', 'Escape'].includes(key)) {
+        // Modifier / Navigation keys: crisp subtle tactile click
+        const clickOsc = ctx.createOscillator();
+        const clickGain = ctx.createGain();
+        clickOsc.type = 'sine';
+        clickOsc.frequency.setValueAtTime(1750 + jitter, t);
+        clickOsc.frequency.exponentialRampToValueAtTime(520, t + 0.011);
+        clickGain.gain.setValueAtTime(0.022, t);
+        clickGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.013);
+        clickOsc.connect(clickGain);
+        clickGain.connect(ctx.destination);
+        clickOsc.start(t);
+        clickOsc.stop(t + 0.014);
+
+      } else {
+        // All Standard Keys (letters, numbers, symbols, arrows):
+        // Dual-stage mechanical click: crisp contact transient + solid bottom-out thud
+        const clickOsc = ctx.createOscillator();
+        const clickGain = ctx.createGain();
+        clickOsc.type = 'sine';
+        clickOsc.frequency.setValueAtTime(2250 + jitter, t);
+        clickOsc.frequency.exponentialRampToValueAtTime(580, t + 0.011);
+        clickGain.gain.setValueAtTime(0.032, t);
+        clickGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.013);
+        clickOsc.connect(clickGain);
+        clickGain.connect(ctx.destination);
+        clickOsc.start(t);
+        clickOsc.stop(t + 0.014);
+
+        const bodyOsc = ctx.createOscillator();
+        const bodyGain = ctx.createGain();
+        bodyOsc.type = 'triangle';
+        bodyOsc.frequency.setValueAtTime(380 + jitter * 0.3, t);
+        bodyOsc.frequency.exponentialRampToValueAtTime(130, t + 0.018);
+        bodyGain.gain.setValueAtTime(0.028, t);
+        bodyGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.02);
+        bodyOsc.connect(bodyGain);
+        bodyGain.connect(ctx.destination);
+        bodyOsc.start(t);
+        bodyOsc.stop(t + 0.022);
+      }
+    } catch (e) {}
+  }
+
+  window.playKeyboardClickSound = playKeyboardClickSound;
+  window.playTypingSound = playKeyboardClickSound; // Backwards compatible alias
 
   // Available commands database
   const COMMANDS = {
@@ -321,7 +544,7 @@ Feel free to send a message via the website contact form or connect on LinkedIn 
   // Open / Close Functions
   function openTerminal(initialCmd) {
     modalOverlay.classList.add('active');
-    playBeep(880, 0.08, 'triangle');
+    playTerminalBoomSound();
     setTimeout(() => {
       cliInput.focus();
       if (initialCmd && typeof initialCmd === 'string') {
@@ -498,5 +721,14 @@ Feel free to send a message via the website contact form or connect on LinkedIn 
     }
   });
 
+  
+  // Universal keyboard click sound on EVERY key pressed anywhere on the page
+  window.addEventListener('keydown', (e) => {
+    playKeyboardClickSound(e.key);
+  }, { capture: true, passive: true });
+
+  window.playTerminalBoomSound = playTerminalBoomSound;
+  window.playKeyboardClickSound = playKeyboardClickSound;
+  window.playTypingSound = playKeyboardClickSound;
   window.openSecretTerminal = openTerminal;
 })();

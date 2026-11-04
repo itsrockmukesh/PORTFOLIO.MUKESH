@@ -1,0 +1,3275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO & Social Sharing Metadata -->
+  <title>Mukesh Kumar — 1st Year BE-CSE @ Mirai School of Tech | Web Dev, C++ DSA & Cloud</title>
+  <meta name="description" content="Portfolio of Mukesh Kumar, 1st Year BE-CSE student at Mirai School of Technology learning Web Development (HTML/CSS), C++ DSA, and Cloud Computing. Features 5 Google Cloud Skill Badges and an interactive developer terminal.">
+  <meta name="keywords" content="Mukesh Kumar, Mirai School of Technology, itsrockmukesh, BE-CSE, HTML, CSS, C++ DSA, AWS Hackathon, Google Cloud Skill Badges, AWS Amplify">
+  <meta name="author" content="Mukesh Kumar">
+  
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mukesh Kumar — 1st Year BE-CSE Student Portfolio">
+  <meta property="og:description" content="Computer Science student at Mirai School of Technology learning HTML/CSS, C++ DSA, and Cloud. Featuring a working Secret Developer Terminal and 5 Google Cloud badges.">
+  <meta property="og:image" content="assets/mukesh-kumar.jpg">
+
+  <!-- Twitter Meta -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mukesh Kumar — Portfolio">
+  <meta name="twitter:description" content="1st Year BE-CSE student at Mirai School of Technology. Built for the AWS Student Portfolio Hackathon.">
+  <meta name="twitter:image" content="assets/mukesh-kumar.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <!-- Google Fonts: Inter (Body & Sans), JetBrains Mono (Terminal/Code) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Anton Font, Custom Luxury Cursor, Darker UI Text & No Yellow/Green Palette -->
+  <style>
+    @font-face {
+      font-family: 'Anton';
+      src: url('./anton.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* Body lock during hero photo reveal */
+    body.hero-locked {
+      overflow-y: hidden !important;
+    }
+
+    /* Override System Variables to eliminate yellow, green and cyan */
+    :root {
+      --accent-cyan: #d21424 !important;
+      --accent-green: #e5283b !important;
+      --accent-aws: #d21424 !important;
+      --accent-neon-cyan: #d21424 !important;
+      --accent-neon-green: #e5283b !important;
+      --accent-neon-gold: #d21424 !important;
+      --text-primary: #c8c8d2 !important; /* Darker, refined metallic silver instead of stark white */
+      --text-secondary: #828290 !important; /* Darker graphite grey */
+      --text-muted: #5a5a66 !important;
+      --bg-black: #060408 !important;
+      --bg-surface: #0e0c12 !important;
+      --bg-surface-elevated: #141118 !important;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      overflow-x: clip !important;
+      background-color: #060408 !important;
+      color: var(--text-primary);
+      position: relative;
+    }
+
+    /* ==========================================================================
+       CUSTOM AWARDS CURSOR (DISCIPLINED CRIMSON & RING)
+       ========================================================================== */
+    @media (hover: hover) and (pointer: fine) {
+      body, a, button, input, textarea, select, [role="button"], .scroll-indicator, .tilt-card {
+        cursor: none !important;
+      }
+    }
+
+    #custom-cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 7px;
+      height: 7px;
+      background: #e5283b;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999999;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 8px #e5283b, 0 0 2px #ffffff;
+      transition: width 0.18s ease, height 0.18s ease, background-color 0.18s ease, opacity 0.25s ease;
+    }
+
+    #custom-cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid rgba(229, 40, 59, 0.55);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999998;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 12px rgba(163, 14, 25, 0.22);
+      transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1), 
+                  height 0.22s cubic-bezier(0.16, 1, 0.3, 1), 
+                  border-color 0.22s ease, 
+                  background-color 0.22s ease,
+                  opacity 0.25s ease;
+    }
+
+    body.cursor-hover #custom-cursor-ring {
+      width: 54px;
+      height: 54px;
+      border-color: rgba(229, 40, 59, 0.85);
+      background-color: rgba(229, 40, 59, 0.12);
+      box-shadow: 0 0 20px rgba(229, 40, 59, 0.4);
+    }
+
+    body.cursor-hover #custom-cursor-dot {
+      width: 4px;
+      height: 4px;
+      background: #ffffff;
+      box-shadow: 0 0 6px #ffffff;
+    }
+
+    body.cursor-active #custom-cursor-ring {
+      width: 28px;
+      height: 28px;
+      border-color: #ff334b;
+      background-color: rgba(229, 40, 59, 0.25);
+    }
+
+    /* ==========================================================================
+       NAVBAR VISIBILITY CONTROL: HIDDEN DURING PHOTO SCROLL, VISIBLE AFTER REVEAL
+       ========================================================================== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--nav-height);
+      background: rgba(10, 8, 14, 0.88) !important;
+      backdrop-filter: blur(18px) !important;
+      -webkit-backdrop-filter: blur(18px) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+      z-index: 1000 !important;
+      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    .navbar.navbar-hidden {
+      opacity: 0 !important;
+      pointer-events: none !important;
+      transform: translateY(-100%) !important;
+    }
+
+    .nav-brand {
+      color: #dedee8 !important;
+    }
+    .brand-monogram {
+      background: rgba(22, 14, 20, 0.9) !important;
+      border: 1px solid rgba(210, 20, 36, 0.4) !important;
+      color: #ff4d63 !important;
+    }
+
+    .nav-links a {
+      color: #8c8c9a !important;
+      transition: all 0.25s ease;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #dedee8 !important;
+    }
+
+    /* Top right button adjustments: pure crimson & silver */
+    .nav-actions .btn-pill-terminal {
+      background: rgba(20, 14, 20, 0.8) !important;
+      border-color: rgba(210, 20, 36, 0.4) !important;
+      color: #c8c8d2 !important;
+      box-shadow: none !important;
+    }
+    .nav-actions .btn-pill-terminal:hover {
+      border-color: rgba(235, 25, 45, 0.7) !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 14px rgba(210, 20, 36, 0.35) !important;
+    }
+
+    /* Secret Terminal Hint pill: replace green dot with crimson */
+    .secret-terminal-hint {
+      background: rgba(16, 12, 18, 0.8) !important;
+      border-color: rgba(210, 20, 36, 0.35) !important;
+      color: #a0a0ae !important;
+    }
+    .hint-status-dot {
+      background: #e5283b !important;
+      box-shadow: 0 0 8px #e5283b !important;
+    }
+
+    /* ==========================================================================
+       ATMOSPHERIC CYBER BACKGROUND: NEBULAE, GRID & CURSOR SPOTLIGHT
+       ========================================================================== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 25%, rgba(163, 14, 25, 0.14) 0%, transparent 45%),
+        radial-gradient(circle at 82% 65%, rgba(120, 10, 22, 0.10) 0%, transparent 50%),
+        radial-gradient(circle at 50% 88%, rgba(163, 14, 25, 0.12) 0%, transparent 45%),
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 54px 54px, 54px 54px;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.8;
+    }
+
+    #cursor-spotlight {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 2;
+      background: radial-gradient(circle 420px at var(--mouse-x, 50vw) var(--mouse-y, 50vh), rgba(180, 15, 28, 0.07), transparent 70%);
+      transition: opacity 0.3s ease;
+    }
+
+    /* Pinned Scroll Track: 140vh travel distance for 3D dot-to-photo reveal */
+    .hero-scroll-track {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background: #060408;
+      z-index: 3;
+    }
+
+    .hero-sticky-stage {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: 3;
+    }
+
+    #webgl-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: auto;
+    }
+
+    #film-grain {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      opacity: 0.16;
+      mix-blend-mode: overlay;
+    }
+
+    /* Preloader Ring */
+    #preloader {
+      position: absolute;
+      inset: 0;
+      background: #060408;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
+    }
+
+    #preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .ring-container {
+      position: relative;
+      width: 100px;
+      height: 100px;
+    }
+
+    .ring-svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .ring-track {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.08);
+      stroke-width: 5;
+    }
+
+    .ring-progress {
+      fill: none;
+      stroke: #a30e19;
+      stroke-width: 5;
+      stroke-linecap: round;
+      stroke-dasharray: 289;
+      stroke-dashoffset: 289;
+      transition: stroke-dashoffset 0.15s ease-out;
+      filter: drop-shadow(0 0 8px rgba(163, 14, 25, 0.7));
+    }
+
+    .ring-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.85);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Scroll Pill Indicator */
+    #ui-container {
+      position: absolute;
+      bottom: 34px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      pointer-events: auto;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .scroll-indicator {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 28px;
+      background: rgba(18, 10, 16, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(210, 20, 36, 0.45);
+      border-radius: 9999px;
+      color: #dedee8;
+      font-size: 0.84rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 28px rgba(0, 0, 0, 0.7), 0 0 16px rgba(163, 14, 25, 0.3);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+    }
+
+    .scroll-indicator:hover {
+      background: rgba(30, 14, 22, 0.95);
+      border-color: rgba(235, 25, 45, 0.8);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 0 25px rgba(210, 20, 36, 0.55);
+    }
+
+    .scroll-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #e5283b;
+      box-shadow: 0 0 10px #e5283b;
+      animation: pulse-dot 1.8s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 0.45; transform: scale(0.85); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .scroll-progress-bar {
+      width: 54px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .scroll-progress-thumb {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #a30e19, #e5283b);
+      transition: width 0.12s linear;
+      box-shadow: 0 0 8px #e5283b;
+    }
+
+    /* ==========================================================================
+       GIANT SECTION WATERMARK TYPOGRAPHY (ANTON SIGNATURE)
+       ========================================================================== */
+    .section-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(5.5rem, 13vw, 15rem);
+      letter-spacing: -0.02em;
+      line-height: 0.85;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(210, 20, 36, 0.07);
+      text-shadow: 0 0 80px rgba(163, 14, 25, 0.05);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      z-index: 1;
+    }
+
+    /* ==========================================================================
+       HERO INTRO SECTION: "HI, I'M MUKESH KUMAR" (DARKER, DISCIPLINED PALETTE)
+       ========================================================================== */
+    .hero-intro-section {
+      position: relative;
+      z-index: 10;
+      background: transparent;
+      padding: 7rem 1.5rem 5rem 1.5rem;
+      border-top: 1px solid rgba(210, 20, 36, 0.22);
+      overflow: hidden;
+    }
+
+    .hero-intro-section::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 440px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #e5283b, transparent);
+      box-shadow: 0 0 12px #e5283b;
+    }
+
+    .hero-intro-card {
+      position: relative;
+      z-index: 2;
+      max-width: 920px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 3.5rem 2.5rem;
+      background: rgba(16, 12, 18, 0.75);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(210, 20, 36, 0.32);
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(163, 14, 25, 0.18);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hero-intro-card:hover {
+      border-color: rgba(235, 25, 45, 0.6);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), 0 0 45px rgba(210, 20, 36, 0.3);
+      transform: translateY(-3px);
+    }
+
+    .hero-intro-card::before,
+    .project-card::before,
+    .badge-card::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 14px;
+      height: 14px;
+      border-top: 2px solid #e5283b;
+      border-left: 2px solid #e5283b;
+      pointer-events: none;
+      opacity: 0.75;
+    }
+
+    .hero-intro-card::after,
+    .project-card::after,
+    .badge-card::after {
+      content: '';
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 14px;
+      height: 14px;
+      border-bottom: 2px solid #a30e19;
+      border-right: 2px solid #a30e19;
+      pointer-events: none;
+      opacity: 0.75;
+    }
+
+    .hero-intro-card .hero-status-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.5rem 1.3rem;
+      background: rgba(20, 12, 18, 0.85);
+      border: 1px solid rgba(210, 20, 36, 0.38);
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      color: #b0b0c0;
+      margin-bottom: 1.8rem;
+    }
+
+    /* Darker UI Headlines: Refined Metallic Silver */
+    .hero-statement-title {
+      font-size: clamp(2.4rem, 5vw, 4rem) !important;
+      font-weight: 800 !important;
+      letter-spacing: -0.04em !important;
+      line-height: 1.15 !important;
+      margin-bottom: 1.3rem !important;
+      color: #c8c8d4 !important; /* Darker metallic silver */
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.85) !important;
+    }
+
+    /* Crimson/Silver Shimmer (Strictly NO Yellow, NO Green, NO Cyan) */
+    .cyber-shimmer {
+      background: linear-gradient(90deg, #d21424 0%, #ff556b 35%, #dedee6 50%, #ff556b 65%, #d21424 100%) !important;
+      background-size: 200% auto !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      animation: cyber-shimmer-anim 6s linear infinite !important;
+    }
+
+    .hero-typewriter-bar {
+      font-family: var(--font-mono);
+      font-size: clamp(0.92rem, 1.4vw, 1.12rem) !important;
+      color: #d0d0dc !important; /* Muted silver text */
+      margin-bottom: 1.6rem;
+      min-height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+    .typewriter-cursor {
+      background-color: #e5283b !important;
+      box-shadow: 0 0 8px #e5283b;
+    }
+
+    /* Cyber Spec HUD Bar: Strictly Dark Grey with Subtle Crimson Tones (NO Yellow, NO Green) */
+    .cyber-specs-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.85rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .cyber-spec-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 1.05rem;
+      background: rgba(16, 12, 18, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: #9292a0; /* Darker grey */
+      backdrop-filter: blur(10px);
+      transition: all 0.25s ease;
+    }
+
+    .cyber-spec-chip:hover {
+      border-color: rgba(210, 20, 36, 0.45);
+      color: #c8c8d2;
+      box-shadow: 0 0 14px rgba(163, 14, 25, 0.2);
+    }
+
+    .cyber-spec-chip .chip-icon {
+      color: #e5283b;
+    }
+
+    /* Darker UI Subtitles & Paragraphs */
+    .hero-subtitle,
+    .section-description,
+    .footer-sub {
+      font-size: clamp(0.98rem, 1.3vw, 1.12rem) !important;
+      line-height: 1.78 !important;
+      color: #828290 !important; /* Darker graphite grey */
+      max-width: 740px !important;
+      margin: 0 auto 2.5rem auto !important;
+    }
+
+    .section-title {
+      font-size: clamp(2.2rem, 4.2vw, 3.4rem) !important;
+      font-weight: 800 !important;
+      letter-spacing: -0.03em !important;
+      color: #c2c2ce !important; /* Darker metallic silver */
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8) !important;
+    }
+
+    .section-label {
+      color: #d21424 !important;
+    }
+    .section-label::before {
+      background: #e5283b !important;
+      box-shadow: 0 0 10px #e5283b !important;
+    }
+
+    /* Enhanced Buttons */
+    .btn-pill-primary {
+      background: linear-gradient(135deg, #a30e19 0%, #d21424 50%, #e5283b 100%) !important;
+      border: 1px solid #ff4d63 !important;
+      box-shadow: 0 4px 20px rgba(163, 14, 25, 0.55), 0 0 18px rgba(210, 20, 36, 0.3) !important;
+      color: #ffffff !important;
+    }
+    .btn-pill-primary:hover {
+      box-shadow: 0 6px 28px rgba(163, 14, 25, 0.8), 0 0 28px rgba(235, 25, 45, 0.55) !important;
+      transform: translateY(-2px) scale(1.02) !important;
+    }
+
+    .btn-pill-terminal {
+      background: rgba(18, 14, 20, 0.85) !important;
+      border: 1px solid rgba(210, 20, 36, 0.42) !important;
+      color: #c8c8d2 !important; /* Darker silver, no green */
+      box-shadow: 0 0 12px rgba(163, 14, 25, 0.2) !important;
+    }
+    .btn-pill-terminal:hover {
+      background: rgba(24, 16, 24, 0.95) !important;
+      border-color: rgba(235, 25, 45, 0.7) !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 20px rgba(210, 20, 36, 0.4) !important;
+      transform: translateY(-2px) scale(1.02) !important;
+    }
+
+    .btn-pill-secondary {
+      background: rgba(255, 255, 255, 0.04) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      color: #a0a0ae !important;
+    }
+    .btn-pill-secondary:hover {
+      background: rgba(255, 255, 255, 0.08) !important;
+      border-color: rgba(210, 20, 36, 0.4) !important;
+      color: #dedee8 !important;
+    }
+
+    /* ==========================================================================
+       OVERCHARGED CYBER MARQUEE TICKER (CRIMSON / SILVER - NO YELLOW/GREEN)
+       ========================================================================== */
+    .ticker-section {
+      position: relative;
+      z-index: 10;
+      background: #08060a !important;
+      border-top: 1px solid rgba(210, 20, 36, 0.28) !important;
+      border-bottom: 1px solid rgba(210, 20, 36, 0.28) !important;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+      overflow: hidden;
+    }
+    .ticker-label {
+      color: #727280 !important;
+    }
+    .ticker-item {
+      font-family: var(--font-mono);
+      font-size: 0.90rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: #a4a4b2 !important; /* Darker greyish text */
+      text-transform: uppercase;
+    }
+    .ticker-dot {
+      width: 7px;
+      height: 7px;
+      background: #e5283b !important;
+      box-shadow: 0 0 8px #e5283b !important;
+      border-radius: 50%;
+    }
+
+    /* ==========================================================================
+       SECTIONS & BENTO GRID CARDS (DISCIPLINED DARK AESTHETIC)
+       ========================================================================== */
+    #projects,
+    #about,
+    #achievements,
+    #aws-showcase,
+    #contact {
+      position: relative;
+      z-index: 10;
+      background: transparent !important;
+      padding-top: 7rem;
+      padding-bottom: 7rem;
+      overflow: hidden;
+    }
+
+    .project-card,
+    .spec-card,
+    .info-story-col,
+    .info-specs-col,
+    .badge-card {
+      position: relative;
+      background: rgba(16, 12, 18, 0.78) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      border: 1px solid rgba(210, 20, 36, 0.3) !important;
+      border-radius: 22px !important;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.7), 0 0 20px rgba(163, 14, 25, 0.12) !important;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      transform-style: preserve-3d;
+    }
+
+    .project-card:hover,
+    .badge-card:hover,
+    .spec-card:hover {
+      border-color: rgba(235, 25, 45, 0.65) !important;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(210, 20, 36, 0.35) !important;
+      transform: translateY(-5px) scale(1.015) !important;
+    }
+
+    .project-title,
+    .badge-title {
+      color: #c2c2ce !important; /* Darker metallic silver */
+    }
+
+    .project-desc,
+    .badge-desc,
+    .info-bio-text {
+      color: #828290 !important; /* Darker graphite */
+    }
+
+    /* Project Tags: Dark slate with subtle borders, NO green/yellow */
+    .tag-pill,
+    .project-tag {
+      background: rgba(255, 255, 255, 0.04) !important;
+      border: 1px solid rgba(255, 255, 255, 0.09) !important;
+      color: #9292a0 !important;
+    }
+
+    /* Filter pills */
+    .filter-pill {
+      background: rgba(255, 255, 255, 0.03) !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      color: #828290 !important;
+    }
+    .filter-pill.active {
+      background: rgba(210, 20, 36, 0.22) !important;
+      border-color: #d21424 !important;
+      color: #dedee8 !important;
+      box-shadow: 0 0 14px rgba(210, 20, 36, 0.3) !important;
+    }
+
+    /* ==========================================================================
+       IMAGE DARKENING: GOOGLE SKILLS BADGES & PROJECT SCREENSHOTS
+       Transforms glaring white paper backgrounds into sleek, dark metallic grey
+       ========================================================================== */
+    .badge-card-visual {
+      background: #0d0b10 !important;
+      border-radius: 14px !important;
+      overflow: hidden !important;
+      position: relative !important;
+      border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    }
+
+    .badge-card-visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, transparent 35%, rgba(10, 8, 14, 0.5) 100%);
+      pointer-events: none;
+    }
+
+    /* Darken Google Cloud White Certificate Paper into luxury white-greyish dark UI */
+    .badge-cert-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.72) contrast(1.15) grayscale(0.35) !important;
+      transition: all 0.4s ease !important;
+    }
+
+    .badge-card:hover .badge-cert-img {
+      filter: brightness(0.85) contrast(1.15) grayscale(0.12) !important;
+      transform: scale(1.03);
+    }
+
+    /* Project Screenshots: Darker white-greyish tone */
+    .project-card-visual,
+    .project-card img {
+      border-radius: 14px !important;
+      filter: brightness(0.75) contrast(1.12) grayscale(0.28) !important;
+      transition: all 0.4s ease !important;
+    }
+
+    .project-card:hover img {
+      filter: brightness(0.88) contrast(1.12) grayscale(0.08) !important;
+    }
+
+    #modal-badge-img {
+      filter: brightness(0.78) contrast(1.12) grayscale(0.25) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+
+    /* Badge tags: Remove green, use dark crimson/grey */
+    .badge-verify-pill {
+      background: rgba(22, 14, 20, 0.8) !important;
+      border: 1px solid rgba(210, 20, 36, 0.35) !important;
+      color: #a4a4b2 !important;
+    }
+    .badge-date-pill {
+      background: rgba(255, 255, 255, 0.04) !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      color: #7a7a88 !important;
+    }
+
+    /* ==========================================================================
+       AWS CLOUD SHOWCASE: NO YELLOW/GREEN, SLEEK CRIMSON / SILVER
+       ========================================================================== */
+    .aws-showcase-container {
+      background: rgba(16, 12, 18, 0.82) !important;
+      backdrop-filter: blur(24px) !important;
+      border: 1px solid rgba(210, 20, 36, 0.35) !important;
+      border-radius: 28px !important;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(163, 14, 25, 0.15) !important;
+    }
+
+    .aws-badge-pill {
+      background: rgba(22, 14, 20, 0.8) !important;
+      border: 1px solid rgba(210, 20, 36, 0.35) !important;
+      color: #ff8090 !important;
+    }
+    .aws-badge-pill span[style*="color:#00FF88"],
+    .aws-badge-pill span[style*="color: #00FF88"],
+    .aws-badge-pill span[style*="color:#10B981"] {
+      color: #ff8090 !important;
+    }
+
+    .aws-tab-btn {
+      color: #828290 !important;
+    }
+    .aws-tab-btn.active {
+      background: linear-gradient(135deg, rgba(210, 20, 36, 0.25), rgba(130, 12, 22, 0.35)) !important;
+      border-color: #d21424 !important;
+      color: #dedee8 !important;
+      box-shadow: 0 0 16px rgba(210, 20, 36, 0.35) !important;
+    }
+
+    .aws-pipeline-card {
+      background: rgba(14, 10, 16, 0.8) !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+    .aws-pipeline-card:hover {
+      border-color: rgba(210, 20, 36, 0.45) !important;
+    }
+    .aws-card-step {
+      color: #e5283b !important;
+    }
+    .aws-card-title {
+      color: #c2c2ce !important;
+    }
+    .aws-card-detail {
+      color: #727280 !important;
+    }
+
+    /* Terminal Window inside Project 1: Dark silver prompt, no green */
+    .mini-term-prompt {
+      color: #e5283b !important;
+    }
+    .mini-term-check {
+      color: #d8d8e2 !important;
+    }
+
+    /* Footer & Contact */
+    .footer-cta-section {
+      border-top: 1px solid rgba(210, 20, 36, 0.25) !important;
+    }
+    .footer-statement {
+      color: #c8c8d4 !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HeyKuba Grain / Noise Overlay -->
+  <div class="bg-noise-overlay"></div>
+
+  <!-- Ambient Glow Behind Hero -->
+  <div class="bg-ambient-glow"></div>
+
+  <!-- Particle Background Canvas -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- ==========================================================================
+       NAVIGATION BAR (HEYKUBA FLOATING PILL NAVBAR)
+       ========================================================================== -->
+  
+  <!-- Custom Luxury Awwwards Cursor Elements -->
+  <div id="custom-cursor-dot"></div>
+  <div id="custom-cursor-ring"></div>
+
+  <nav class="navbar navbar-hidden" id="navbar">
+    <div class="container">
+      <a href="#hero" class="nav-brand" aria-label="Mukesh Kumar Home">
+        <div class="brand-monogram">MK</div>
+        <span>Mukesh Kumar</span>
+      </a>
+
+      <!-- Center Pill Navigation -->
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#projects" class="nav-link">Work</a></li>
+        <li><a href="#about" class="nav-link">Info</a></li>
+        <li><a href="#achievements" class="nav-link">Badges</a></li>
+        <li><a href="#aws-showcase" class="nav-link">AWS Setup</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <!-- Action Items on Right -->
+      <div class="nav-actions">
+        <!-- Sound FX Synth Toggle -->
+        <button id="sound-toggle-btn" class="sound-toggle-btn" title="Toggle Cyber Audio Feedback" aria-label="Toggle Audio">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+        </button>
+
+        <!-- Quick Terminal Launcher in Nav -->
+        <button id="nav-terminal-trigger" class="btn-pill btn-pill-terminal btn-sm" title="Open Secret Terminal (~)">
+          <span>&gt;_</span> Terminal
+        </button>
+
+        <!-- Resume Modal Trigger -->
+        <button class="btn-pill btn-pill-primary btn-sm trigger-resume-modal">
+          Resume
+        </button>
+
+        <!-- Mobile Drawer Toggle -->
+        <button class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==========================================================================
+       CREATIVE INTERACTIVE FEATURE — FLOATING TERMINAL HINT PILL
+       ========================================================================== -->
+  <div id="terminal-hint-trigger" class="secret-terminal-hint" title="Click or press ~ key to launch terminal">
+    <div class="hint-dot"></div>
+    <span class="hint-text">Secret Terminal</span>
+    <span class="hint-key">~</span>
+  </div>
+
+  <main>
+    <!-- ==========================================================================
+         HERO SECTION (HEYKUBA GIANT EDITORIAL HEADLINE)
+         ========================================================================== -->
+    
+  <!-- ==========================================================================
+       HERO STAGE: PINNED 3D WEBGL BUST & FULL SCROLL REVEAL (CLEAN PHOTO STAGE)
+       Navbar is HIDDEN during photo scrolling, and becomes visible AFTER reveal!
+       ========================================================================== -->
+  <div id="hero" class="hero-scroll-track">
+    <div class="hero-sticky-stage">
+      <!-- Three.js Canvas -->
+      <canvas id="webgl-canvas"></canvas>
+
+      <!-- Film Grain Overlay -->
+      <div id="film-grain"></div>
+
+      <!-- Preloader Ring -->
+      <div id="preloader">
+        <div class="ring-container">
+          <svg class="ring-svg" viewBox="0 0 100 100">
+            <circle class="ring-track" cx="50" cy="50" r="46"></circle>
+            <circle id="ring-bar" class="ring-progress" cx="50" cy="50" r="46"></circle>
+          </svg>
+          <div id="ring-pct" class="ring-text">0%</div>
+        </div>
+      </div>
+
+      <!-- Scroll Indicator Pill -->
+      <div id="ui-container">
+        <div id="scrollIndicator" class="scroll-indicator">
+          <span class="scroll-dot"></span>
+          <span id="scrollLabel">Scroll to reveal photo</span>
+          <div class="scroll-progress-bar">
+            <div id="scrollThumb" class="scroll-progress-thumb"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full-Screen Interactive Cursor Glow Spotlight Overlay -->
+  <div id="cursor-spotlight"></div>
+
+  <!-- ==========================================================================
+       HERO INTRO SECTION: "HI, I'M MUKESH KUMAR" (DARKER UI TEXT & POWER SPECS)
+       Located directly below the photo with Anton Watermark & Clean Chips
+       ========================================================================== -->
+  <section class="hero-intro-section" id="intro">
+    <div class="section-watermark">MUKESH KUMAR</div>
+    <div class="container">
+      <div class="hero-intro-card">
+        <div class="hero-status-tag">
+          <span class="status-pulse" style="background:#e5283b; box-shadow:0 0 10px #e5283b;"></span>
+          <span>1ST YEAR BE-CSE • MIRAI SCHOOL OF TECHNOLOGY</span>
+        </div>
+
+        <h1 class="hero-statement-title">
+          Hi, I'm Mukesh Kumar.<br>
+          <span class="cyber-shimmer">I build for the web &amp; cloud.</span>
+        </h1>
+
+        <div class="hero-typewriter-bar">
+          <span id="typewriter-text"></span>
+          <span class="typewriter-cursor"></span>
+        </div>
+
+        <!-- Clean Power Spec Chips (Darker Grey & Crimson - No Yellow / Green) -->
+        <div class="cyber-specs-row">
+          <div class="cyber-spec-chip">
+            <span class="chip-icon">⚡</span>
+            <span>FRONTEND: SEMANTIC HTML5 &amp; CSS3</span>
+          </div>
+          <div class="cyber-spec-chip">
+            <span class="chip-icon">⚙️</span>
+            <span>CORE ENGINE: C++ &amp; DATA STRUCTURES</span>
+          </div>
+          <div class="cyber-spec-chip">
+            <span class="chip-icon">☁️</span>
+            <span>CLOUD DEPLOY: AWS AMPLIFY &amp; CLOUDFRONT</span>
+          </div>
+        </div>
+
+        <p class="hero-subtitle">
+          First-year engineering student learning modern web development with HTML &amp; CSS, and practicing Data Structures &amp; Algorithms in C++. This portfolio is my submission for the AWS Student Portfolio Hackathon, deployed on AWS Amplify.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#projects" class="btn-pill btn-pill-primary">
+            <span>See My Projects</span>
+            <span class="btn-arrow">↓</span>
+          </a>
+
+          <button id="hero-terminal-trigger" class="btn-pill btn-pill-terminal">
+            <span>&gt;_</span>
+            <span>Open Terminal [~]</span>
+          </button>
+
+          <button class="btn-pill btn-pill-secondary trigger-resume-modal">
+            <span>Resume</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+    <!-- ==========================================================================
+         INFINITE MARQUEE TICKER (HEYKUBA LOGO TICKER)
+         ========================================================================== -->
+    <div class="ticker-section">
+      <div class="ticker-label">Core Technologies &amp; Verified Credentials</div>
+      <div class="ticker-wrapper">
+        <div class="ticker-track">
+          <div class="ticker-item">AWS Amplify Hosting</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Google Cloud Platform</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">C++ &amp; Data Structures (DSA)</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Semantic HTML5 &amp; CSS3</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Mirai School of Technology</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">GitHub (@itsrockmukesh)</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Google AI Studio &amp; Gemini</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Linux CLI &amp; Bash</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Responsive Web Systems</div>
+          <div class="ticker-dot"></div>
+          <!-- Repeat for infinite loop -->
+          <div class="ticker-item">AWS Amplify Hosting</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Google Cloud Platform</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">C++ &amp; Data Structures (DSA)</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Semantic HTML5 &amp; CSS3</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Mirai School of Technology</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">GitHub (@itsrockmukesh)</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Google AI Studio &amp; Gemini</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Linux CLI &amp; Bash</div>
+          <div class="ticker-dot"></div>
+          <div class="ticker-item">Responsive Web Systems</div>
+          <div class="ticker-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         FEATURED WORK / PROJECTS (HEYKUBA LARGE SHOWCASE CARDS)
+         ========================================================================== -->
+    <section id="projects">
+    <div class="section-watermark">SELECTED WORKS</div>
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Selected Works</div>
+          <h2 class="section-title">Projects &amp; Code</h2>
+          <p class="section-description">
+            Projects I've built from scratch while learning web development, C++ algorithms, and cloud tools.
+          </p>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="work-filter-bar">
+          <button class="work-filter-btn filter-btn active" data-filter="all">All (4)</button>
+          <button class="work-filter-btn filter-btn" data-filter="web">Web Development</button>
+          <button class="work-filter-btn filter-btn" data-filter="cpp">C++ &amp; DSA</button>
+          <button class="work-filter-btn filter-btn" data-filter="cloud">Cloud &amp; Interactive</button>
+        </div>
+
+        <!-- Asymmetric Bento Grid -->
+        <div class="bento-work-grid">
+          
+          <!-- BENTO 1: Secret Developer Terminal (Span 12 Hero Bento) -->
+          <article class="bento-card bento-card-hero project-card tilt-card" data-category="cloud web">
+            <div class="bento-body">
+              <div>
+                <div class="bento-meta-bar">
+                  <span class="bento-index">01</span>
+                  <span class="bento-badge-live"><span class="status-pulse"></span> Interactive Shell</span>
+                  <span class="bento-badge">AWS Hackathon Project</span>
+                </div>
+                <h3 class="bento-card-title">Secret Developer Terminal &amp; AWS Showcase</h3>
+                <p class="bento-card-desc">
+                  An interactive terminal built with vanilla JavaScript for the AWS Student Portfolio Hackathon. Supports commands like <code>help</code>, <code>about</code>, <code>skills</code>, and <code>aws</code>, with sound synthesis and keyboard shortcuts.
+                </p>
+                <div class="bento-tags">
+                  <span class="work-tag">Vanilla JS</span>
+                  <span class="work-tag">Web Audio API</span>
+                  <span class="work-tag">CLI Shell Engine</span>
+                  <span class="work-tag">AWS Amplify</span>
+                </div>
+              </div>
+
+              <div class="work-card-actions">
+                <button class="btn-pill btn-pill-primary" onclick="window.openSecretTerminal();">
+                  <span>Launch Terminal [~]</span>
+                  <span class="btn-arrow">→</span>
+                </button>
+                <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary">
+                  <span>GitHub Repository ↗</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Mini Terminal Interactive Preview Widget -->
+            <div class="bento-mini-terminal" onclick="window.openSecretTerminal();" title="Click to launch interactive terminal">
+              <div class="mini-term-header">
+                <div class="mini-dot" style="background:#EF4444;"></div>
+                <div class="mini-dot" style="background:#F59E0B;"></div>
+                <div class="mini-dot" style="background:#10B981;"></div>
+                <span style="color:var(--text-muted); font-size:0.72rem; margin-left:0.5rem;">mukesh@mirai-tech:~ (aws-shell)</span>
+              </div>
+              <div class="mini-term-body">
+                <div style="color:var(--accent-green); margin-bottom:0.4rem;">mukesh@mirai-tech:~$ ./run-audit --target=aws</div>
+                <div style="color:var(--text-secondary); font-size:0.75rem;">[✓] Framework-free HTML5 &amp; CSS3: VALIDATED</div>
+                <div style="color:var(--text-secondary); font-size:0.75rem;">[✓] AWS Amplify CDN Edge Cache: HIT (32ms)</div>
+                <div style="color:var(--text-secondary); font-size:0.75rem;">[✓] C++ DSA Problem Sets: 100% COMPILED</div>
+                <div style="color:var(--accent-aws); font-size:0.75rem; margin-top:0.4rem;">&gt; Press ~ or Click to Launch Full Console</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- BENTO 2: Personal-Website (Span 6 Bento) -->
+          <article class="bento-card bento-card-half project-card tilt-card" data-category="web">
+            <div class="bento-visual-preview">
+              <img src="assets/projects/personal-web.png" alt="Personal Developer Website Layout Screenshot" loading="lazy">
+            </div>
+            <div class="bento-body">
+              <div>
+                <div class="bento-meta-bar">
+                  <span class="bento-index">02</span>
+                  <span class="bento-badge">HTML &amp; CSS</span>
+                </div>
+                <h3 class="bento-card-title">Personal Developer Website Layout</h3>
+                <p class="bento-card-desc">
+                  My first portfolio experiment built with pure HTML and CSS to learn how the box model, flexbox, grid, and responsive styling work without relying on CSS frameworks.
+                </p>
+                <div class="bento-tags">
+                  <span class="work-tag">HTML5</span>
+                  <span class="work-tag">CSS3</span>
+                  <span class="work-tag">Flexbox &amp; Grid</span>
+                  <span class="work-tag">GitHub</span>
+                </div>
+              </div>
+
+              <div class="work-card-actions">
+                <a href="https://github.com/itsrockmukesh/Personal-Website" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-primary btn-sm">
+                  <span>View on GitHub</span>
+                  <span class="btn-arrow">↗</span>
+                </a>
+                <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary btn-sm">
+                  <span>@itsrockmukesh</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- BENTO 3: Wikipedia Article Recreation (Span 6 Bento) -->
+          <article class="bento-card bento-card-half project-card tilt-card" data-category="web">
+            <div class="bento-visual-preview">
+              <img src="assets/projects/wikipedia.png" alt="Wikipedia Article Page Recreation Screenshot" loading="lazy">
+            </div>
+            <div class="bento-body">
+              <div>
+                <div class="bento-meta-bar">
+                  <span class="bento-index">03</span>
+                  <span class="bento-badge">Practice Project</span>
+                </div>
+                <h3 class="bento-card-title">Wikipedia Article Page Recreation</h3>
+                <p class="bento-card-desc">
+                  A layout recreation of a Wikipedia article page to practice complex multi-column structures, tables, side infoboxes, and clean semantic markup.
+                </p>
+                <div class="bento-tags">
+                  <span class="work-tag">Semantic HTML</span>
+                  <span class="work-tag">CSS Layout</span>
+                  <span class="work-tag">GitHub</span>
+                </div>
+              </div>
+
+              <div class="work-card-actions">
+                <a href="https://github.com/itsrockmukesh/Wikipedia" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-primary btn-sm">
+                  <span>Inspect Repository</span>
+                  <span class="btn-arrow">↗</span>
+                </a>
+                <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary btn-sm">
+                  <span>@itsrockmukesh</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- BENTO 4: C++ Data Structures & Algorithms Suite (Span 12 Wide Bento) -->
+          <article class="bento-card bento-card-wide project-card tilt-card" data-category="cpp">
+            <div class="bento-body">
+              <div>
+                <div class="bento-meta-bar">
+                  <span class="bento-index">04</span>
+                  <span class="bento-badge">Foundations &amp; DSA</span>
+                  <span class="bento-badge">Mirai School of Tech</span>
+                </div>
+                <h3 class="bento-card-title">C++ Data Structures &amp; Problem Solving</h3>
+                <p class="bento-card-desc">
+                  Daily problem-solving practice in C++ as part of my coursework at Mirai School of Technology. I write implementations for arrays, linked lists, stacks, queues, recursion, and sorting algorithms from scratch to understand memory allocation and Big-O efficiency.
+                </p>
+                
+                <div class="complexity-pills">
+                  <span class="complexity-pill">O(1) Hash Access</span>
+                  <span class="complexity-pill">O(log n) Binary Tree</span>
+                  <span class="complexity-pill">O(n log n) QuickSort</span>
+                  <span class="complexity-pill">C++20 STL &amp; Pointers</span>
+                </div>
+
+                <div class="bento-tags">
+                  <span class="work-tag">C++20</span>
+                  <span class="work-tag">Data Structures</span>
+                  <span class="work-tag">Algorithm Complexity</span>
+                  <span class="work-tag">BE-CSE Coursework</span>
+                </div>
+              </div>
+
+              <div class="work-card-actions">
+                <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-primary btn-sm">
+                  <span>View Solutions on GitHub</span>
+                  <span class="btn-arrow">↗</span>
+                </a>
+                <button class="btn-pill btn-pill-secondary btn-sm trigger-resume-modal">
+                  <span>Inspect Coursework</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- C++ Code Snippet Box -->
+            <div class="bento-code-box">
+              <div style="color:var(--text-muted); font-size:0.75rem; margin-bottom:0.6rem; display:flex; justify-content:space-between;">
+                <span>// Solution.cpp (Mirai School BE-CSE)</span>
+                <span style="color:var(--accent-cyan);">C++20</span>
+              </div>
+              <pre><code><span style="color:#A855F7;">#include</span> <span style="color:#10B981;">&lt;iostream&gt;</span>
+<span style="color:#A855F7;">#include</span> <span style="color:#10B981;">&lt;vector&gt;</span>
+
+<span style="color:#38BDF8;">template</span> &lt;<span style="color:#38BDF8;">typename</span> T&gt;
+<span style="color:#38BDF8;">class</span> <span style="color:#F59E0B;">Node</span> {
+<span style="color:#38BDF8;">public</span>:
+    T data;
+    Node* next;
+    <span style="color:#F59E0B;">Node</span>(T val) : data(val), next(<span style="color:#A855F7;">nullptr</span>) {}
+};
+
+<span style="color:#71717A;">// Complexity: O(1) Push | O(n) Traversal</span>
+<span style="color:#38BDF8;">int</span> <span style="color:#F59E0B;">main</span>() {
+    std::cout &lt;&lt; <span style="color:#10B981;">"Mukesh Kumar • C++ DSA Core"</span> &lt;&lt; std::endl;
+    <span style="color:#A855F7;">return</span> <span style="color:#F59E0B;">0</span>;
+}</code></pre>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         INFO / ABOUT SECTION (HEYKUBA EDITORIAL 2-COLUMN GRID)
+         ========================================================================== -->
+    <section class="info-section" id="about">
+    <div class="section-watermark">ARCHITECT</div>
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">A Little Bit About Me</div>
+          <h2 class="section-title">First-Year Student, Lifelong Builder</h2>
+        </div>
+
+        <div class="info-grid">
+          <!-- Left Column: Story & Personal Narrative -->
+          <div class="info-story-col">
+            <div class="info-badge-intro">
+              <span class="status-pulse"></span>
+              <span>1st Year BE-CSE • Open to Opportunities</span>
+            </div>
+
+            <p class="info-lead-p">
+              "I'm a first-year engineering student building real projects every week. No fluff, just clean code, curiosity, and continuous learning."
+            </p>
+            <p class="info-sub-p">
+              I started my web development journey with pure HTML and CSS. Instead of copying templates or relying on frameworks, I wanted to understand how browsers actually render web pages — how semantic HTML shapes accessible structure, how CSS Flexbox and Grid create responsive flows, and how to write clean code from scratch.
+            </p>
+            <p class="info-sub-p">
+              Alongside web development, I spend time every day practicing Data Structures and Algorithms in C++. Working with pointers, dynamic memory, recursion, and Big-O complexity teaches me how computers think at the hardware level and gives me solid problem-solving fundamentals.
+            </p>
+            <p class="info-sub-p">
+              I also love exploring the cloud. I've earned 5 Google Cloud skill badges covering Compute Engine, Cloud IAM, BigQuery, and Generative AI in Google AI Studio. Attending the AWS Builder Center: Future Builders Connect event inspired me to create this project for the AWS Student Portfolio Hackathon, deployed live on AWS Amplify.
+            </p>
+            <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+              <button class="btn-pill btn-pill-primary trigger-resume-modal">
+                <span>View Full Resume</span>
+                <span class="btn-arrow">→</span>
+              </button>
+              <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary">
+                <span>GitHub Profile ↗</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column: Structured Student Profile Blocks -->
+          <div class="info-details-col">
+            <!-- Block 1: Education -->
+            <div class="info-block-item">
+              <div class="info-block-header">Education &amp; Institution</div>
+              <div class="info-block-content">
+                <strong>Mirai School of Technology</strong><br>
+                <span>Bachelor of Engineering — Computer Science &amp; Engineering (BE-CSE)</span><br>
+                <span style="color:var(--text-muted); font-size:0.88rem;">1st Year (Class of 2029) • Core focus: C++ DSA, Web Technologies (HTML/CSS), Computer Systems.</span>
+              </div>
+            </div>
+
+            <!-- Block 2: Daily Toolkit -->
+            <div class="info-block-item">
+              <div class="info-block-header">Daily Technical Toolkit</div>
+              <div class="info-block-content">
+                <strong>Web Development:</strong> Semantic HTML5, CSS3 (Flexbox &amp; Grid), JavaScript (ES6+), DOM APIs.<br>
+                <strong>Programming &amp; DSA:</strong> C++ (C++20), Arrays, Linked Lists, Stacks, Queues, Recursion, Big-O.<br>
+                <strong>Cloud &amp; DevOps:</strong> AWS Amplify Hosting, Google Cloud Platform, IAM Policies, Git &amp; GitHub.<br>
+                <strong>AI Prototyping:</strong> Google AI Studio, Gemini 1.5 Pro, Prompt Engineering.
+              </div>
+            </div>
+
+            <!-- Block 3: How I Approach Learning -->
+            <div class="info-block-item">
+              <div class="info-block-header">How I Approach Learning</div>
+              <div class="info-block-content">
+                <strong>Fundamentals first:</strong> Understand how the language and system work before reaching for high-level abstractions.<br>
+                <strong>Consistency:</strong> Code, practice, and commit to GitHub regularly. Learning happens by debugging real errors.
+              </div>
+            </div>
+
+            <!-- Block 4: Direct Reach -->
+            <div class="info-block-item">
+              <div class="info-block-header">Direct Communication</div>
+              <div class="info-block-content">
+                Email: <a href="mailto:techmukesh3124@gmail.com" style="color:var(--text-primary); text-decoration:underline;">techmukesh3124@gmail.com</a><br>
+                LinkedIn: <a href="https://www.linkedin.com/in/mukesh-kumar-06485222a" target="_blank" rel="noopener noreferrer" style="color:var(--text-primary); text-decoration:underline;">linkedin.com/in/mukesh-kumar-06485222a</a><br>
+                GitHub: <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" style="color:var(--text-primary); text-decoration:underline;">github.com/itsrockmukesh</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         ACHIEVEMENTS (5 GOOGLE CLOUD SKILL BADGES)
+         ========================================================================== -->
+    <section id="achievements">
+    <div class="section-watermark">CREDENTIALS</div>
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Credentials &amp; Milestones</div>
+          <h2 class="section-title">5 Verified Google Cloud Skill Badges</h2>
+          <p class="section-description">
+            Hands-on cloud engineering labs completed on Google Cloud Skills Boost, covering compute provisioning, IAM access controls, cloud storage datasets, and generative AI prototyping.
+          </p>
+        </div>
+
+        <div class="badges-grid">
+          <!-- BADGE 1: Compute Engine -->
+          <div class="badge-item-card">
+            <div class="badge-cert-preview badge-verify-btn" data-badge="compute" role="button" title="Click to inspect full award certificate">
+              <img src="assets/badges/compute-cert.png" alt="The Basics of Google Cloud Compute Award Certificate" class="badge-cert-img" loading="lazy">
+              <span class="badge-zoom-hint">🔍 View Certificate</span>
+            </div>
+            <div class="badge-card-content">
+              <div class="badge-meta-top">
+                <span class="badge-verified-badge">✓ Google Cloud Verified</span>
+                <span class="badge-date-pill">Oct 23, 2026</span>
+              </div>
+              <h3 class="badge-item-title">The Basics of Google Cloud Compute</h3>
+              <div class="badge-track-label">Infrastructure Modernization</div>
+              <p class="badge-item-desc">
+                Hands-on lab setting up virtual machines in Google Compute Engine, configuring custom firewall rules, persistent disks, and startup scripts.
+              </p>
+              <button class="btn-pill btn-pill-secondary btn-sm badge-verify-btn" data-badge="compute">
+                <span>Inspect Award Certificate</span>
+                <span class="btn-arrow">→</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- BADGE 2: IAM & Service Accounts -->
+          <div class="badge-item-card">
+            <div class="badge-cert-preview badge-verify-btn" data-badge="iam" role="button" title="Click to inspect full award certificate">
+              <img src="assets/badges/iam-cert.png" alt="Configure Service Accounts and IAM Roles Award Certificate" class="badge-cert-img" loading="lazy">
+              <span class="badge-zoom-hint">🔍 View Certificate</span>
+            </div>
+            <div class="badge-card-content">
+              <div class="badge-meta-top">
+                <span class="badge-verified-badge">✓ Google Cloud Verified</span>
+                <span class="badge-date-pill">Oct 23, 2026</span>
+              </div>
+              <h3 class="badge-item-title">Service Accounts &amp; IAM Roles</h3>
+              <div class="badge-track-label">Security</div>
+              <p class="badge-item-desc">
+                Practiced configuring least-privilege IAM policies, service account credentials, and security role bindings across cloud resources.
+              </p>
+              <button class="btn-pill btn-pill-secondary btn-sm badge-verify-btn" data-badge="iam">
+                <span>Inspect Award Certificate</span>
+                <span class="btn-arrow">→</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- BADGE 3: Data Management & BigQuery -->
+          <div class="badge-item-card">
+            <div class="badge-cert-preview badge-verify-btn" data-badge="data" role="button" title="Click to inspect full award certificate">
+              <img src="assets/badges/data-cert.png" alt="Store, Process, and Manage Data on Google Cloud Award Certificate" class="badge-cert-img" loading="lazy">
+              <span class="badge-zoom-hint">🔍 View Certificate</span>
+            </div>
+            <div class="badge-card-content">
+              <div class="badge-meta-top">
+                <span class="badge-verified-badge">✓ Google Cloud Verified</span>
+                <span class="badge-date-pill">Oct 24, 2026</span>
+              </div>
+              <h3 class="badge-item-title">Store, Process &amp; Manage Data</h3>
+              <div class="badge-track-label">Data Management</div>
+              <p class="badge-item-desc">
+                Hands-on lab organizing cloud storage buckets, file lifecycle policies, and querying public datasets with BigQuery.
+              </p>
+              <button class="btn-pill btn-pill-secondary btn-sm badge-verify-btn" data-badge="data">
+                <span>Inspect Award Certificate</span>
+                <span class="btn-arrow">→</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- BADGE 4: Google AI Studio Prototypes -->
+          <div class="badge-item-card">
+            <div class="badge-cert-preview badge-verify-btn" data-badge="ai-studio" role="button" title="Click to inspect full award certificate">
+              <img src="assets/badges/ai-studio-cert.png" alt="Develop AI-powered Prototypes in Google AI Studio Award Certificate" class="badge-cert-img" loading="lazy">
+              <span class="badge-zoom-hint">🔍 View Certificate</span>
+            </div>
+            <div class="badge-card-content">
+              <div class="badge-meta-top">
+                <span class="badge-verified-badge">✓ Google Cloud Verified</span>
+                <span class="badge-date-pill">Oct 21, 2026</span>
+              </div>
+              <h3 class="badge-item-title">AI Prototypes in Google AI Studio</h3>
+              <div class="badge-track-label">Artificial Intelligence</div>
+              <p class="badge-item-desc">
+                Designed prompt templates, system instructions, and tested multimodal prototypes using the Gemini API in Google AI Studio.
+              </p>
+              <button class="btn-pill btn-pill-secondary btn-sm badge-verify-btn" data-badge="ai-studio">
+                <span>Inspect Award Certificate</span>
+                <span class="btn-arrow">→</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- BADGE 5: Gemini Enterprise Applications -->
+          <div class="badge-item-card">
+            <div class="badge-cert-preview badge-verify-btn" data-badge="gemini" role="button" title="Click to inspect full award certificate">
+              <img src="assets/badges/gemini-cert.png" alt="Create Your First Gemini Enterprise Application Award Certificate" class="badge-cert-img" loading="lazy">
+              <span class="badge-zoom-hint">🔍 View Certificate</span>
+            </div>
+            <div class="badge-card-content">
+              <div class="badge-meta-top">
+                <span class="badge-verified-badge">✓ Google Cloud Verified</span>
+                <span class="badge-date-pill">Oct 21, 2026</span>
+              </div>
+              <h3 class="badge-item-title">Gemini Enterprise Applications</h3>
+              <div class="badge-track-label">Artificial Intelligence</div>
+              <p class="badge-item-desc">
+                Explored building and deploying generative AI applications powered by Gemini multimodal foundation models and cloud APIs.
+              </p>
+              <button class="btn-pill btn-pill-secondary btn-sm badge-verify-btn" data-badge="gemini">
+                <span>Inspect Award Certificate</span>
+                <span class="btn-arrow">→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         AWS SHOWCASE SECTION (HACKATHON REQUIREMENT)
+         ========================================================================== -->
+    <section id="aws-showcase">
+    <div class="section-watermark">AWS CLOUD</div>
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">AWS Student Portfolio Hackathon</div>
+          <h2 class="section-title">Interactive Cloud Pipeline Architecture</h2>
+          <p class="section-description">
+            End-to-end continuous deployment topology on AWS Amplify, delivering zero-downtime atomic builds and sub-50ms global edge caching.
+          </p>
+        </div>
+
+        <div class="aws-topology-container">
+          <!-- Top Status Bar -->
+          <div class="aws-topology-header">
+            <div class="aws-badge-pill">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+              <span>AWS Amplify Hosting • Production Pipeline</span>
+            </div>
+
+            <div class="aws-status-beacon">
+              <span class="status-pulse"></span>
+              <span>CI/CD PIPELINE: ACTIVE • REGION: GLOBAL EDGE (CLOUDFRONT)</span>
+            </div>
+          </div>
+
+          <!-- Flowchart Pipeline Nodes (5 Stages) -->
+          <div class="aws-pipeline-flow">
+            <!-- Node 1: GitHub -->
+            <div class="aws-flow-node">
+              <div class="node-icon-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+              </div>
+              <div class="node-step-tag">01. SOURCE</div>
+              <div class="node-title">GitHub Repo</div>
+              <div class="node-desc">@itsrockmukesh / portfolio (branch: main)</div>
+            </div>
+
+            <!-- Node 2: AWS Amplify Engine -->
+            <div class="aws-flow-node">
+              <div class="node-icon-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                  <path d="M2 17l10 5 10-5"></path>
+                  <path d="M2 12l10 5 10-5"></path>
+                </svg>
+              </div>
+              <div class="node-step-tag">02. BUILD</div>
+              <div class="node-title">Amplify CI/CD</div>
+              <div class="node-desc">amplify.yml execution in managed container</div>
+            </div>
+
+            <!-- Node 3: S3 Origin -->
+            <div class="aws-flow-node">
+              <div class="node-icon-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                </svg>
+              </div>
+              <div class="node-step-tag">03. ORIGIN</div>
+              <div class="node-title">S3 Bucket</div>
+              <div class="node-desc">Atomic versioned deployment storage</div>
+            </div>
+
+            <!-- Node 4: CloudFront Edge CDN -->
+            <div class="aws-flow-node">
+              <div class="node-icon-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+              </div>
+              <div class="node-step-tag">04. EDGE CDN</div>
+              <div class="node-title">CloudFront</div>
+              <div class="node-desc">450+ Points of Presence &amp; Free SSL/TLS</div>
+            </div>
+
+            <!-- Node 5: User Browser -->
+            <div class="aws-flow-node">
+              <div class="node-icon-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+              </div>
+              <div class="node-step-tag">05. CLIENT</div>
+              <div class="node-title">Browser</div>
+              <div class="node-desc">Sub-40ms latency via HTTP/2 &amp; HTTP/3</div>
+            </div>
+          </div>
+
+          <!-- Interactive Tabs Switcher -->
+          <div class="aws-tabs-nav">
+            <button class="aws-tab-btn active" data-tab="tab-amplify-yaml">Continuous Deployment (amplify.yml)</button>
+            <button class="aws-tab-btn" data-tab="tab-infra">Edge Infrastructure &amp; Security</button>
+            <button class="aws-tab-btn" data-tab="tab-metrics">Performance &amp; Hackathon Metrics</button>
+          </div>
+
+          <!-- TAB 1: amplify.yml -->
+          <div id="tab-amplify-yaml" class="aws-tab-pane active">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
+              <span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--accent-aws);">
+                ● amplify.yml (Build &amp; Deployment Specification)
+              </span>
+              <button class="btn-pill btn-pill-secondary btn-sm" onclick="navigator.clipboard.writeText('version: 1\nfrontend:\n  phases:\n    build:\n      commands: []\n  artifacts:\n    baseDirectory: /\n    files:\n      - \'**/*\'\n  cache:\n    paths: []'); showToast('📋 amplify.yml copied to clipboard!');">
+                <span>Copy YAML</span>
+              </button>
+            </div>
+            <pre class="aws-code-snippet"><code>version: 1
+frontend:
+  phases:
+    build:
+      commands: []
+  artifacts:
+    baseDirectory: /
+    files:
+      - '**/*'
+  cache:
+    paths: []</code></pre>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.75rem;">
+              AWS Amplify parses this specification on every git commit, automatically serving files directly from the base directory with zero build overhead.
+            </p>
+          </div>
+
+          <!-- TAB 2: Infrastructure & Security -->
+          <div id="tab-infra" class="aws-tab-pane">
+            <div class="aws-pillars-grid">
+              <div class="aws-pillar-card">
+                <h4>
+                  <span style="color:var(--accent-aws);">●</span> Amazon CloudFront
+                </h4>
+                <p>
+                  Global edge distribution network caches portfolio assets across hundreds of edge locations, ensuring identical sub-second page loads globally.
+                </p>
+              </div>
+
+              <div class="aws-pillar-card">
+                <h4>
+                  <span style="color:var(--accent-green);">●</span> AWS Certificate Manager
+                </h4>
+                <p>
+                  Automated provisioning and continuous renewal of 2048-bit SSL/TLS certificates, ensuring end-to-end HTTPS encryption and Grade A+ security.
+                </p>
+              </div>
+
+              <div class="aws-pillar-card">
+                <h4>
+                  <span style="color:var(--accent-cyan);">●</span> AWS Shield &amp; Edge Protection
+                </h4>
+                <p>
+                  Always-on network layer detection and automatic inline mitigation that defends against DDoS attacks, SYN floods, and traffic anomalies.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: Metrics & SLA -->
+          <div id="tab-metrics" class="aws-tab-pane">
+            <div class="aws-metrics-grid">
+              <div class="aws-metric-card">
+                <div class="aws-metric-val">~30s</div>
+                <div class="aws-metric-label">Git Push to Live Edge Deployment Cycle</div>
+              </div>
+              <div class="aws-metric-card">
+                <div class="aws-metric-val">&lt;40ms</div>
+                <div class="aws-metric-label">Global Time to First Byte (TTFB)</div>
+              </div>
+              <div class="aws-metric-card">
+                <div class="aws-metric-val">100%</div>
+                <div class="aws-metric-label">Automated SSL HTTPS Security Rating</div>
+              </div>
+              <div class="aws-metric-card">
+                <div class="aws-metric-val">0</div>
+                <div class="aws-metric-label">Server Maintenance / Pure Serverless Static Delivery</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action pill -->
+          <div style="margin-top:2.5rem; text-align:center;">
+            <button class="btn-pill btn-pill-terminal" onclick="window.openSecretTerminal();">
+              <span>&gt;_ Run AWS Architecture Inspection in Terminal</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         BIG STATEMENT FOOTER & CONTACT (HEYKUBA SIGNATURE)
+         ========================================================================== -->
+    <section class="footer-cta-section" id="contact">
+    <div class="section-watermark">TRANSMISSION</div>
+      <div class="container">
+        <div class="section-label" style="justify-content:center;">Direct Communication</div>
+        
+        <h2 class="footer-statement">
+          Let's build something remarkable together.
+        </h2>
+
+        <p style="color:var(--text-secondary); max-width:640px; margin:0 auto 2.5rem; font-size:1.05rem; line-height:1.65;">
+          Available for software engineering internships, open-source web and C++ projects, or student hackathon collaboration. Feel free to reach out directly or send a message below.
+        </p>
+
+        <!-- Big Action Buttons -->
+        <div class="footer-actions">
+          <a href="mailto:techmukesh3124@gmail.com" class="btn-pill btn-pill-primary">
+            <span>Get in touch: techmukesh3124@gmail.com</span>
+            <span class="btn-arrow">→</span>
+          </a>
+
+          <button class="btn-pill btn-pill-secondary copy-email-btn">
+            <span>Copy Email Address</span>
+          </button>
+
+          <a href="https://www.linkedin.com/in/mukesh-kumar-06485222a" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary">
+            <span>LinkedIn Profile ↗</span>
+          </a>
+
+          <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary">
+            <span>GitHub: @itsrockmukesh ↗</span>
+          </a>
+
+          <button class="btn-pill btn-pill-terminal" onclick="window.openSecretTerminal();">
+            <span>&gt;_ Secret Terminal [~]</span>
+          </button>
+        </div>
+
+        <!-- Embedded Clean Contact Form -->
+        <div class="contact-container">
+          <div class="contact-form-card">
+            <h3 style="font-size:1.35rem; margin-bottom:0.5rem; text-align:left;">Send a Direct Message</h3>
+            <p style="color:var(--text-secondary); font-size:0.88rem; margin-bottom:1.75rem; text-align:left;">
+              Fill in your details and click send. This will open your preferred email client with your pre-formatted note.
+            </p>
+
+            <form id="contact-form">
+              <div class="form-grid-row">
+                <div class="form-group">
+                  <label for="contact-name" class="form-label">Your Name</label>
+                  <input type="text" id="contact-name" class="form-input" placeholder="e.g. Alex Johnson" required>
+                </div>
+                <div class="form-group">
+                  <label for="contact-email" class="form-label">Email Address</label>
+                  <input type="email" id="contact-email" class="form-input" placeholder="alex@company.com" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-subject" class="form-label">Subject</label>
+                <input type="text" id="contact-subject" class="form-input" placeholder="Internship / Web / C++ Collaboration" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-message" class="form-label">Message</label>
+                <textarea id="contact-message" class="form-textarea" placeholder="Hi Mukesh, I saw your portfolio and your projects on GitHub..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn-pill btn-pill-primary" style="width:100%;">
+                <span>Send Message Note</span>
+                <span class="btn-arrow">→</span>
+              </button>
+
+              <div id="form-feedback" class="form-feedback"></div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Bottom Row -->
+        <div class="footer-bottom-row" style="margin-top: 5rem;">
+          <div>
+            &copy; 2026 Mukesh Kumar • Mirai School of Technology • Built for AWS Student Portfolio Hackathon
+          </div>
+          <div class="footer-socials">
+            <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/mukesh-kumar-06485222a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="mailto:techmukesh3124@gmail.com">Email</a>
+            <button style="background:none; border:none; color:inherit; font:inherit; cursor:pointer;" onclick="window.openSecretTerminal();">Terminal [~]</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       SECRET DEVELOPER TERMINAL MODAL (CORE HACKATHON FEATURE)
+       ========================================================================== -->
+  <div id="terminal-modal" class="terminal-modal-overlay" role="dialog" aria-modal="true" aria-label="Secret Developer Terminal">
+    <div class="terminal-window">
+      <!-- Top Window Title Bar -->
+      <div class="terminal-header">
+        <div class="terminal-controls">
+          <button id="term-close-btn" class="term-btn term-btn-close" title="Close Terminal (Esc)"></button>
+          <button class="term-btn term-btn-min" title="Minimize"></button>
+          <button id="term-max-btn" class="term-btn term-btn-max" title="Toggle Fullscreen"></button>
+        </div>
+
+        <div class="terminal-header-title">
+          <span>&gt;_</span>
+          <span>mukesh@mirai-tech:~ (aws-amplify-shell)</span>
+        </div>
+
+        <div class="terminal-header-tools">
+          <button id="term-copy-btn" class="term-tool-btn">COPY LOG</button>
+          <button id="term-clear-btn" class="term-tool-btn">CLEAR</button>
+        </div>
+      </div>
+
+      <!-- Terminal Body Content -->
+      <div class="terminal-body">
+        <div class="term-banner-ascii">
+ ███╗   ███╗██╗   ██╗██╗  ██╗███████╗███████╗██╗  ██╗    ████████╗███████╗██████╗ ███╗   ███╗
+ ████╗ ████║██║   ██║██║ ██╔╝██╔════╝██╔════╝██║  ██║    ╚══██╔══╝██╔════╝██╔══██╗████╗ ████║
+ ██╔████╔██║██║   ██║█████╔╝ █████╗  ███████╗███████║       ██║   █████╗  ██████╔╝██╔████╔██║
+ ██║╚██╔╝██║██║   ██║██╔═██╗ ██╔══╝  ╚════██║██╔══██║       ██║   ██╔══╝  ██╔══██╗██║╚██╔╝██║
+ ██║ ╚═╝ ██║╚██████╔╝██║  ██╗███████╗███████║██║  ██║       ██║   ███████╗██║  ██║██║ ╚═╝ ██║
+ ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝       ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝
+        </div>
+
+        <div class="term-welcome-text">
+          Welcome to Mukesh Kumar's Secret Developer Terminal [v2.4.0-aws].<br>
+          1st Year BE-CSE Student at <span style="color:#38BDF8; font-weight:bold;">Mirai School of Technology</span> • GitHub: <a href="https://github.com/itsrockmukesh" target="_blank" style="color:#10B981; text-decoration:underline;">@itsrockmukesh</a><br>
+          Type <span style="color:#10B981; font-weight:bold;">help</span> to reveal available commands, or click any quick command chip below.<br>
+          Press <span style="color:#F59E0B; font-weight:bold;">[Tab]</span> for autocomplete, <span style="color:#F59E0B; font-weight:bold;">[↑/↓]</span> for history, <span style="color:#F59E0B; font-weight:bold;">[Esc]</span> or <span style="color:#F59E0B; font-weight:bold;">~</span> to exit.
+        </div>
+
+        <!-- Dynamic Output Log -->
+        <div id="terminal-log" class="term-command-log"></div>
+
+        <!-- Terminal Interactive Input Prompt -->
+        <div class="terminal-input-line">
+          <span class="term-prompt-tag">guest@mukesh-cloud:~$</span>
+          <input type="text" id="terminal-input" class="terminal-cli-input" autocomplete="off" spellcheck="false" autofocus aria-label="Terminal command input">
+        </div>
+      </div>
+
+      <!-- Quick Suggested Command Chips -->
+      <div class="terminal-quick-chips">
+        <span class="chip-hint-label" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); margin-right:0.25rem;">Quick:</span>
+        <button class="term-chip-btn" data-cmd="help">help</button>
+        <button class="term-chip-btn" data-cmd="about">about</button>
+        <button class="term-chip-btn" data-cmd="skills">skills</button>
+        <button class="term-chip-btn" data-cmd="projects">projects</button>
+        <button class="term-chip-btn" data-cmd="achievements">achievements</button>
+        <button class="term-chip-btn" data-cmd="aws">aws</button>
+        <button class="term-chip-btn" data-cmd="funfact">funfact</button>
+        <button class="term-chip-btn" data-cmd="theme">theme</button>
+        <button class="term-chip-btn" data-cmd="contact">contact</button>
+        <button class="term-chip-btn" data-cmd="clear">clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       RESUME VIEWER MODAL
+       ========================================================================== -->
+  <div id="resume-modal" class="resume-modal-overlay" role="dialog" aria-modal="true" aria-label="Resume Document">
+    <div class="resume-modal-card">
+      <div class="resume-modal-header">
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <span style="font-family:var(--font-mono); font-size:0.85rem; color:var(--accent-cyan); font-weight:700;">RESUME.PDF</span>
+          <span style="font-size:0.8rem; color:var(--text-secondary);">Mukesh Kumar • 1st Year BE-CSE</span>
+        </div>
+        <div style="display:flex; gap:0.5rem;">
+          <button id="resume-print-btn" class="btn-pill btn-pill-secondary btn-sm" title="Print / Save PDF">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 6 2 18 2 18 9"></polyline>
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            <span>Print</span>
+          </button>
+          <button id="resume-modal-close" class="btn-pill btn-pill-secondary btn-sm" style="padding:0.4rem 0.8rem;">✕</button>
+        </div>
+      </div>
+
+      <div class="resume-modal-body">
+        <div class="resume-paper">
+          <div class="resume-head" style="margin-bottom:1.5rem; border-bottom:1px solid var(--border-subtle); padding-bottom:1.25rem; display:flex; align-items:center; gap:1.25rem; flex-wrap:wrap;">
+            <img src="assets/mukesh-kumar.jpg" alt="Mukesh Kumar" style="width:78px; height:78px; border-radius:50%; object-fit:cover; object-position:center 20%; border:2px solid rgba(255,255,255,0.25); flex-shrink:0;">
+            <div>
+              <h2 style="font-size:1.75rem; margin-bottom:0.25rem;">Mukesh Kumar</h2>
+              <p style="color:var(--accent-cyan); font-weight:600; font-size:1.02rem; margin-bottom:0.35rem;">1st Year BE (Computer Science &amp; Engineering) Student</p>
+              <p style="color:var(--text-secondary); font-size:0.82rem; font-family:var(--font-mono); line-height:1.5;">
+                Mirai School of Technology • <a href="https://github.com/itsrockmukesh" target="_blank" style="color:var(--text-primary); text-decoration:underline;">@itsrockmukesh</a> • <a href="mailto:techmukesh3124@gmail.com" style="color:var(--text-primary); text-decoration:underline;">techmukesh3124@gmail.com</a> • <a href="https://www.linkedin.com/in/mukesh-kumar-06485222a" target="_blank" style="color:var(--text-primary); text-decoration:underline;">LinkedIn</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="resume-section-title">Education</div>
+          <p style="font-size:0.92rem; color:var(--text-secondary); line-height:1.7;">
+            <strong>Bachelor of Engineering — Computer Science &amp; Engineering (BE-CSE)</strong><br>
+            <em>Mirai School of Technology</em> (1st Year, Class of 2029)<br>
+            Current coursework: Data Structures &amp; Algorithms in C++, Web Technologies (HTML/CSS), Computer Systems Architecture.
+          </p>
+
+          <div class="resume-section-title">Verified Cloud Certifications &amp; Badges</div>
+          <ul style="padding-left:1.25rem; font-size:0.9rem; color:var(--text-secondary); line-height:1.8;">
+            <li><strong>The Basics of Google Cloud Compute:</strong> Virtual Machines, Compute Engine, VPC networks, firewall rules.</li>
+            <li><strong>Configure Service Accounts and IAM Roles for Google Cloud:</strong> Least-privilege IAM policies, service account credentials.</li>
+            <li><strong>Store, Process, and Manage Data on Google Cloud – Console:</strong> Cloud Storage bucket lifecycles, BigQuery analytics.</li>
+            <li><strong>Develop AI-Powered Prototypes in Google AI Studio:</strong> Multimodal prompt design, few-shot tuning, system prompts.</li>
+            <li><strong>Create Your First Gemini Enterprise Application:</strong> Multimodal foundation model endpoints, production streaming.</li>
+          </ul>
+
+          <div class="resume-section-title">Technical Skills</div>
+          <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7;">
+            <strong>Web Development:</strong> HTML5 (Semantic Structure), CSS3 (Flexbox, Grid, Responsive UI), JavaScript (DOM).<br>
+            <strong>Programming &amp; Algorithms:</strong> C++ Programming (C++20), Data Structures &amp; Algorithms (DSA), Problem Solving.<br>
+            <strong>Cloud &amp; AI:</strong> AWS Amplify Hosting, Google Cloud Platform, Google AI Studio, Gemini 1.5 Pro.<br>
+            <strong>Tools &amp; VCS:</strong> Git, GitHub (@itsrockmukesh), Linux Terminal, VS Code.
+          </p>
+
+          <div class="resume-section-title">Projects</div>
+          <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7;">
+            • <strong>DevTerminal Portfolio (AWS Hackathon):</strong> Interactive hacker terminal portfolio deployed with AWS Amplify.<br>
+            • <strong>Personal-Website:</strong> Clean developer web layout built using HTML5 and CSS3 (github.com/itsrockmukesh/Personal-Website).<br>
+            • <strong>Wikipedia Web Recreation:</strong> Semantic HTML recreation of the Wikipedia encyclopedic layout (github.com/itsrockmukesh/Wikipedia).<br>
+            • <strong>C++ DSA Problem Solving:</strong> Implementation of fundamental data structures and algorithmic solutions in C++.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       BADGE DETAILS MODAL
+       ========================================================================== -->
+  <div id="badge-modal" class="resume-modal-overlay" role="dialog" aria-modal="true" aria-label="Credential Verification">
+    <div class="resume-modal-card" style="max-width: 760px;">
+      <div class="resume-modal-header">
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          <span style="font-family:var(--font-mono); font-size:0.82rem; color:var(--accent-green); font-weight:700;">✓ GOOGLE CLOUD VERIFIED AWARD</span>
+          <span style="font-size:0.75rem; color:var(--text-muted);">• Mukesh Kumar</span>
+        </div>
+        <button id="badge-modal-close" class="btn-pill btn-pill-secondary btn-sm" style="padding:0.35rem 0.75rem;">✕</button>
+      </div>
+      <div class="resume-modal-body" style="padding:1.75rem;">
+        <div style="background:#ffffff; border-radius:var(--radius-sm); border:1px solid rgba(255,255,255,0.2); padding:0.5rem; margin-bottom:1.5rem; box-shadow:0 12px 30px rgba(0,0,0,0.6);">
+          <img id="modal-badge-img" src="assets/badges/compute-cert.png" alt="Google Cloud Award Certificate" style="width:100%; max-height:420px; object-fit:contain; display:block; border-radius:4px; margin:0 auto;">
+        </div>
+        <h3 id="modal-badge-title" style="font-size:1.35rem; margin-bottom:0.35rem; color:var(--text-primary);">Badge Title</h3>
+        <div id="modal-badge-meta" style="font-family:var(--font-mono); font-size:0.85rem; color:var(--accent-aws); margin-bottom:1rem;"></div>
+        <p id="modal-badge-desc" style="color:var(--text-secondary); font-size:0.92rem; line-height:1.65; margin-bottom:1.25rem;">Badge description details...</p>
+        
+        <div style="font-size:0.78rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.65rem; font-family:var(--font-mono);">Skills &amp; Topics Validated:</div>
+        <div id="modal-badge-skills" style="display:flex; flex-wrap:wrap; gap:0.5rem; justify-content:flex-start; margin-bottom:1.75rem;"></div>
+
+        <button class="btn-pill btn-pill-primary btn-sm" style="width:100%;" onclick="document.getElementById('badge-modal').classList.remove('active'); showToast('Badge certificate verified.');">
+          <span>Done / Close Preview</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-notification" class="toast-notification"></div>
+
+  <!-- Scripts -->
+  <script src="js/canvas.js"></script>
+  <script src="js/terminal.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Three.js Library -->
+  <script src="./three.min.js"></script>
+
+  <!-- 3D Crimson Surface Bust, Pinned Scroll, Dynamic Navbar Visibility & Custom Cursor -->
+  <script>
+    // --- Application Constants & Configuration ---
+    const PHOTO_W = 1024.0;
+    const PHOTO_H = 576.0;
+    const N_DOTS = 78000;
+    const CRIMSON_COLOR = new THREE.Color(0.64, 0.035, 0.055);
+    const CIRCUMFERENCE = 2 * Math.PI * 46; // 289.026
+
+    // --- State Variables ---
+    let isLoaded = false;
+    let hasMoved = false;
+
+    let targetYaw = 0.0;
+    let targetPitch = 0.0;
+    let currentYaw = 0.0;
+    let currentPitch = 0.0;
+    let idleTime = 0.0;
+
+    let mouseScreen = new THREE.Vector2(0.5, 0.5);
+    let targetCursorWorld = new THREE.Vector2(512.0, 288.0);
+    let currentCursorWorld = new THREE.Vector2(512.0, 288.0);
+
+    let entranceTime = 0.0;
+    let entranceSweep = -100.0;
+    let entranceDone = false;
+
+    let targetRevealProgress = 0.0;
+    let revealProgress = 0.0; // 0.0 = dots mode, 1.0 = photo revealed
+
+    // --- DOM Elements ---
+    const canvas = document.getElementById('webgl-canvas');
+    const preloader = document.getElementById('preloader');
+    const ringBar = document.getElementById('ring-bar');
+    const ringPct = document.getElementById('ring-pct');
+    const uiContainer = document.getElementById('ui-container');
+    const scrollIndicator = document.getElementById('scrollIndicator');
+    const scrollThumb = document.getElementById('scrollThumb');
+    const scrollLabel = document.getElementById('scrollLabel');
+    const filmGrain = document.getElementById('film-grain');
+    const heroStageEl = document.getElementById('hero');
+    const navbarEl = document.getElementById('navbar');
+
+    // Custom Cursor Elements
+    const cursorDot = document.getElementById('custom-cursor-dot');
+    const cursorRing = document.getElementById('custom-cursor-ring');
+    let mouseX = -100, mouseY = -100;
+    let ringX = -100, ringY = -100;
+
+    // Generate animated film grain
+    function initFilmGrain() {
+      if (!filmGrain) return;
+      const gCanvas = document.createElement('canvas');
+      gCanvas.width = 128;
+      gCanvas.height = 128;
+      const gCtx = gCanvas.getContext('2d');
+      const gImg = gCtx.createImageData(128, 128);
+      for (let i = 0; i < 128 * 128 * 4; i += 4) {
+        const val = (Math.random() * 255) | 0;
+        gImg.data[i] = val;
+        gImg.data[i+1] = val;
+        gImg.data[i+2] = val;
+        gImg.data[i+3] = 40;
+      }
+      gCtx.putImageData(gImg, 0, 0);
+      filmGrain.style.backgroundImage = `url(${gCanvas.toDataURL()})`;
+      filmGrain.style.backgroundRepeat = 'repeat';
+    }
+    initFilmGrain();
+
+    // --- Three.js Setup ---
+    const renderer = new THREE.WebGLRenderer({
+      canvas: canvas,
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance'
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2.0));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const scene = new THREE.Scene();
+
+    // Orthographic Camera: portrait is 12% larger than fit-to-height
+    const VISIBLE_HEIGHT = PHOTO_H / 1.12; // 514.2857
+    const camera = new THREE.OrthographicCamera(
+      -VISIBLE_HEIGHT / 2, VISIBLE_HEIGHT / 2,
+      VISIBLE_HEIGHT / 2, -VISIBLE_HEIGHT / 2,
+      0.1, 2000.0
+    );
+    camera.position.set(512.0, 288.0, 600.0);
+    camera.lookAt(512.0, 288.0, 0.0);
+
+    let visW = VISIBLE_HEIGHT * (window.innerWidth / window.innerHeight);
+    let bannerMesh = null;
+
+    function updateCamera() {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      renderer.setSize(w, h);
+      const aspect = w / h;
+      visW = VISIBLE_HEIGHT * aspect;
+      camera.left = -visW / 2.0;
+      camera.right = visW / 2.0;
+      camera.top = VISIBLE_HEIGHT / 2.0;
+      camera.bottom = -VISIBLE_HEIGHT / 2.0;
+      camera.updateProjectionMatrix();
+
+      if (bannerMesh) {
+        bannerMesh.geometry.dispose();
+        bannerMesh.geometry = new THREE.PlaneGeometry(visW, 300);
+      }
+    }
+    window.addEventListener('resize', updateCamera);
+    updateCamera();
+
+    // --- Materials & Shaders ---
+
+    // 1. Photo Texture Loader
+    const textureLoader = new THREE.TextureLoader();
+    const photoTexture = textureLoader.load('./photo_cutout.png');
+    photoTexture.minFilter = THREE.LinearFilter;
+    photoTexture.magFilter = THREE.LinearFilter;
+    photoTexture.generateMipmaps = false;
+
+    // 2. Banner Canvas ([DEVELOPER] in Previous Bold Sans-Serif font)
+    const bannerCanvas = document.createElement('canvas');
+    bannerCanvas.width = 2048;
+    bannerCanvas.height = 420;
+    const bCtx = bannerCanvas.getContext('2d');
+    
+    function drawBannerText(isCrimson = 0.0) {
+      bCtx.clearRect(0, 0, bannerCanvas.width, bannerCanvas.height);
+      bCtx.font = '900 340px Anton, sans-serif';
+      bCtx.textAlign = 'center';
+      bCtx.textBaseline = 'middle';
+      bCtx.letterSpacing = '-0.02em';
+      
+      const grad = bCtx.createLinearGradient(0, 40, 0, 380);
+      if (isCrimson <= 0.01) {
+        grad.addColorStop(0.0, 'rgba(160, 160, 170, 0.75)');
+        grad.addColorStop(0.5, 'rgba(95, 95, 105, 0.40)');
+        grad.addColorStop(1.0, 'rgba(15, 12, 18, 0.02)');
+      } else {
+        const c1 = THREE.MathUtils.lerp(160, 185, isCrimson);
+        const c2 = THREE.MathUtils.lerp(160, 14, isCrimson);
+        const c3 = THREE.MathUtils.lerp(170, 28, isCrimson);
+        grad.addColorStop(0.0, `rgba(${c1|0}, ${c2|0}, ${c3|0}, 0.85)`);
+        grad.addColorStop(0.5, `rgba(${(c1*0.45)|0}, ${(c2*0.4)|0}, ${(c3*0.4)|0}, 0.45)`);
+        grad.addColorStop(1.0, 'rgba(8, 5, 10, 0.02)');
+      }
+      bCtx.fillStyle = grad;
+      bCtx.fillText('[DEVELOPER]', bannerCanvas.width / 2, bannerCanvas.height / 2 + 10);
+    }
+        drawBannerText(0.0);
+    if (document.fonts) {
+      document.fonts.load('340px Anton').then(() => {
+        drawBannerText(0.0);
+        if (bannerTexture) bannerTexture.needsUpdate = true;
+      });
+      document.fonts.ready.then(() => {
+        drawBannerText(0.0);
+        if (bannerTexture) bannerTexture.needsUpdate = true;
+      });
+    }
+
+    const bannerTexture = new THREE.CanvasTexture(bannerCanvas);
+    bannerTexture.minFilter = THREE.LinearFilter;
+
+    // Banner Shader Material
+    const bannerMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        uTexture: { value: bannerTexture },
+        uSweepY: { value: -200.0 },
+        uRevealProgress: { value: 0.0 }
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        varying vec3 vWorldPos;
+        void main() {
+          vUv = uv;
+          vWorldPos = (modelMatrix * vec4(position, 1.0)).xyz;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform sampler2D uTexture;
+        uniform float uSweepY;
+        uniform float uRevealProgress;
+        varying vec2 vUv;
+        varying vec3 vWorldPos;
+
+        void main() {
+          vec4 texColor = texture2D(uTexture, vUv);
+          if (texColor.a < 0.01) discard;
+
+          float sweepT = clamp((vWorldPos.y - uSweepY) / 50.0, 0.0, 1.0);
+          vec3 crimson = vec3(0.68, 0.035, 0.055) * (1.0 - (1.0 - vUv.y) * 0.7);
+          vec3 finalColor = mix(texColor.rgb, crimson, sweepT * uRevealProgress);
+          float alpha = mix(texColor.a, texColor.a * 0.85, sweepT * uRevealProgress);
+
+          gl_FragColor = vec4(finalColor, alpha);
+        }
+      `,
+      transparent: true,
+      depthWrite: false
+    });
+
+    const bannerGeo = new THREE.PlaneGeometry(visW, 300);
+    bannerMesh = new THREE.Mesh(bannerGeo, bannerMaterial);
+    window.bannerMesh = bannerMesh;
+    bannerMesh.position.set(512.0, 315.0, -120.0);
+    scene.add(bannerMesh);
+
+    // 3. Photo Plane with Circular Grid Growing Reveal
+    const photoMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        uPhotoTexture: { value: photoTexture },
+        uSweepY: { value: -100.0 },
+        uRevealProgress: { value: 0.0 }
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        varying vec3 vWorldPos;
+        void main() {
+          vUv = uv;
+          vWorldPos = (modelMatrix * vec4(position, 1.0)).xyz;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform sampler2D uPhotoTexture;
+        uniform float uSweepY;
+        uniform float uRevealProgress;
+        varying vec2 vUv;
+        varying vec3 vWorldPos;
+
+        void main() {
+          vec4 photoTex = texture2D(uPhotoTexture, vUv);
+          if (photoTex.a < 0.02) discard;
+
+          if (uRevealProgress <= 0.0001) {
+            discard;
+          }
+
+          float S = 16.0;
+          vec2 px = vec2(vUv.x * 1024.0, (1.0 - vUv.y) * 576.0);
+          vec2 cellCenter = floor(px / S) * S + S * 0.5;
+          float d = length(px - cellCenter);
+          float maxRadius = S * 0.707106 * 1.08;
+
+          float rowProgress = clamp((vWorldPos.y - uSweepY) / 36.0, 0.0, 1.0);
+          if (uRevealProgress >= 0.999) {
+            rowProgress = 1.0;
+          }
+
+          float curRadius = rowProgress * maxRadius;
+          if (d > curRadius) {
+            discard;
+          }
+
+          float edgeAlpha = smoothstep(curRadius, curRadius - 1.2, d);
+          gl_FragColor = vec4(photoTex.rgb, photoTex.a * edgeAlpha);
+        }
+      `,
+      transparent: true,
+      depthWrite: false
+    });
+
+    const photoPlaneGeo = new THREE.PlaneGeometry(PHOTO_W, PHOTO_H);
+    const photoPlane = new THREE.Mesh(photoPlaneGeo, photoMaterial);
+    photoPlane.position.set(512.0, 288.0, -1.0);
+    scene.add(photoPlane);
+
+    // 4. Dust Particles
+    const N_DUST = 700;
+    const dustGeo = new THREE.BufferGeometry();
+    const dustPos = new Float32Array(N_DUST * 3);
+    const dustRand = new Float32Array(N_DUST);
+    for (let i = 0; i < N_DUST; i++) {
+      dustPos[i * 3 + 0] = 512.0 + (Math.random() - 0.5) * 1100.0;
+      dustPos[i * 3 + 1] = 288.0 + (Math.random() - 0.5) * 650.0;
+      dustPos[i * 3 + 2] = (Math.random() - 0.5) * 450.0;
+      dustRand[i] = Math.random();
+    }
+    dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
+    dustGeo.setAttribute('aRand', new THREE.BufferAttribute(dustRand, 1));
+
+    const dustMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        uTime: { value: 0.0 }
+      },
+      vertexShader: `
+        attribute float aRand;
+        uniform float uTime;
+        varying float vAlpha;
+        void main() {
+          vec3 pos = position;
+          pos.x += sin(uTime * 0.4 + aRand * 6.28) * 12.0;
+          pos.y += cos(uTime * 0.3 + aRand * 6.28) * 15.0;
+          pos.z += sin(uTime * 0.5 + aRand * 3.14) * 8.0;
+
+          vAlpha = 0.15 + 0.35 * sin(uTime * 0.8 + aRand * 6.28);
+          gl_PointSize = 1.5 + 2.0 * aRand;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+        }
+      `,
+      fragmentShader: `
+        varying float vAlpha;
+        void main() {
+          float r = length(gl_PointCoord - vec2(0.5));
+          if (r > 0.5) discard;
+          float circle = smoothstep(0.5, 0.1, r);
+          gl_FragColor = vec4(0.85, 0.4, 0.45, vAlpha * circle * 0.55);
+        }
+      `,
+      blending: THREE.AdditiveBlending,
+      transparent: true,
+      depthWrite: false
+    });
+    const dustPoints = new THREE.Points(dustGeo, dustMaterial);
+    scene.add(dustPoints);
+
+    // 5. 78,000 Surface Dots Shader
+    let dotsPoints = null;
+    let dotsMaterial = null;
+
+    function createDotsMesh(buffer) {
+      const dataView = new Float32Array(buffer);
+      const actualDots = (buffer.byteLength / 32) | 0;
+      const count = Math.min(N_DOTS, actualDots);
+
+      const pos = new Float32Array(count * 3);
+      const ringPos = new Float32Array(count * 3);
+      const normals = new Float32Array(count * 3);
+      const randArr = new Float32Array(count);
+      const brightArr = new Float32Array(count);
+
+      const R_RING = 68.0;
+      const RING_CX = 512.0;
+      const RING_CY = 288.0;
+
+      for (let i = 0; i < count; i++) {
+        const offset = i * 8;
+        const x = dataView[offset + 0];
+        const y = dataView[offset + 1];
+        const z = dataView[offset + 2];
+        const nx = dataView[offset + 3];
+        const ny = dataView[offset + 4];
+        const nz = dataView[offset + 5];
+        const rVal = dataView[offset + 6];
+        const bVal = dataView[offset + 7];
+
+        pos[i * 3 + 0] = x;
+        pos[i * 3 + 1] = 576.0 - y;
+        pos[i * 3 + 2] = z;
+
+        normals[i * 3 + 0] = nx;
+        normals[i * 3 + 1] = -ny;
+        normals[i * 3 + 2] = nz;
+
+        randArr[i] = rVal;
+        brightArr[i] = bVal;
+
+        const angle = rVal * Math.PI * 2.0;
+        const radialOffset = (dataView[offset + 0] % 1.0 - 0.5) * 16.0;
+        ringPos[i * 3 + 0] = RING_CX + (R_RING + radialOffset) * Math.cos(angle);
+        ringPos[i * 3 + 1] = RING_CY + (R_RING + radialOffset) * Math.sin(angle);
+        ringPos[i * 3 + 2] = (rVal - 0.5) * 14.0;
+      }
+
+      const dotsGeo = new THREE.BufferGeometry();
+      dotsGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+      dotsGeo.setAttribute('aRingPos', new THREE.BufferAttribute(ringPos, 3));
+      dotsGeo.setAttribute('aNormal', new THREE.BufferAttribute(normals, 3));
+      dotsGeo.setAttribute('aRand', new THREE.BufferAttribute(randArr, 1));
+      dotsGeo.setAttribute('aBrightness', new THREE.BufferAttribute(brightArr, 1));
+
+      dotsMaterial = new THREE.ShaderMaterial({
+        uniforms: {
+          uTime: { value: 0.0 },
+          uYaw: { value: 0.0 },
+          uPitch: { value: 0.0 },
+          uCursorPos: { value: new THREE.Vector2(512.0, 288.0) },
+          uEntranceTime: { value: 0.0 },
+          uEntranceSweep: { value: -100.0 },
+          uSweepY: { value: -200.0 },
+          uRevealProgress: { value: 0.0 },
+          uPhotoTexture: { value: photoTexture }
+        },
+        vertexShader: `
+          attribute vec3 aRingPos;
+          attribute vec3 aNormal;
+          attribute float aRand;
+          attribute float aBrightness;
+
+          uniform float uTime;
+          uniform float uYaw;
+          uniform float uPitch;
+          uniform float uEntranceTime;
+          uniform float uSweepY;
+          uniform float uRevealProgress;
+
+          varying vec3 vNormal;
+          varying vec3 vWorldPos;
+          varying vec2 vPhotoUV;
+          varying float vBrightness;
+          varying float vRand;
+          varying float vFlatten;
+
+          const vec3 PIVOT = vec3(512.0, 290.0, 0.0);
+
+          void main() {
+            vBrightness = aBrightness;
+            vRand = aRand;
+            vPhotoUV = vec2(position.x / 1024.0, position.y / 576.0);
+
+            float entT = clamp((uEntranceTime - aRand * 0.45) / 0.75, 0.0, 1.0);
+            entT = 1.0 - pow(1.0 - entT, 3.0);
+            vec3 sculptedPos = mix(aRingPos, position, entT);
+
+            float flatten = 0.0;
+            if (uRevealProgress > 0.0001) {
+              flatten = clamp((sculptedPos.y - uSweepY) / 38.0, 0.0, 1.0);
+            }
+            vFlatten = flatten;
+            sculptedPos.z = mix(sculptedPos.z, 0.0, flatten);
+
+            float headWeight = smoothstep(120.0, 250.0, sculptedPos.y);
+            float effYaw = uYaw * (0.22 + 0.78 * headWeight);
+            float effPitch = uPitch * (0.20 + 0.80 * headWeight);
+
+            vec3 p = sculptedPos - PIVOT;
+            vec3 n = aNormal;
+
+            float cx = cos(effPitch);
+            float sx = sin(effPitch);
+            mat3 rotX = mat3(
+              1.0, 0.0, 0.0,
+              0.0, cx, -sx,
+              0.0, sx, cx
+            );
+
+            float cy = cos(effYaw);
+            float sy = sin(effYaw);
+            mat3 rotY = mat3(
+              cy, 0.0, sy,
+              0.0, 1.0, 0.0,
+              -sy, 0.0, cy
+            );
+
+            p = rotY * rotX * p;
+            n = rotY * rotX * n;
+
+            vec3 worldPos = p + PIVOT;
+            vWorldPos = worldPos;
+            vNormal = normalize(n);
+
+            float baseSize = 2.8 + 2.4 * aBrightness + 1.2 * aRand;
+            baseSize *= mix(1.8, 1.0, entT);
+            gl_PointSize = baseSize;
+
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(worldPos, 1.0);
+          }
+        `,
+        fragmentShader: `
+          uniform float uTime;
+          uniform vec2 uCursorPos;
+          uniform float uEntranceSweep;
+          uniform float uSweepY;
+          uniform float uRevealProgress;
+          uniform sampler2D uPhotoTexture;
+
+          varying vec3 vNormal;
+          varying vec3 vWorldPos;
+          varying vec2 vPhotoUV;
+          varying float vBrightness;
+          varying float vRand;
+          varying float vFlatten;
+
+          const vec3 CRIMSON = vec3(0.64, 0.035, 0.055);
+
+          void main() {
+            float r = length(gl_PointCoord - vec2(0.5));
+            if (r > 0.5) discard;
+            float circle = smoothstep(0.5, 0.06, r);
+
+            vec3 L_key = normalize(vec3(-0.35, 0.55, 0.75));
+            float key = max(0.0, dot(vNormal, L_key));
+            float rim = pow(1.0 - max(0.0, abs(dot(vNormal, vec3(0.0, 0.0, 1.0)))), 2.4);
+
+            float cursorDist = length(vWorldPos.xy - uCursorPos);
+            float cursorLight = exp(-cursorDist * cursorDist / (2.0 * 165.0 * 165.0)) * 1.55;
+
+            float ambient = 0.38;
+            float lightIntensity = ambient + 0.58 * key + 0.32 * rim + cursorLight;
+            float totalBright = (0.35 + 0.75 * vBrightness) * lightIntensity;
+
+            vec3 dotColor = CRIMSON * (0.6 + 1.1 * totalBright);
+
+            float entDist = abs(vWorldPos.y - uEntranceSweep);
+            float entGlow = exp(-entDist * entDist / (2.0 * 22.0 * 22.0)) * 2.8;
+            dotColor += vec3(0.85, 0.30, 0.35) * entGlow;
+
+            vec4 photoColor = texture2D(uPhotoTexture, vPhotoUV);
+            vec3 finalColor = mix(dotColor, photoColor.rgb, vFlatten);
+            float dotAlpha = circle * mix(0.72 + 0.28 * vBrightness, 0.0, vFlatten);
+
+            if (uRevealProgress > 0.001 && uRevealProgress < 0.999) {
+              float revDist = abs(vWorldPos.y - uSweepY);
+              float revGlow = exp(-revDist * revDist / (2.0 * 20.0 * 20.0)) * 2.2;
+              finalColor += vec3(0.95, 0.45, 0.45) * revGlow;
+              dotAlpha = max(dotAlpha, circle * revGlow * 0.9);
+            }
+
+            gl_FragColor = vec4(finalColor, dotAlpha);
+          }
+        `,
+        blending: THREE.AdditiveBlending,
+        transparent: true,
+        depthWrite: false
+      });
+
+      dotsPoints = new THREE.Points(dotsGeo, dotsMaterial);
+      scene.add(dotsPoints);
+    }
+
+    // --- Asset Loading with Real Progress ---
+    async function loadDotData() {
+      try {
+        const response = await fetch('./dots.bin');
+        if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+        
+        const contentLength = response.headers.get('content-length');
+        const total = contentLength ? parseInt(contentLength, 10) : (N_DOTS * 32);
+        
+        const reader = response.body.getReader();
+        let received = 0;
+        const chunks = [];
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          chunks.push(value);
+          received += value.length;
+          
+          const pct = Math.min(100, Math.round((received / total) * 100));
+          const offset = CIRCUMFERENCE - (pct / 100) * CIRCUMFERENCE;
+          if (ringBar) ringBar.style.strokeDashoffset = offset;
+          if (ringPct) ringPct.textContent = `${pct}%`;
+        }
+
+        const allChunks = new Uint8Array(received);
+        let pos = 0;
+        for (const chunk of chunks) {
+          allChunks.set(chunk, pos);
+          pos += chunk.length;
+        }
+
+        if (ringBar) ringBar.style.strokeDashoffset = 0;
+        if (ringPct) ringPct.textContent = '100%';
+
+        createDotsMesh(allChunks.buffer);
+
+        setTimeout(() => {
+          if (preloader) preloader.classList.add('hidden');
+          if (scrollIndicator) {
+            scrollIndicator.style.opacity = '1';
+            scrollIndicator.style.pointerEvents = 'auto';
+          }
+          isLoaded = true; window.isLoaded = true;
+        }, 350);
+
+      } catch (err) {
+        console.error("Error loading dot buffer:", err);
+        if (ringPct) ringPct.textContent = 'Err';
+      }
+    }
+    loadDotData();
+
+    // --- Full Page Custom Cursor & 3D Interactive Spotlight Engine ---
+    window.addEventListener('mousemove', (e) => {
+      hasMoved = true;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      mouseScreen.x = mouseX / window.innerWidth;
+      mouseScreen.y = mouseY / window.innerHeight;
+
+      // Update Custom Cursor Dot directly
+      if (cursorDot) {
+        cursorDot.style.left = `${mouseX}px`;
+        cursorDot.style.top = `${mouseY}px`;
+      }
+
+      // Update full page cursor spotlight position
+      document.documentElement.style.setProperty('--mouse-x', `${mouseX}px`);
+      document.documentElement.style.setProperty('--mouse-y', `${mouseY}px`);
+
+      if (revealProgress < 0.95) {
+        const nx = (mouseScreen.x - 0.5) * 2.0;
+        const ny = (mouseScreen.y - 0.5) * 2.0;
+
+        targetYaw = nx * 0.523;
+        targetPitch = -ny * 0.261;
+
+        const aspect = window.innerWidth / window.innerHeight;
+        const visW = VISIBLE_HEIGHT * aspect;
+        const worldX = 512.0 + (mouseScreen.x - 0.5) * visW;
+        const worldY = 288.0 - (mouseScreen.y - 0.5) * VISIBLE_HEIGHT;
+        targetCursorWorld.set(worldX, worldY);
+
+        // Micro-spark sound when placing cursor over 3D particle face
+        if (Math.random() < 0.04) {
+          playParticleGrain(750 + Math.random() * 500);
+        }
+      }
+    });
+
+    // Animate trailing ring with smooth interpolation
+    function updateCursorRing() {
+      ringX += (mouseX - ringX) * 0.22;
+      ringY += (mouseY - ringY) * 0.22;
+      if (cursorRing) {
+        cursorRing.style.left = `${ringX.toFixed(1)}px`;
+        cursorRing.style.top = `${ringY.toFixed(1)}px`;
+      }
+      requestAnimationFrame(updateCursorRing);
+    }
+    requestAnimationFrame(updateCursorRing);
+
+    // Interactive hover & placement detection with tactile audio feedback
+    const INTERACTIVE_SELECTOR = 'a, button, input, textarea, select, [role="button"], .badge-card, .project-card, .scroll-indicator, .tilt-card, .spec-chip, .filter-btn, .pill-tag, .social-icon-btn, .nav-link, .hero-chip, .code-preview-frame, .badge-item, .work-card, .btn-pill, .status-pill';
+
+    document.addEventListener('mouseover', (e) => {
+      const target = e.target.closest(INTERACTIVE_SELECTOR);
+      if (target) {
+        document.body.classList.add('cursor-hover');
+        playCursorHoverSound(target);
+      } else {
+        document.body.classList.remove('cursor-hover');
+      }
+    });
+
+    document.addEventListener('mousedown', (e) => {
+      document.body.classList.add('cursor-active');
+      playCursorClickSound(e.target);
+    });
+
+    document.addEventListener('mouseup', () => {
+      document.body.classList.remove('cursor-active');
+    });
+
+    document.addEventListener('mouseleave', () => {
+      if (cursorDot) cursorDot.style.opacity = '0';
+      if (cursorRing) cursorRing.style.opacity = '0';
+    });
+    document.addEventListener('mouseenter', () => {
+      if (cursorDot) cursorDot.style.opacity = '1';
+      if (cursorRing) cursorRing.style.opacity = '1';
+    });
+
+    // 3D Card Interactive Tilt for Bento Grid
+    function initCardTilt() {
+      const cards = document.querySelectorAll('.project-card, .badge-card, .spec-card, .hero-intro-card');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -5.0;
+          const rotateY = ((x - centerX) / centerX) * 5.0;
+          card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.015, 1.015, 1.015)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initCardTilt);
+    } else {
+      initCardTilt();
+    }
+
+    
+            // ==========================================================================
+    // INTERACTIVE PHOTO SCROLL SILKY AUDIO ENGINE (Web Audio API)
+    // Produces a buttery-smooth, fluid, futuristic harmonic glide (NO rough clicks!)
+    // ==========================================================================
+    let scrollAudioCtx = null;
+    let scrollAirGain = null;
+    let scrollAirFilter = null;
+    let scrollOsc1 = null;
+    let scrollOsc2 = null;
+    let lastScrollY = window.scrollY;
+    let lastScrollTime = performance.now();
+    let scrollVelocity = 0.0;
+    let isChimePlayed = false;
+    let isReverseChimePlayed = false;
+
+    function initScrollAudio() {
+      if (scrollAudioCtx) return;
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        scrollAudioCtx = new AudioContext();
+
+        // 1. Smooth, Gentle Velvet Resonant Filter (Lowpass, warmth & zero roughness)
+        scrollAirFilter = scrollAudioCtx.createBiquadFilter();
+        scrollAirFilter.type = 'lowpass';
+        scrollAirFilter.frequency.setValueAtTime(360.0, scrollAudioCtx.currentTime);
+        scrollAirFilter.Q.setValueAtTime(1.2, scrollAudioCtx.currentTime); // Soft, gentle Q
+
+        // Master Smooth Glide Gain
+        scrollAirGain = scrollAudioCtx.createGain();
+        scrollAirGain.gain.setValueAtTime(0.0, scrollAudioCtx.currentTime);
+
+        // 2. Pure Warm Celestial Sines (A3 220Hz + A4 440Hz — Pure soothing harmony, NO buzzing!)
+        scrollOsc1 = scrollAudioCtx.createOscillator();
+        scrollOsc1.type = 'sine';
+        scrollOsc1.frequency.setValueAtTime(220.0, scrollAudioCtx.currentTime);
+
+        scrollOsc2 = scrollAudioCtx.createOscillator();
+        scrollOsc2.type = 'sine';
+        scrollOsc2.frequency.setValueAtTime(440.0, scrollAudioCtx.currentTime);
+
+        scrollOsc1.connect(scrollAirFilter);
+        scrollOsc2.connect(scrollAirFilter);
+        scrollAirFilter.connect(scrollAirGain);
+        scrollAirGain.connect(scrollAudioCtx.destination);
+
+        scrollOsc1.start();
+        scrollOsc2.start();
+
+        window.scrollAudioCtx = scrollAudioCtx;
+        window.scrollDroneGain = scrollAirGain;
+        window.scrollAirGain = scrollAirGain;
+        window.scrollAirFilter = scrollAirFilter;
+        window.scrollOsc1 = scrollOsc1;
+        window.scrollOsc2 = scrollOsc2;
+        window.initScrollAudio = initScrollAudio;
+      } catch (e) {
+        console.warn("AudioContext init error:", e);
+      }
+    }
+    window.initScrollAudio = initScrollAudio;
+    window.handleScrollSound = handleScrollSound;
+
+    // Crystalline Glass Spark (Pentatonic Particle Assembling Droplet)
+    const CRYSTAL_NOTES = [523.25, 659.25, 783.99, 987.77, 1046.50, 1318.51, 1567.98];
+    function playCrystalDrop(progress = 0.5) {
+      if (!scrollAudioCtx || window.portfolioAudioMuted) return;
+      try {
+        const t = scrollAudioCtx.currentTime;
+        const osc = scrollAudioCtx.createOscillator();
+        const gain = scrollAudioCtx.createGain();
+
+        const noteIndex = Math.min(CRYSTAL_NOTES.length - 1, Math.max(0, Math.floor((progress || 0) * CRYSTAL_NOTES.length)));
+        const freq = CRYSTAL_NOTES[noteIndex];
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, t);
+
+        gain.gain.setValueAtTime(0.016, t);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.055);
+
+        osc.connect(gain);
+        gain.connect(scrollAudioCtx.destination);
+        osc.start(t);
+        osc.stop(t + 0.06);
+      } catch (e) {}
+    }
+
+    function playParticleGrain(freq) {
+      playCrystalDrop(window.revealProgress || 0.5);
+    }
+
+    // Futuristic Holographic Completion Chime (Lush 5-Note Crystalline Arpeggio)
+    function playHoloChime(reverse = false) {
+      if (!scrollAudioCtx || window.portfolioAudioMuted) return;
+      try {
+        const now = scrollAudioCtx.currentTime;
+        const notes = reverse
+          ? [783.99, 659.25, 523.25, 392.00]
+          : [523.25, 659.25, 783.99, 987.77, 1046.50];
+
+        notes.forEach((freq, idx) => {
+          const osc = scrollAudioCtx.createOscillator();
+          const gain = scrollAudioCtx.createGain();
+          osc.type = 'sine';
+          const startTime = now + idx * 0.058;
+          osc.frequency.setValueAtTime(freq, startTime);
+          gain.gain.setValueAtTime(0.045, startTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.5);
+          osc.connect(gain);
+          gain.connect(scrollAudioCtx.destination);
+          osc.start(startTime);
+          osc.stop(startTime + 0.5);
+        });
+      } catch (e) {}
+    }
+
+    // ==========================================================================
+    // TACTILE CURSOR SOUND ENGINE (Hover & Click Micro-Acoustics)
+    // Produces subtle, luxury micro-haptic chirps & crisp mechanical clicks
+    // ==========================================================================
+    let lastHoveredElement = null;
+    let lastHoverTime = 0;
+
+    function playCursorHoverSound(target) {
+      if (window.portfolioAudioMuted) return;
+      const now = performance.now();
+      if (target === lastHoveredElement && (now - lastHoverTime) < 220) return;
+      if ((now - lastHoverTime) < 45) return; // Debounce rapid movements
+      lastHoveredElement = target;
+      lastHoverTime = now;
+
+      if (!scrollAudioCtx) initScrollAudio();
+      if (scrollAudioCtx && scrollAudioCtx.state === 'suspended') {
+        scrollAudioCtx.resume();
+      }
+      if (!scrollAudioCtx) return;
+
+      try {
+        const t = scrollAudioCtx.currentTime;
+        const osc = scrollAudioCtx.createOscillator();
+        const gain = scrollAudioCtx.createGain();
+
+        // High-tech subtle tactile micro-chirp (visionOS / luxury tactile feedback)
+        const baseFreq = 1050 + Math.random() * 90;
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(baseFreq, t);
+        osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.3, t + 0.022);
+
+        gain.gain.setValueAtTime(0.018, t);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.024);
+
+        osc.connect(gain);
+        gain.connect(scrollAudioCtx.destination);
+        osc.start(t);
+        osc.stop(t + 0.025);
+      } catch (e) {}
+    }
+
+    // Crisp Tactile Cursor Placement / Click Sound
+    function playCursorClickSound(target) {
+      if (window.portfolioAudioMuted) return;
+      if (!scrollAudioCtx) initScrollAudio();
+      if (scrollAudioCtx && scrollAudioCtx.state === 'suspended') {
+        scrollAudioCtx.resume();
+      }
+      if (!scrollAudioCtx) return;
+
+      try {
+        const t = scrollAudioCtx.currentTime;
+        // Dual component mechanical cyber click
+        const osc = scrollAudioCtx.createOscillator();
+        const gain = scrollAudioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(1380, t);
+        osc.frequency.exponentialRampToValueAtTime(280, t + 0.028);
+
+        gain.gain.setValueAtTime(0.026, t);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.028);
+
+        osc.connect(gain);
+        gain.connect(scrollAudioCtx.destination);
+        osc.start(t);
+        osc.stop(t + 0.03);
+
+        const subOsc = scrollAudioCtx.createOscillator();
+        const subGain = scrollAudioCtx.createGain();
+        subOsc.type = 'sine';
+        subOsc.frequency.setValueAtTime(240, t);
+        subGain.gain.setValueAtTime(0.02, t);
+        subGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.032);
+        subOsc.connect(subGain);
+        subGain.connect(scrollAudioCtx.destination);
+        subOsc.start(t);
+        subOsc.stop(t + 0.032);
+      } catch (e) {}
+    }
+
+    window.playCursorHoverSound = playCursorHoverSound;
+    window.playCursorClickSound = playCursorClickSound;
+
+
+    // Modulate sound based on scroll activity and reveal progress
+    function handleScrollSound(delta) {
+      if (window.portfolioAudioMuted) return;
+      if (!scrollAudioCtx) {
+        initScrollAudio();
+      }
+      if (scrollAudioCtx && scrollAudioCtx.state === 'suspended') {
+        scrollAudioCtx.resume();
+      }
+      if (!scrollAudioCtx) return;
+
+      const vh = window.innerHeight;
+      const scrollY = window.scrollY;
+
+      const now = performance.now();
+      const dt = Math.max(1, now - lastScrollTime);
+      const dy = Math.abs(scrollY - lastScrollY);
+      scrollVelocity = Math.min(1.0, (dy / dt) * 0.2 + Math.abs(delta || 0) * 0.0028);
+
+      lastScrollY = scrollY;
+      lastScrollTime = now;
+    }
+
+    // Unlock AudioContext on first user interaction
+    ['click', 'keydown', 'wheel', 'touchstart', 'scroll'].forEach(evt => {
+      window.addEventListener(evt, () => {
+        if (!scrollAudioCtx) initScrollAudio();
+        if (scrollAudioCtx && scrollAudioCtx.state === 'suspended') {
+          scrollAudioCtx.resume();
+        }
+      }, { once: true, passive: true });
+    });
+
+    // ==========================================================================
+    // BULLETPROOF GATED PHOTO REVEAL ENGINE
+    // The next page CANNOT scroll until the full photo is 100% revealed & visible!
+    // ==========================================================================
+    let isHeroLocked = true;
+    document.body.classList.add('hero-locked');
+
+    function checkHeroLockState() {
+      // Unlock page scrolling only when photo is fully revealed
+      // NOTE: Navbar remains HIDDEN on photo; it only appears after photo ends and we arrive at next page
+      if (targetRevealProgress >= 0.98 && revealProgress >= 0.96) {
+        if (isHeroLocked) {
+          isHeroLocked = false;
+          document.body.classList.remove('hero-locked');
+        }
+      } else {
+        // Re-lock at the top if photo is being returned to dots
+        if (window.scrollY <= 5 && !isHeroLocked) {
+          isHeroLocked = true;
+          document.body.classList.add('hero-locked');
+          if (navbarEl) navbarEl.classList.add('navbar-hidden');
+        }
+      }
+    }
+
+    // Intercept Wheel Gestures for Strict Hero Reveal Gating
+    window.addEventListener('wheel', (e) => {
+      const scrollY = window.scrollY;
+
+      // 1. If at the top and photo is not fully revealed:
+      if (scrollY <= 5 && targetRevealProgress < 0.999) {
+        if (e.deltaY > 0) {
+          // Scrolling down advances photo reveal
+          e.preventDefault();
+          const speed = 0.0022; // Smooth ~450px scroll travel to 100%
+          targetRevealProgress = Math.min(1.0, targetRevealProgress + Math.abs(e.deltaY) * speed);
+          handleScrollSound(e.deltaY);
+          if (targetRevealProgress >= 1.0) checkHeroLockState();
+          return;
+        } else if (e.deltaY < 0 && targetRevealProgress > 0.0) {
+          // Scrolling up reduces photo reveal back to dots
+          e.preventDefault();
+          const speed = 0.0022;
+          targetRevealProgress = Math.max(0.0, targetRevealProgress - Math.abs(e.deltaY) * speed);
+          handleScrollSound(e.deltaY);
+          checkHeroLockState();
+          return;
+        }
+      }
+
+      // 2. If at top and photo is fully revealed:
+      if (scrollY <= 5 && targetRevealProgress >= 0.98) {
+        if (e.deltaY < 0 && scrollY <= 0) {
+          // Scrolling up while at top reverses photo back to dots
+          e.preventDefault();
+          const speed = 0.0022;
+          targetRevealProgress = Math.max(0.0, targetRevealProgress - Math.abs(e.deltaY) * speed);
+          handleScrollSound(e.deltaY);
+          checkHeroLockState();
+          return;
+        }
+        // Scrolling down naturally scrolls the page into the website
+        handleScrollSound(e.deltaY);
+      } else {
+        handleScrollSound(e.deltaY);
+      }
+    }, { passive: false });
+
+    // Touch Event Handling for Mobile / Trackpad Swiping
+    let touchStartY = 0;
+    window.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+      if (!scrollAudioCtx) initScrollAudio();
+      if (scrollAudioCtx && scrollAudioCtx.state === 'suspended') scrollAudioCtx.resume();
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      const scrollY = window.scrollY;
+      const currentY = e.touches[0].clientY;
+      const deltaY = touchStartY - currentY; // positive = swipe up = scroll down
+
+      if (scrollY <= 5 && (targetRevealProgress < 0.999 || (deltaY < 0 && targetRevealProgress > 0.0))) {
+        e.preventDefault();
+        const speed = 0.0035;
+        targetRevealProgress = Math.min(1.0, Math.max(0.0, targetRevealProgress + deltaY * speed));
+        touchStartY = currentY;
+        handleScrollSound(deltaY);
+        if (targetRevealProgress >= 1.0) checkHeroLockState();
+      } else {
+        touchStartY = currentY;
+        handleScrollSound(deltaY);
+      }
+    }, { passive: false });
+
+    // Keyboard Navigation (ArrowDown, ArrowUp, Space, PageDown, PageUp)
+    window.addEventListener('keydown', (e) => {
+      const scrollY = window.scrollY;
+      if (scrollY <= 5 && targetRevealProgress < 0.999) {
+        if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          targetRevealProgress = Math.min(1.0, targetRevealProgress + 0.18);
+          handleScrollSound(100);
+          if (targetRevealProgress >= 1.0) checkHeroLockState();
+        }
+      }
+      if (scrollY <= 5 && targetRevealProgress > 0.001) {
+        if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+          e.preventDefault();
+          targetRevealProgress = Math.max(0.0, targetRevealProgress - 0.18);
+          handleScrollSound(-100);
+          checkHeroLockState();
+        }
+      }
+    });
+
+    // Native Page Scroll Listener for Website Sections
+    function updateHeroScrollState() {
+      if (!isLoaded) return;
+      const scrollY = window.scrollY;
+      handleScrollSound(scrollY - lastScrollY);
+
+      // NAVBAR VISIBILITY RULE:
+      // When photo is fully revealed at the top, navbar DOES NOT show.
+      // After photo is ended and we arrive at another page (scrollY > 60), navbar shows!
+      if (scrollY > 60) {
+        if (navbarEl) navbarEl.classList.remove('navbar-hidden');
+      } else {
+        if (navbarEl) navbarEl.classList.add('navbar-hidden');
+      }
+
+      if (uiContainer) {
+        if (scrollY > window.innerHeight * 0.25) {
+          uiContainer.style.opacity = '0';
+          uiContainer.style.pointerEvents = 'none';
+        } else {
+          uiContainer.style.opacity = '1';
+          uiContainer.style.pointerEvents = 'auto';
+        }
+      }
+    }
+
+    window.addEventListener('scroll', updateHeroScrollState, { passive: true });
+
+    // Universal Keyboard Click Sound: triggers on EVERY key of the keyboard pressed
+    window.addEventListener('keydown', (e) => {
+      if (typeof window.playKeyboardClickSound === 'function') {
+        window.playKeyboardClickSound(e.key);
+      }
+    }, { capture: true, passive: true });
+
+    window.addEventListener('resize', updateHeroScrollState, { passive: true });
+
+    // Initial check on load: ensure hero is locked and navbar is hidden
+    checkHeroLockState();
+    updateHeroScrollState();
+
+    // Scroll Indicator Click Action
+    if (scrollIndicator) {
+      scrollIndicator.addEventListener('click', () => {
+        if (!isLoaded) return;
+        if (targetRevealProgress < 0.98) {
+          targetRevealProgress = 1.0;
+        } else {
+          isHeroLocked = false;
+          document.body.classList.remove('hero-locked');
+          const introSec = document.getElementById('intro');
+          if (introSec) introSec.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    }
+
+    // Nav Links Unlock Page Immediately if Clicked
+    document.querySelectorAll('.nav-link, .btn-pill, .trigger-resume-modal').forEach(link => {
+      link.addEventListener('click', () => {
+        targetRevealProgress = 1.0;
+        revealProgress = 1.0;
+        isHeroLocked = false;
+        document.body.classList.remove('hero-locked');
+      });
+    });
+
+    // --- Main Animation Loop ---
+    let lastTime = performance.now();
+
+    function animate(now) {
+      requestAnimationFrame(animate);
+
+      const dt = Math.min((now - lastTime) / 1000.0, 0.1);
+      lastTime = now;
+
+      if (!isLoaded || !dotsMaterial) {
+        renderer.render(scene, camera);
+        return;
+      }
+
+      idleTime += dt;
+      dotsMaterial.uniforms.uTime.value = idleTime;
+      dustMaterial.uniforms.uTime.value = idleTime;
+
+      // 1. Entrance Flight & Light Sweep Choreography
+      if (!entranceDone) {
+        entranceTime += dt * 0.95;
+        dotsMaterial.uniforms.uEntranceTime.value = entranceTime;
+
+        if (entranceTime >= 1.15) {
+          entranceSweep += dt * 550.0;
+          dotsMaterial.uniforms.uEntranceSweep.value = entranceSweep;
+          if (entranceSweep > 650.0) {
+            entranceDone = true;
+            dotsMaterial.uniforms.uEntranceSweep.value = -200.0;
+          }
+        }
+      }
+
+      // 2. Idle Drift before first mouse move
+      if (!hasMoved && revealProgress < 0.1) {
+        targetYaw = Math.sin(idleTime * 0.75) * 0.07;
+        targetPitch = Math.cos(idleTime * 0.55) * 0.04;
+      }
+
+      // 3. Smooth Lerp on Reveal Progress Driven by Scroll
+      const prevReveal = revealProgress;
+      revealProgress += (targetRevealProgress - revealProgress) * 0.095;
+      if (Math.abs(targetRevealProgress - revealProgress) < 0.0005) {
+        revealProgress = targetRevealProgress;
+      }
+      const revealDelta = Math.abs(revealProgress - prevReveal);
+
+      // Continuously evaluate hero lock state as revealProgress lerps
+      checkHeroLockState();
+
+      // --- Interactive Photo Scroll Audio Modulation Engine ---
+      // Buttery-smooth, soothing harmonic glide (pure sine tones smoothly tracking revealProgress)
+      if (scrollAudioCtx && scrollAirGain) {
+        if (window.portfolioAudioMuted) {
+          scrollAirGain.gain.setValueAtTime(0.0, scrollAudioCtx.currentTime);
+        } else {
+          const vh = window.innerHeight;
+          const timeSinceScroll = performance.now() - lastScrollTime;
+          const isHeroZone = window.scrollY <= vh * 1.5;
+          const isParticlesMoving = (revealDelta > 0.0008 || timeSinceScroll < 120);
+
+          if (isHeroZone && isParticlesMoving) {
+            const audioNow = scrollAudioCtx.currentTime;
+
+            // Pitch glides smoothly upwards as photo reveals: A3 (220Hz) -> E4 (330Hz)
+            const baseFreq = THREE.MathUtils.lerp(220.0, 330.0, revealProgress);
+            scrollOsc1.frequency.setTargetAtTime(baseFreq, audioNow, 0.04);
+            scrollOsc2.frequency.setTargetAtTime(baseFreq * 2.0, audioNow, 0.04);
+
+            // Filter smoothly opens: 320Hz -> 780Hz
+            const filterFreq = THREE.MathUtils.lerp(320.0, 780.0, revealProgress);
+            scrollAirFilter.frequency.setTargetAtTime(filterFreq, audioNow, 0.04);
+
+            // Volume: gentle, whisper-soft, perfectly fluid (max 0.024)
+            const dynamicVol = Math.min(0.024, Math.max(scrollVelocity * 0.02, revealDelta * 1.4));
+            scrollAirGain.gain.setTargetAtTime(dynamicVol, audioNow, 0.035);
+
+            // Gentle crystalline glass sparkle as particles snap into photo coordinates
+            if (Math.random() < 0.18 && dynamicVol > 0.006) {
+              playCrystalDrop(revealProgress);
+            }
+          } else {
+            scrollAirGain.gain.setTargetAtTime(0.0, scrollAudioCtx.currentTime, 0.09);
+          }
+        }
+      }
+
+      // Holographic Completion Chime on 100% reveal or return to dots
+      if (revealProgress >= 0.98 && !isChimePlayed) {
+        isChimePlayed = true;
+        isReverseChimePlayed = false;
+        playHoloChime(false);
+      } else if (revealProgress <= 0.05 && !isReverseChimePlayed && isChimePlayed) {
+        isReverseChimePlayed = true;
+        isChimePlayed = false;
+        playHoloChime(true);
+      }
+
+      // Update scroll indicator UI dynamically
+      if (scrollThumb && scrollLabel) {
+        scrollThumb.style.width = `${(revealProgress * 100).toFixed(1)}%`;
+        if (revealProgress <= 0.04) {
+          scrollLabel.textContent = 'Scroll to reveal photo';
+        } else if (revealProgress >= 0.96) {
+          scrollLabel.textContent = 'Photo revealed • Scroll for website ↓';
+        } else {
+          scrollLabel.textContent = `Revealing... ${(revealProgress * 100).toFixed(0)}%`;
+        }
+      }
+
+      // Sweep moves from top (Y=610) to bottom (Y=-40) in Three.js coords
+      const sweepY = THREE.MathUtils.lerp(610.0, -40.0, revealProgress);
+
+      dotsMaterial.uniforms.uSweepY.value = sweepY;
+      dotsMaterial.uniforms.uRevealProgress.value = revealProgress;
+      window.revealProgress = revealProgress;
+      window.targetRevealProgress = targetRevealProgress;
+      window.isChimePlayed = isChimePlayed;
+
+      photoMaterial.uniforms.uSweepY.value = sweepY;
+      photoMaterial.uniforms.uRevealProgress.value = revealProgress;
+
+      bannerMaterial.uniforms.uSweepY.value = sweepY;
+      bannerMaterial.uniforms.uRevealProgress.value = revealProgress;
+
+      // Cursor tracking & head turn:
+      const trackingFactor = Math.max(0.0, 1.0 - revealProgress * 1.6);
+      const easeFactor = 0.06;
+      currentYaw += (targetYaw * trackingFactor - currentYaw) * easeFactor;
+      currentPitch += (targetPitch * trackingFactor - currentPitch) * easeFactor;
+      currentCursorWorld.lerp(targetCursorWorld, easeFactor);
+
+      dotsMaterial.uniforms.uYaw.value = currentYaw;
+      dotsMaterial.uniforms.uPitch.value = currentPitch;
+      dotsMaterial.uniforms.uCursorPos.value.copy(currentCursorWorld);
+
+      renderer.render(scene, camera);
+    }
+
+    requestAnimationFrame(animate);
+  </script>
+</body>
+
+</html>
+
+
