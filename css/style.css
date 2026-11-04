@@ -2313,9 +2313,30 @@ a {
 }
 
 .game-start-gate.opened {
-  transform: translateY(-100%);
-  opacity: 0;
-  pointer-events: none;
+  transform: translateY(-100%) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+.btn-gate-close {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  color: #00F0FF;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-gate-close:hover {
+  background: rgba(0, 240, 255, 0.2);
+  border-color: #00F0FF;
+  color: #FFFFFF;
+  transform: translateY(-1px);
 }
 
 .game-start-inner {

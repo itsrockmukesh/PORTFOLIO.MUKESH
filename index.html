@@ -35,6 +35,35 @@
 </head>
 <body>
 
+  <script>
+    // Bulletproof Enter Game Realm handler
+    window.enterGameRealm = function() {
+      var gate = document.getElementById('game-start-gate');
+      if (gate) {
+        gate.classList.add('opened');
+        gate.style.setProperty('transform', 'translateY(-100%)', 'important');
+        gate.style.setProperty('opacity', '0', 'important');
+        gate.style.setProperty('pointer-events', 'none', 'important');
+        setTimeout(function() {
+          gate.style.setProperty('display', 'none', 'important');
+        }, 400);
+      }
+      try {
+        if (typeof showToast === 'function') {
+          showToast('🎮 LEVEL 01 INITIATED: Welcome to Mukesh Kumar\'s Portfolio!');
+        }
+      } catch (e) {}
+    };
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
+        var gate = document.getElementById('game-start-gate');
+        if (gate && !gate.classList.contains('opened')) {
+          window.enterGameRealm();
+        }
+      }
+    });
+  </script>
+
   <!-- ==========================================================================
        CINEMATIC GAME OPENING SCREEN (FEELING WITH OPENING)
        ========================================================================== -->
@@ -43,7 +72,10 @@
       <div class="game-start-hud-frame">
         <div class="hud-top-bar">
           <span class="hud-tag"><span class="hud-pulse-dot"></span> SYSTEM READY // NET.ONLINE</span>
-          <span class="hud-coords">PORT: 3000 // REGION: GLOBAL EDGE</span>
+          <div style="display:flex; align-items:center; gap:0.75rem;">
+            <span class="hud-coords">PORT: 3000</span>
+            <button class="btn-gate-close" onclick="enterGameRealm()" title="Enter Site">✕ ENTER SITE</button>
+          </div>
         </div>
 
         <div class="game-start-hero">
@@ -68,12 +100,12 @@
 
           <!-- The Start Button -->
           <div class="game-start-action-row">
-            <button id="press-start-btn" class="btn-press-start">
+            <button id="press-start-btn" class="btn-press-start" onclick="enterGameRealm()" style="cursor:pointer;">
               <span class="start-icon">🕹️</span>
               <span class="start-text">PRESS START TO ENTER</span>
               <span class="start-arrow">▶</span>
             </button>
-            <button id="quick-enter-btn" class="btn-skip-intro">
+            <button id="quick-enter-btn" class="btn-skip-intro" onclick="enterGameRealm()" style="cursor:pointer;">
               <span>Skip Intro &amp; Scroll</span>
             </button>
           </div>

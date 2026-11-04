@@ -460,12 +460,12 @@ function initGameStartGate() {
   if (!gate) return;
 
   function openGate() {
-    if (gate.classList.contains('opened')) return;
-    playHapticTone(520);
-    setTimeout(() => playHapticTone(650), 100);
-    setTimeout(() => playHapticTone(880), 200);
-    gate.classList.add('opened');
-    showToast('🎮 LEVEL 01 INITIATED: Welcome to Mukesh Kumar\'s Portfolio!');
+    if (typeof window.enterGameRealm === 'function') {
+      window.enterGameRealm();
+    } else {
+      gate.classList.add('opened');
+      gate.style.display = 'none';
+    }
   }
 
   if (startBtn) startBtn.addEventListener('click', openGate);
