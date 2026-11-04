@@ -120,8 +120,8 @@ The portfolio includes an interactive **Retro/Cyber Developer Console** that run
 ```bash
 # Push to your GitHub account (itsrockmukesh)
 git add .
-git commit -m "feat: customize portfolio with Mirai School of Tech profile and GitHub projects"
-git remote add origin https://github.com/itsrockmukesh/aws-portfolio.git
+git commit -m "feat: complete AWS hackathon rubric alignment, superpowers section, and submission documentation"
+git remote add origin https://github.com/itsrockmukesh/portfolio.git
 git branch -M main
 git push -u origin main
 ```

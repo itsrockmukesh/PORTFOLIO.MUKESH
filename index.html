@@ -56,8 +56,9 @@
 
       <!-- Center Pill Navigation -->
       <ul class="nav-links" id="nav-links">
-        <li><a href="#projects" class="nav-link">Work</a></li>
-        <li><a href="#about" class="nav-link">Info</a></li>
+        <li><a href="#about" class="nav-link">About Me</a></li>
+        <li><a href="#skills" class="nav-link">Superpowers</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
         <li><a href="#achievements" class="nav-link">Badges</a></li>
         <li><a href="#aws-showcase" class="nav-link">AWS Setup</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
@@ -147,6 +148,17 @@
                 <span>Resume</span>
               </button>
             </div>
+
+            <!-- Visible Hint Callout for AWS Hackathon Judges -->
+            <div class="creative-feature-callout" onclick="window.openSecretTerminal();" role="button" title="Click to open Secret Developer Terminal [~]">
+              <div class="callout-badge-row">
+                <span class="callout-pill"><span class="status-pulse"></span> CREATIVE FEATURE HINT</span>
+                <span class="callout-sub">Press [~] or click here</span>
+              </div>
+              <p class="callout-text">
+                This portfolio features an interactive <strong>Secret Developer Terminal</strong> with live CLI commands (<code>help</code>, <code>vending</code>, <code>theme</code>, <code>aws</code>), retro audio synthesis, and theme switching.
+              </p>
+            </div>
           </div>
 
           <!-- Right Column: Sharp, Proud Human Photo Card -->
@@ -210,7 +222,216 @@
     </div>
 
     <!-- ==========================================================================
-         FEATURED WORK / PROJECTS (HEYKUBA LARGE SHOWCASE CARDS)
+         CORE SECTION 1: ABOUT ME (HACKATHON REQUIREMENT)
+         ========================================================================== -->
+    <section class="info-section" id="about">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Core Section • About Me</div>
+          <h2 class="section-title">First-Year Student, Lifelong Builder</h2>
+        </div>
+
+        <div class="info-grid">
+          <!-- Left Column: Story & Personal Narrative -->
+          <div class="info-story-col">
+            <div class="info-badge-intro">
+              <span class="status-pulse"></span>
+              <span>1st Year BE-CSE • Mirai School of Technology</span>
+            </div>
+
+            <p class="info-lead-p">
+              "I'm a first-year engineering student building real projects every week. No fluff, just clean code, curiosity, and continuous learning."
+            </p>
+            <p class="info-sub-p">
+              I started my web development journey with pure HTML and CSS. Instead of copying templates or relying on frameworks, I wanted to understand how browsers actually render web pages — how semantic HTML shapes accessible structure, how CSS Flexbox and Grid create responsive flows, and how to write clean code from scratch.
+            </p>
+            <p class="info-sub-p">
+              Alongside web development, I spend time every day practicing Data Structures and Algorithms in C++. Working with pointers, dynamic memory, recursion, and Big-O complexity teaches me how computers think at the hardware level and gives me solid problem-solving fundamentals.
+            </p>
+            <p class="info-sub-p">
+              I also love exploring the cloud. I've earned 5 Google Cloud skill badges covering Compute Engine, Cloud IAM, BigQuery, and Generative AI in Google AI Studio. Attending the AWS Builder Center: Future Builders Connect event inspired me to create this project for the AWS Student Portfolio Hackathon, deployed live on AWS Amplify.
+            </p>
+            <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+              <button class="btn-pill btn-pill-primary trigger-resume-modal">
+                <span>View Full Resume</span>
+                <span class="btn-arrow">→</span>
+              </button>
+              <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary">
+                <span>GitHub Profile ↗</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column: Structured Student Profile Blocks -->
+          <div class="info-details-col">
+            <!-- Block 1: Education -->
+            <div class="info-block-item">
+              <div class="info-block-header">Education &amp; Institution</div>
+              <div class="info-block-content">
+                <strong>Mirai School of Technology</strong><br>
+                <span>Bachelor of Engineering — Computer Science &amp; Engineering (BE-CSE)</span><br>
+                <span style="color:var(--text-muted); font-size:0.88rem;">1st Year (Class of 2029) • Core focus: C++ DSA, Web Technologies (HTML/CSS), Computer Systems.</span>
+              </div>
+            </div>
+
+            <!-- Block 2: Daily Toolkit -->
+            <div class="info-block-item">
+              <div class="info-block-header">Daily Technical Toolkit</div>
+              <div class="info-block-content">
+                <strong>Web Development:</strong> Semantic HTML5, CSS3 (Flexbox &amp; Grid), JavaScript (ES6+), DOM APIs.<br>
+                <strong>Programming &amp; DSA:</strong> C++ (C++20), Arrays, Linked Lists, Stacks, Queues, Recursion, Big-O.<br>
+                <strong>Cloud &amp; DevOps:</strong> AWS Amplify Hosting, Google Cloud Platform, IAM Policies, Git &amp; GitHub.<br>
+                <strong>AI Prototyping:</strong> Google AI Studio, Gemini 1.5 Pro, Prompt Engineering.
+              </div>
+            </div>
+
+            <!-- Block 3: How I Approach Learning -->
+            <div class="info-block-item">
+              <div class="info-block-header">How I Approach Learning</div>
+              <div class="info-block-content">
+                <strong>Fundamentals first:</strong> Understand how the language and system work before reaching for high-level abstractions.<br>
+                <strong>Consistency:</strong> Code, practice, and commit to GitHub regularly. Learning happens by debugging real errors.
+              </div>
+            </div>
+
+            <!-- Block 4: Direct Reach -->
+            <div class="info-block-item">
+              <div class="info-block-header">Direct Communication</div>
+              <div class="info-block-content">
+                Email: <a href="mailto:techmukesh3124@gmail.com" style="color:var(--text-primary); text-decoration:underline;">techmukesh3124@gmail.com</a><br>
+                LinkedIn: <a href="https://www.linkedin.com/in/mukesh-kumar-06485222a" target="_blank" rel="noopener noreferrer" style="color:var(--text-primary); text-decoration:underline;">linkedin.com/in/mukesh-kumar-06485222a</a><br>
+                GitHub: <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" style="color:var(--text-primary); text-decoration:underline;">github.com/itsrockmukesh</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         CORE SECTION 2: TECH SUPERPOWERS & SKILLS (HACKATHON REQUIREMENT)
+         ========================================================================== -->
+    <section class="skills-section" id="skills">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Core Section • Tech Superpowers</div>
+          <h2 class="section-title">Technical Superpowers &amp; Capabilities</h2>
+          <p class="section-description">
+            Foundational computer science competencies, web engineering standards, and cloud tooling developed through hands-on practice, 5 Google Cloud badges, and coursework at Mirai School of Technology.
+          </p>
+        </div>
+
+        <div class="superpowers-grid">
+          <!-- SUPERPOWER 1: Core Systems & DSA -->
+          <div class="superpower-card tilt-card">
+            <div class="superpower-icon-box" style="background:rgba(56,189,248,0.1); color:#38BDF8; border-color:rgba(56,189,248,0.25);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+            </div>
+            <div class="superpower-level-tag">C++20 &amp; Algorithms</div>
+            <h3 class="superpower-title">Data Structures &amp; Problem Solving</h3>
+            <p class="superpower-desc">
+              Writing memory-conscious algorithms in C++. Understanding dynamic memory, pointers, linked lists, stacks, queues, recursion, and Big-O efficiency from hardware fundamentals up.
+            </p>
+            <div class="superpower-tags">
+              <span class="work-tag">C++ (C++20)</span>
+              <span class="work-tag">Pointers &amp; Memory</span>
+              <span class="work-tag">Data Structures</span>
+              <span class="work-tag">O(1) to O(n log n)</span>
+              <span class="work-tag">Algorithm Logic</span>
+            </div>
+          </div>
+
+          <!-- SUPERPOWER 2: Web Engineering Standards -->
+          <div class="superpower-card tilt-card">
+            <div class="superpower-icon-box" style="background:rgba(16,185,129,0.1); color:#10B981; border-color:rgba(16,185,129,0.25);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <div class="superpower-level-tag">Framework-Free Standards</div>
+            <h3 class="superpower-title">Semantic Web Architecture</h3>
+            <p class="superpower-desc">
+              Building accessible, fluid web layouts using pure semantic HTML5 and modern CSS3 (Flexbox &amp; Grid). Deep understanding of DOM rendering, box model mechanics, and Web Audio APIs.
+            </p>
+            <div class="superpower-tags">
+              <span class="work-tag">Semantic HTML5</span>
+              <span class="work-tag">CSS3 (Grid &amp; Flexbox)</span>
+              <span class="work-tag">JavaScript (ES6+)</span>
+              <span class="work-tag">DOM Manipulation</span>
+              <span class="work-tag">Web Audio API</span>
+            </div>
+          </div>
+
+          <!-- SUPERPOWER 3: Cloud & DevOps -->
+          <div class="superpower-card tilt-card">
+            <div class="superpower-icon-box" style="background:rgba(255,153,0,0.1); color:#FF9900; border-color:rgba(255,153,0,0.25);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+              </svg>
+            </div>
+            <div class="superpower-level-tag">AWS &amp; GCP Credentials</div>
+            <h3 class="superpower-title">Cloud Infrastructure &amp; CI/CD</h3>
+            <p class="superpower-desc">
+              Architecting zero-downtime continuous deployment on AWS Amplify, CloudFront edge CDN distribution, and persistent S3 buckets. Holder of 5 Google Cloud skill badges in Compute, IAM, and BigQuery.
+            </p>
+            <div class="superpower-tags">
+              <span class="work-tag">AWS Amplify</span>
+              <span class="work-tag">Amazon CloudFront</span>
+              <span class="work-tag">Amazon S3</span>
+              <span class="work-tag">Google Cloud (5 Badges)</span>
+              <span class="work-tag">Git &amp; GitHub</span>
+            </div>
+          </div>
+
+          <!-- SUPERPOWER 4: AI & Future Tech -->
+          <div class="superpower-card tilt-card">
+            <div class="superpower-icon-box" style="background:rgba(168,85,247,0.1); color:#A855F7; border-color:rgba(168,85,247,0.25);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2a10 10 0 1 0 10 10H12V2z"></path>
+                <path d="M12 2a10 10 0 0 1 10 10h-10V2z"></path>
+              </svg>
+            </div>
+            <div class="superpower-level-tag">Generative AI Prototyping</div>
+            <h3 class="superpower-title">Multimodal AI Studio &amp; Gemini</h3>
+            <p class="superpower-desc">
+              Prototyping generative AI applications with Google AI Studio and Gemini 1.5 Pro. Experienced in prompt engineering, system instructions, few-shot tuning, and multimodal API integration.
+            </p>
+            <div class="superpower-tags">
+              <span class="work-tag">Google AI Studio</span>
+              <span class="work-tag">Gemini 1.5 Pro</span>
+              <span class="work-tag">Prompt Engineering</span>
+              <span class="work-tag">Multimodal Prototyping</span>
+              <span class="work-tag">API Integration</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Vending Machine Callout in Skills Section -->
+        <div class="superpower-vending-bar">
+          <div class="vending-info">
+            <span class="vending-emoji">🎰</span>
+            <div>
+              <strong>Superpower Vending Machine (Creative Feature):</strong>
+              <p style="color:var(--text-secondary); font-size:0.88rem; margin:0.25rem 0 0;">
+                Click below or type <code>vending</code> in the terminal to randomly dispense a hidden skill, secret story, or engineering motto!
+              </p>
+            </div>
+          </div>
+          <button class="btn-pill btn-pill-terminal" onclick="window.openSecretTerminal('vending');">
+            <span>🎰 Dispense Random Superpower</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         CORE SECTION 3: FEATURED WORK / PROJECTS (HACKATHON REQUIREMENT)
          ========================================================================== -->
     <section id="projects">
       <div class="container">
@@ -417,93 +638,6 @@
             </div>
           </article>
 
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-         INFO / ABOUT SECTION (HEYKUBA EDITORIAL 2-COLUMN GRID)
-         ========================================================================== -->
-    <section class="info-section" id="about">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-label">A Little Bit About Me</div>
-          <h2 class="section-title">First-Year Student, Lifelong Builder</h2>
-        </div>
-
-        <div class="info-grid">
-          <!-- Left Column: Story & Personal Narrative -->
-          <div class="info-story-col">
-            <div class="info-badge-intro">
-              <span class="status-pulse"></span>
-              <span>1st Year BE-CSE • Open to Opportunities</span>
-            </div>
-
-            <p class="info-lead-p">
-              "I'm a first-year engineering student building real projects every week. No fluff, just clean code, curiosity, and continuous learning."
-            </p>
-            <p class="info-sub-p">
-              I started my web development journey with pure HTML and CSS. Instead of copying templates or relying on frameworks, I wanted to understand how browsers actually render web pages — how semantic HTML shapes accessible structure, how CSS Flexbox and Grid create responsive flows, and how to write clean code from scratch.
-            </p>
-            <p class="info-sub-p">
-              Alongside web development, I spend time every day practicing Data Structures and Algorithms in C++. Working with pointers, dynamic memory, recursion, and Big-O complexity teaches me how computers think at the hardware level and gives me solid problem-solving fundamentals.
-            </p>
-            <p class="info-sub-p">
-              I also love exploring the cloud. I've earned 5 Google Cloud skill badges covering Compute Engine, Cloud IAM, BigQuery, and Generative AI in Google AI Studio. Attending the AWS Builder Center: Future Builders Connect event inspired me to create this project for the AWS Student Portfolio Hackathon, deployed live on AWS Amplify.
-            </p>
-            <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-              <button class="btn-pill btn-pill-primary trigger-resume-modal">
-                <span>View Full Resume</span>
-                <span class="btn-arrow">→</span>
-              </button>
-              <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary">
-                <span>GitHub Profile ↗</span>
-              </a>
-            </div>
-          </div>
-
-          <!-- Right Column: Structured Student Profile Blocks -->
-          <div class="info-details-col">
-            <!-- Block 1: Education -->
-            <div class="info-block-item">
-              <div class="info-block-header">Education &amp; Institution</div>
-              <div class="info-block-content">
-                <strong>Mirai School of Technology</strong><br>
-                <span>Bachelor of Engineering — Computer Science &amp; Engineering (BE-CSE)</span><br>
-                <span style="color:var(--text-muted); font-size:0.88rem;">1st Year (Class of 2029) • Core focus: C++ DSA, Web Technologies (HTML/CSS), Computer Systems.</span>
-              </div>
-            </div>
-
-            <!-- Block 2: Daily Toolkit -->
-            <div class="info-block-item">
-              <div class="info-block-header">Daily Technical Toolkit</div>
-              <div class="info-block-content">
-                <strong>Web Development:</strong> Semantic HTML5, CSS3 (Flexbox &amp; Grid), JavaScript (ES6+), DOM APIs.<br>
-                <strong>Programming &amp; DSA:</strong> C++ (C++20), Arrays, Linked Lists, Stacks, Queues, Recursion, Big-O.<br>
-                <strong>Cloud &amp; DevOps:</strong> AWS Amplify Hosting, Google Cloud Platform, IAM Policies, Git &amp; GitHub.<br>
-                <strong>AI Prototyping:</strong> Google AI Studio, Gemini 1.5 Pro, Prompt Engineering.
-              </div>
-            </div>
-
-            <!-- Block 3: How I Approach Learning -->
-            <div class="info-block-item">
-              <div class="info-block-header">How I Approach Learning</div>
-              <div class="info-block-content">
-                <strong>Fundamentals first:</strong> Understand how the language and system work before reaching for high-level abstractions.<br>
-                <strong>Consistency:</strong> Code, practice, and commit to GitHub regularly. Learning happens by debugging real errors.
-              </div>
-            </div>
-
-            <!-- Block 4: Direct Reach -->
-            <div class="info-block-item">
-              <div class="info-block-header">Direct Communication</div>
-              <div class="info-block-content">
-                Email: <a href="mailto:techmukesh3124@gmail.com" style="color:var(--text-primary); text-decoration:underline;">techmukesh3124@gmail.com</a><br>
-                LinkedIn: <a href="https://www.linkedin.com/in/mukesh-kumar-06485222a" target="_blank" rel="noopener noreferrer" style="color:var(--text-primary); text-decoration:underline;">linkedin.com/in/mukesh-kumar-06485222a</a><br>
-                GitHub: <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" style="color:var(--text-primary); text-decoration:underline;">github.com/itsrockmukesh</a>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -988,6 +1122,7 @@ frontend:
       <div class="terminal-quick-chips">
         <span class="chip-hint-label" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); margin-right:0.25rem;">Quick:</span>
         <button class="term-chip-btn" data-cmd="help">help</button>
+        <button class="term-chip-btn" data-cmd="vending">🎰 vending</button>
         <button class="term-chip-btn" data-cmd="about">about</button>
         <button class="term-chip-btn" data-cmd="skills">skills</button>
         <button class="term-chip-btn" data-cmd="projects">projects</button>

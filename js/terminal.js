@@ -64,6 +64,7 @@
   \x1b[32mhelp\x1b[0m          - Show this command reference
   \x1b[32mabout\x1b[0m         - Reveal Mukesh's journey at Mirai School of Tech
   \x1b[32mskills\x1b[0m        - Technical superpowers (HTML/CSS, C++ DSA, Cloud, AI)
+  \x1b[32mvending\x1b[0m       - 🎰 Superpower Vending Machine (Dispense secret motto/story)
   \x1b[32mprojects\x1b[0m      - Inspect Mukesh's real projects on GitHub
   \x1b[32machievements\x1b[0m  - View 5 verified Google Cloud Skill Badges
   \x1b[32mcontact\x1b[0m       - Direct communication channels & GitHub profile
@@ -259,6 +260,36 @@ Feel free to send a message via the website contact form or connect on LinkedIn 
       }
     },
 
+    vending: {
+      desc: 'Superpower Vending Machine (Dispense random superpower or story)',
+      execute: () => {
+        const items = [
+          "🥫 [DISPENSED: C++ Memory Master] — 'I understand pointers, heap vs stack, and time complexity from the ground up!'",
+          "⚡ [DISPENSED: Standards-First Builder] — 'I mastered semantic HTML5 and responsive CSS3 Grid before touching frameworks.'",
+          "☁️ [DISPENSED: AWS Cloud Builder] — 'Attended AWS Builder Center, earned 5 Google Cloud Badges, and deployed this hackathon project continuously on AWS Amplify!'",
+          "🧠 [DISPENSED: Algorithmic Grit] — 'Solving recursion, binary trees, and linked list challenges daily at Mirai School of Technology.'",
+          "🎯 [DISPENSED: Engineering Philosophy] — 'Master fundamentals first. Build real things with zero fluff.'"
+        ];
+        const pick = items[Math.floor(Math.random() * items.length)];
+        return `
+\x1b[35m╔══════════════════════════════════════════════════════════════════╗\x1b[0m
+\x1b[35m║             🎰 SUPERPOWER VENDING MACHINE 🎰                   ║\x1b[0m
+\x1b[35m╚══════════════════════════════════════════════════════════════════╝\x1b[0m
+\x1b[33m*CLINK... RUMBLE... THUD!* [Dispensing secret item for AWS Hackathon Judge...]\x1b[0m
+
+\x1b[32m${pick}\x1b[0m
+
+\x1b[90m(Tip: Type 'vending' again to dispense another secret story!)\x1b[0m`;
+      }
+    },
+
+    superpower: {
+      desc: 'Alias for vending command',
+      execute: () => {
+        return COMMANDS.vending.execute();
+      }
+    },
+
     exit: {
       desc: 'Close terminal',
       execute: () => {
@@ -288,11 +319,15 @@ Feel free to send a message via the website contact form or connect on LinkedIn 
   }
 
   // Open / Close Functions
-  function openTerminal() {
+  function openTerminal(initialCmd) {
     modalOverlay.classList.add('active');
     playBeep(880, 0.08, 'triangle');
     setTimeout(() => {
       cliInput.focus();
+      if (initialCmd && typeof initialCmd === 'string') {
+        cliInput.value = initialCmd;
+        executeCommand(initialCmd);
+      }
     }, 150);
   }
 
