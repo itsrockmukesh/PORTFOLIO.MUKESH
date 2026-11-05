@@ -415,7 +415,7 @@ function showToast(message) {
     document.body.appendChild(toast);
   }
 
-  toast.textContent = message;
+  toast.innerHTML = message;
   toast.classList.add('active');
 
   clearTimeout(toastTimeout);
@@ -423,6 +423,7 @@ function showToast(message) {
     toast.classList.remove('active');
   }, 3200);
 }
+window.showToast = showToast;
 
 /* ==========================================================================
    9. CARD 3D TILT EFFECT

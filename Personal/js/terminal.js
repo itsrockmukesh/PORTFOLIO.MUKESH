@@ -674,10 +674,42 @@ Feel free to send a message via the website contact form or connect on LinkedIn 
     }
   });
 
-  // Click Triggers
-  if (hintTrigger) hintTrigger.addEventListener('click', openTerminal);
-  if (navTrigger) navTrigger.addEventListener('click', openTerminal);
-  if (heroTrigger) heroTrigger.addEventListener('click', openTerminal);
+  // Hint Display Function (Clicking only shows hint, does NOT launch terminal)
+  function showTerminalHintOnly() {
+    if (hintTrigger) {
+      hintTrigger.classList.remove('pulse-hint');
+      void hintTrigger.offsetWidth;
+      hintTrigger.classList.add('pulse-hint');
+    }
+    if (typeof window.showToast === 'function') {
+      window.showToast('⌨️ Hint: Press <strong>[~]</strong> or <strong>[`]</strong> on your keyboard to open Secret Terminal');
+    }
+    playBeep(880, 0.08, 'sine');
+  }
+  window.showTerminalHint = showTerminalHintOnly;
+
+  // Click Triggers: ONLY show hint to open, do NOT open terminal on click
+  if (hintTrigger) {
+    hintTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      showTerminalHintOnly();
+    });
+  }
+  if (navTrigger) {
+    navTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      showTerminalHintOnly();
+    });
+  }
+  if (heroTrigger) {
+    heroTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      showTerminalHintOnly();
+    });
+  }
   if (closeBtn) closeBtn.addEventListener('click', closeTerminal);
 
   if (maxBtn) {

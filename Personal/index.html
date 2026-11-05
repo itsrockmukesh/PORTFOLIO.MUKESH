@@ -76,68 +76,81 @@
     }
 
     /* ==========================================================================
-       CUSTOM AWARDS CURSOR (DISCIPLINED CRIMSON & RING)
+       TARGET CURSOR SYSTEM (ADAPTIVE CORNER SPRING RETICLE FROM VIDEO)
        ========================================================================== */
     @media (hover: hover) and (pointer: fine) {
-      body, a, button, input, textarea, select, [role="button"], .scroll-indicator, .tilt-card {
+      *, *::before, *::after, html, body, a, button, input, textarea, select, 
+      [role="button"], label, div, span, p, h1, h2, h3, h4, h5, h6, 
+      canvas, svg, img, section, nav, footer, header, code, pre {
         cursor: none !important;
       }
     }
 
-    #custom-cursor-dot {
+    .target-cursor {
       position: fixed;
+      inset: 0;
+      z-index: 2147483647;
+      pointer-events: none;
+      transition: opacity 0.15s ease-out;
+      --target-cursor-color: #ffffff;
+      --target-cursor-glow: rgba(229, 40, 59, 0.7);
+    }
+
+    .target-cursor__corner {
+      position: absolute;
       top: 0;
       left: 0;
-      width: 7px;
-      height: 7px;
-      background: #e5283b;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999999;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 8px #e5283b, 0 0 2px #ffffff;
-      transition: width 0.18s ease, height 0.18s ease, background-color 0.18s ease, opacity 0.25s ease;
+      box-sizing: border-box;
+      border-style: solid;
+      border-color: var(--target-cursor-color, #ffffff);
+      filter: drop-shadow(0 0 6px var(--target-cursor-glow, rgba(229, 40, 59, 0.7)));
+      transform-origin: 0 0;
+      will-change: transform;
     }
 
-    #custom-cursor-ring {
-      position: fixed;
+    .target-cursor__dot {
+      position: absolute;
       top: 0;
       left: 0;
-      width: 36px;
-      height: 36px;
-      border: 1.5px solid rgba(229, 40, 59, 0.55);
       border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999998;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 12px rgba(163, 14, 25, 0.22);
-      transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1), 
-                  height 0.22s cubic-bezier(0.16, 1, 0.3, 1), 
-                  border-color 0.22s ease, 
-                  background-color 0.22s ease,
-                  opacity 0.25s ease;
+      background: var(--target-cursor-color, #ffffff);
+      box-shadow: 0 0 10px var(--target-cursor-glow, rgba(229, 40, 59, 0.95)), 0 0 3px #ffffff;
+      will-change: transform;
     }
 
-    body.cursor-hover #custom-cursor-ring {
-      width: 54px;
-      height: 54px;
-      border-color: rgba(229, 40, 59, 0.85);
-      background-color: rgba(229, 40, 59, 0.12);
-      box-shadow: 0 0 20px rgba(229, 40, 59, 0.4);
+    .target-cursor__label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: #ffffff;
+      font-family: var(--font-mono, 'JetBrains Mono', monospace);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1;
+      white-space: nowrap;
+      opacity: 0;
+      will-change: transform, opacity;
+      padding: 3px 8px;
+      background: rgba(14, 10, 18, 0.92);
+      border: 1px solid rgba(229, 40, 59, 0.6);
+      border-radius: 4px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
     }
 
-    body.cursor-hover #custom-cursor-dot {
-      width: 4px;
-      height: 4px;
-      background: #ffffff;
-      box-shadow: 0 0 6px #ffffff;
+    /* Pulse effect on scroll indicator when photo is ready to scroll into website */
+    .scroll-indicator.ready-bounce {
+      animation: indicatorBounce 1.4s infinite ease-in-out;
+      border-color: rgba(229, 40, 59, 0.8) !important;
+      box-shadow: 0 0 16px rgba(229, 40, 59, 0.4) !important;
     }
 
-    body.cursor-active #custom-cursor-ring {
-      width: 28px;
-      height: 28px;
-      border-color: #ff334b;
-      background-color: rgba(229, 40, 59, 0.25);
+    @keyframes indicatorBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
     }
 
     /* ==========================================================================
@@ -194,15 +207,59 @@
       box-shadow: 0 0 14px rgba(210, 20, 36, 0.35) !important;
     }
 
-    /* Secret Terminal Hint pill: replace green dot with crimson */
+    /* Secret Terminal Hint pill: crimson accents, hidden until photo reveal completes */
     .secret-terminal-hint {
+      position: fixed;
+      bottom: 1.75rem;
+      right: 1.75rem;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 1.15rem;
+      border-radius: var(--radius-pill);
       background: rgba(16, 12, 18, 0.8) !important;
-      border-color: rgba(210, 20, 36, 0.35) !important;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(210, 20, 36, 0.35) !important;
       color: #a0a0ae !important;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s !important;
     }
-    .hint-status-dot {
+    .secret-terminal-hint.hint-hidden {
+      opacity: 0 !important;
+      pointer-events: none !important;
+      transform: translateY(35px) scale(0.92) !important;
+    }
+    .hint-status-dot, .secret-terminal-hint .hint-dot {
       background: #e5283b !important;
       box-shadow: 0 0 8px #e5283b !important;
+    }
+    .secret-terminal-hint .hint-key {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      padding: 0.15rem 0.45rem;
+      background: rgba(229, 40, 59, 0.15);
+      border: 1px solid rgba(229, 40, 59, 0.35);
+      border-radius: 4px;
+      color: #ffffff;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+    .secret-terminal-hint.pulse-hint {
+      animation: hintPillPulse 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+    }
+    .secret-terminal-hint.pulse-hint .hint-key {
+      background: #e5283b !important;
+      color: #ffffff !important;
+      transform: scale(1.2);
+      box-shadow: 0 0 14px rgba(229, 40, 59, 0.9);
+    }
+    @keyframes hintPillPulse {
+      0% { transform: scale(1); box-shadow: 0 0 0 rgba(229, 40, 59, 0.4); }
+      50% { transform: scale(1.08); box-shadow: 0 0 24px rgba(229, 40, 59, 0.85); border-color: rgba(229, 40, 59, 0.9) !important; }
+      100% { transform: scale(1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
     }
 
     /* ==========================================================================
@@ -236,19 +293,21 @@
       transition: opacity 0.3s ease;
     }
 
-    /* Pinned Scroll Track: 140vh travel distance for 3D dot-to-photo reveal */
+    /* Pinned Hero Stage (100vh) */
     .hero-scroll-track {
       position: relative;
       width: 100%;
       height: 100vh;
       background: #060408;
       z-index: 3;
+      overflow: hidden;
     }
 
     .hero-sticky-stage {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       overflow: hidden;
       z-index: 3;
     }
@@ -272,7 +331,7 @@
       mix-blend-mode: overlay;
     }
 
-    /* Preloader Ring */
+    /* Preloader Ring (Direct Clean Loading Screen) */
     #preloader {
       position: absolute;
       inset: 0;
@@ -281,7 +340,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s;
     }
 
     #preloader.hidden {
@@ -427,10 +486,11 @@
     .hero-intro-section {
       position: relative;
       z-index: 10;
-      background: transparent;
+      background: #060408;
       padding: 7rem 1.5rem 5rem 1.5rem;
       border-top: 1px solid rgba(210, 20, 36, 0.22);
       overflow: hidden;
+      margin-top: 0;
     }
 
     .hero-intro-section::before {
@@ -899,9 +959,15 @@
        NAVIGATION BAR (HEYKUBA FLOATING PILL NAVBAR)
        ========================================================================== -->
   
-  <!-- Custom Luxury Awwwards Cursor Elements -->
-  <div id="custom-cursor-dot"></div>
-  <div id="custom-cursor-ring"></div>
+  <!-- Target Cursor System (Adaptive Corner Spring Reticle from Video) -->
+  <div id="target-cursor" class="target-cursor" aria-hidden="true">
+    <span class="target-cursor__corner" id="tc-corner-0"></span>
+    <span class="target-cursor__corner" id="tc-corner-1"></span>
+    <span class="target-cursor__corner" id="tc-corner-2"></span>
+    <span class="target-cursor__corner" id="tc-corner-3"></span>
+    <span class="target-cursor__dot" id="custom-cursor-dot"></span>
+    <span class="target-cursor__label" id="tc-label"></span>
+  </div>
 
   <nav class="navbar navbar-hidden" id="navbar">
     <div class="container">
@@ -929,9 +995,9 @@
           </svg>
         </button>
 
-        <!-- Quick Terminal Launcher in Nav -->
-        <button id="nav-terminal-trigger" class="btn-pill btn-pill-terminal btn-sm" title="Open Secret Terminal (~)">
-          <span>&gt;_</span> Terminal
+        <!-- Quick Terminal Hint in Nav -->
+        <button id="nav-terminal-trigger" class="btn-pill btn-pill-terminal btn-sm" title="Hint: Press [~] on keyboard to open terminal">
+          <span>&gt;_</span> Terminal [~]
         </button>
 
         <!-- Resume Modal Trigger -->
@@ -953,11 +1019,14 @@
 
   <!-- ==========================================================================
        CREATIVE INTERACTIVE FEATURE — FLOATING TERMINAL HINT PILL
+       Shows only hint to open (Press ~). Hidden during initial photo reveal stage,
+       and automatically slides up when photo reveal completes & we go to next page!
        ========================================================================== -->
-  <div id="terminal-hint-trigger" class="secret-terminal-hint" title="Click or press ~ key to launch terminal">
+  <div id="terminal-hint-trigger" class="secret-terminal-hint hint-hidden" title="Hint: Press [~] on keyboard to open terminal">
     <div class="hint-dot"></div>
-    <span class="hint-text">Secret Terminal</span>
+    <span class="hint-text">Hint: Press</span>
     <span class="hint-key">~</span>
+    <span class="hint-text">for Terminal</span>
   </div>
 
   <main>
@@ -985,17 +1054,6 @@
             <circle id="ring-bar" class="ring-progress" cx="50" cy="50" r="46"></circle>
           </svg>
           <div id="ring-pct" class="ring-text">0%</div>
-        </div>
-      </div>
-
-      <!-- Scroll Indicator Pill -->
-      <div id="ui-container">
-        <div id="scrollIndicator" class="scroll-indicator">
-          <span class="scroll-dot"></span>
-          <span id="scrollLabel">Scroll to reveal photo</span>
-          <div class="scroll-progress-bar">
-            <div id="scrollThumb" class="scroll-progress-thumb"></div>
-          </div>
         </div>
       </div>
     </div>
@@ -1053,9 +1111,9 @@
             <span class="btn-arrow">↓</span>
           </a>
 
-          <button id="hero-terminal-trigger" class="btn-pill btn-pill-terminal">
+          <button id="hero-terminal-trigger" class="btn-pill btn-pill-terminal" title="Hint: Press [~] on keyboard to open terminal">
             <span>&gt;_</span>
-            <span>Open Terminal [~]</span>
+            <span>Terminal: Press [~]</span>
           </button>
 
           <button class="btn-pill btn-pill-secondary trigger-resume-modal">
@@ -1782,8 +1840,8 @@ frontend:
             <span>GitHub: @itsrockmukesh ↗</span>
           </a>
 
-          <button class="btn-pill btn-pill-terminal" onclick="window.openSecretTerminal();">
-            <span>&gt;_ Secret Terminal [~]</span>
+          <button class="btn-pill btn-pill-terminal" onclick="window.showTerminalHint ? window.showTerminalHint() : null;">
+            <span>&gt;_ Terminal: Press [~]</span>
           </button>
         </div>
 
@@ -1836,7 +1894,7 @@ frontend:
             <a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer">GitHub</a>
             <a href="https://www.linkedin.com/in/mukesh-kumar-06485222a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             <a href="mailto:techmukesh3124@gmail.com">Email</a>
-            <button style="background:none; border:none; color:inherit; font:inherit; cursor:pointer;" onclick="window.openSecretTerminal();">Terminal [~]</button>
+            <button style="background:none; border:none; color:inherit; font:inherit; cursor:pointer;" onclick="window.showTerminalHint ? window.showTerminalHint() : null;">Terminal [~]</button>
           </div>
         </div>
       </div>
@@ -2055,15 +2113,17 @@ frontend:
     let targetRevealProgress = 0.0;
     let revealProgress = 0.0; // 0.0 = dots mode, 1.0 = photo revealed
 
+    let photoMaterial = null;
+    let bannerMaterial = null;
+    let dotsMaterial = null;
+    let dustMaterial = null;
+    let dotsPoints = null;
+
     // --- DOM Elements ---
     const canvas = document.getElementById('webgl-canvas');
     const preloader = document.getElementById('preloader');
     const ringBar = document.getElementById('ring-bar');
     const ringPct = document.getElementById('ring-pct');
-    const uiContainer = document.getElementById('ui-container');
-    const scrollIndicator = document.getElementById('scrollIndicator');
-    const scrollThumb = document.getElementById('scrollThumb');
-    const scrollLabel = document.getElementById('scrollLabel');
     const filmGrain = document.getElementById('film-grain');
     const heroStageEl = document.getElementById('hero');
     const navbarEl = document.getElementById('navbar');
@@ -2095,32 +2155,228 @@ frontend:
     }
     initFilmGrain();
 
-    // --- Three.js Setup ---
-    const renderer = new THREE.WebGLRenderer({
-      canvas: canvas,
-      antialias: true,
-      alpha: true,
-      powerPreference: 'high-performance'
-    });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2.0));
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    // ==========================================================================
+    // CYBER AUDIO ENGINE: ENVATO "SCROLL DATA 04" & TACTILE AUDIO FEEDBACK
+    // Preloads immediately on startup so audio is decoded & ready in memory!
+    // Unlocks seamlessly on the very first user interaction or enter click.
+    // ==========================================================================
+    let revealAudioCtx = null;
+    let scrollDataBuffer = null;
+    let scrollDataSource = null;
+    let scrollDataGain = null;
+    let scrollDataFilter = null;
+    let isScrollDataPlaying = false;
+    let isAudioLoading = false;
+    let lastRevealTime = performance.now();
+    let revealVelocity = 0.0;
+    let userHasInteracted = false;
 
-    const scene = new THREE.Scene();
+    function initRevealAudio() {
+      if (revealAudioCtx) return;
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        revealAudioCtx = new AudioContext();
+        window.scrollAudioCtx = revealAudioCtx;
+        window.initScrollAudio = initRevealAudio;
+
+        // Preload Envato "Scroll Data 04" audio track immediately
+        loadScrollDataAudio();
+      } catch (e) {
+        console.warn("Reveal audio error:", e);
+      }
+    }
+    window.initScrollAudio = initRevealAudio;
+
+    function loadScrollDataAudio() {
+      if (scrollDataBuffer || isAudioLoading || !revealAudioCtx) return;
+      isAudioLoading = true;
+      fetch('assets/scroll-data.m4a')
+        .then(response => {
+          if (!response.ok) throw new Error('HTTP ' + response.status);
+          return response.arrayBuffer();
+        })
+        .then(buf => revealAudioCtx.decodeAudioData(buf))
+        .then(decoded => {
+          scrollDataBuffer = decoded;
+          isAudioLoading = false;
+          setupScrollDataNodes();
+        })
+        .catch(err => {
+          console.warn('Scroll data audio load/decode error:', err);
+          isAudioLoading = false;
+        });
+    }
+
+    function setupScrollDataNodes() {
+      if (!revealAudioCtx || !scrollDataBuffer || isScrollDataPlaying) return;
+      try {
+        scrollDataSource = revealAudioCtx.createBufferSource();
+        scrollDataSource.buffer = scrollDataBuffer;
+        scrollDataSource.loop = true;
+
+        scrollDataFilter = revealAudioCtx.createBiquadFilter();
+        scrollDataFilter.type = 'highpass';
+        scrollDataFilter.frequency.setValueAtTime(110.0, revealAudioCtx.currentTime);
+
+        scrollDataGain = revealAudioCtx.createGain();
+        scrollDataGain.gain.setValueAtTime(0.0001, revealAudioCtx.currentTime);
+
+        scrollDataSource.connect(scrollDataFilter);
+        scrollDataFilter.connect(scrollDataGain);
+        scrollDataGain.connect(revealAudioCtx.destination);
+
+        scrollDataSource.start(0);
+        isScrollDataPlaying = true;
+      } catch (e) {
+        console.warn('setupScrollDataNodes error:', e);
+      }
+    }
+
+    function unlockAudio() {
+      userHasInteracted = true;
+      if (window.portfolioAudioMuted) return;
+      if (!revealAudioCtx) initRevealAudio();
+      if (revealAudioCtx && revealAudioCtx.state === 'suspended') {
+        revealAudioCtx.resume().then(() => {
+          if (revealAudioCtx.state === 'running') {
+            removeAudioUnlockListeners();
+          }
+        }).catch(() => {});
+      }
+    }
+    window.unlockAudio = unlockAudio;
+
+    const AUDIO_UNLOCK_EVENTS = [
+      'click', 'pointerdown', 'pointermove', 'mousedown', 'mouseup',
+      'touchstart', 'touchend', 'touchmove', 'keydown', 'wheel', 'scroll', 'mousemove'
+    ];
+
+    function handleAudioUnlockEvent() {
+      unlockAudio();
+    }
+
+    function removeAudioUnlockListeners() {
+      AUDIO_UNLOCK_EVENTS.forEach(evt => {
+        window.removeEventListener(evt, handleAudioUnlockEvent, { capture: true });
+      });
+    }
+
+    AUDIO_UNLOCK_EVENTS.forEach(evt => {
+      window.addEventListener(evt, handleAudioUnlockEvent, { capture: true, passive: true });
+    });
+
+    // Subtle tactile click sound on cursor press / enter
+    function playTactileClick() {
+      if (window.portfolioAudioMuted) return;
+      if (!revealAudioCtx) initRevealAudio();
+      if (revealAudioCtx && revealAudioCtx.state === 'suspended') revealAudioCtx.resume();
+      if (!revealAudioCtx || revealAudioCtx.state !== 'running') return;
+      try {
+        const t = revealAudioCtx.currentTime;
+        const osc = revealAudioCtx.createOscillator();
+        const gain = revealAudioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(1150, t);
+        osc.frequency.exponentialRampToValueAtTime(320, t + 0.024);
+        gain.gain.setValueAtTime(0.022, t);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.025);
+        osc.connect(gain);
+        gain.connect(revealAudioCtx.destination);
+        osc.start(t);
+        osc.stop(t + 0.026);
+      } catch (e) {}
+    }
+
+    // Subtle lock-on blip when snapping to targets
+    function playTactileHover() {
+      if (window.portfolioAudioMuted) return;
+      if (!revealAudioCtx) initRevealAudio();
+      if (revealAudioCtx && revealAudioCtx.state === 'suspended') revealAudioCtx.resume();
+      if (!revealAudioCtx || revealAudioCtx.state !== 'running') return;
+      try {
+        const t = revealAudioCtx.currentTime;
+        const osc = revealAudioCtx.createOscillator();
+        const gain = revealAudioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(1280, t);
+        osc.frequency.exponentialRampToValueAtTime(1540, t + 0.018);
+        gain.gain.setValueAtTime(0.014, t);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.02);
+        osc.connect(gain);
+        gain.connect(revealAudioCtx.destination);
+        osc.start(t);
+        osc.stop(t + 0.022);
+      } catch (e) {}
+    }
+
+    // ONLY called during photo reveal scrolling!
+    function handleRevealSound(delta) {
+      if (window.portfolioAudioMuted) return;
+      unlockAudio();
+      if (revealAudioCtx && revealAudioCtx.state === 'suspended') {
+        revealAudioCtx.resume().catch(() => {});
+      }
+      if (!revealAudioCtx) return;
+
+      if (!scrollDataBuffer && !isAudioLoading) {
+        loadScrollDataAudio();
+      } else if (scrollDataBuffer && !isScrollDataPlaying) {
+        setupScrollDataNodes();
+      }
+
+      const now = performance.now();
+      const dt = Math.max(1, now - lastRevealTime);
+      revealVelocity = Math.min(1.0, (Math.abs(delta || 0) / dt) * 0.28);
+      lastRevealTime = now;
+    }
+    window.handleScrollSound = handleRevealSound;
+
+    // Immediately kick off preload so audio is ready in memory
+    initRevealAudio();
+
+    // --- Three.js Setup ---
+    let renderer = null;
+    let scene = null;
+    let camera = null;
+    let webglSupported = false;
 
     // Orthographic Camera: portrait is 12% larger than fit-to-height
     const VISIBLE_HEIGHT = PHOTO_H / 1.12; // 514.2857
-    const camera = new THREE.OrthographicCamera(
-      -VISIBLE_HEIGHT / 2, VISIBLE_HEIGHT / 2,
-      VISIBLE_HEIGHT / 2, -VISIBLE_HEIGHT / 2,
-      0.1, 2000.0
-    );
-    camera.position.set(512.0, 288.0, 600.0);
-    camera.lookAt(512.0, 288.0, 0.0);
-
     let visW = VISIBLE_HEIGHT * (window.innerWidth / window.innerHeight);
     let bannerMesh = null;
 
+    try {
+      renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        antialias: true,
+        alpha: true,
+        powerPreference: 'high-performance'
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2.0));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      scene = new THREE.Scene();
+
+      camera = new THREE.OrthographicCamera(
+        -VISIBLE_HEIGHT / 2, VISIBLE_HEIGHT / 2,
+        VISIBLE_HEIGHT / 2, -VISIBLE_HEIGHT / 2,
+        0.1, 2000.0
+      );
+      camera.position.set(512.0, 288.0, 600.0);
+      camera.lookAt(512.0, 288.0, 0.0);
+      webglSupported = true;
+    } catch (e) {
+      console.warn("WebGL initialization warning (hardware acceleration not active):", e);
+      if (preloader) preloader.style.display = 'none';
+      document.body.classList.remove('hero-locked');
+      if (navbarEl) navbarEl.classList.remove('navbar-hidden');
+      isLoaded = true;
+      window.isLoaded = true;
+    }
+
     function updateCamera() {
+      if (!renderer || !camera) return;
       const w = window.innerWidth;
       const h = window.innerHeight;
       renderer.setSize(w, h);
@@ -2138,63 +2394,64 @@ frontend:
       }
     }
     window.addEventListener('resize', updateCamera);
-    updateCamera();
+    if (webglSupported) updateCamera();
 
-    // --- Materials & Shaders ---
+    if (webglSupported) {
+      // --- Materials & Shaders ---
 
-    // 1. Photo Texture Loader
-    const textureLoader = new THREE.TextureLoader();
-    const photoTexture = textureLoader.load('./photo_cutout.png');
-    photoTexture.minFilter = THREE.LinearFilter;
-    photoTexture.magFilter = THREE.LinearFilter;
-    photoTexture.generateMipmaps = false;
+      // 1. Photo Texture Loader
+      const textureLoader = new THREE.TextureLoader();
+      const photoTexture = textureLoader.load('./photo_cutout.png');
+      photoTexture.minFilter = THREE.LinearFilter;
+      photoTexture.magFilter = THREE.LinearFilter;
+      photoTexture.generateMipmaps = false;
 
-    // 2. Banner Canvas ([DEVELOPER] in Previous Bold Sans-Serif font)
-    const bannerCanvas = document.createElement('canvas');
-    bannerCanvas.width = 2048;
-    bannerCanvas.height = 420;
-    const bCtx = bannerCanvas.getContext('2d');
-    
-    function drawBannerText(isCrimson = 0.0) {
-      bCtx.clearRect(0, 0, bannerCanvas.width, bannerCanvas.height);
-      bCtx.font = '900 340px Anton, sans-serif';
-      bCtx.textAlign = 'center';
-      bCtx.textBaseline = 'middle';
-      bCtx.letterSpacing = '-0.02em';
+      // 2. Banner Canvas ([DEVELOPER] in Previous Bold Sans-Serif font)
+      const bannerCanvas = document.createElement('canvas');
+      bannerCanvas.width = 2048;
+      bannerCanvas.height = 420;
+      const bCtx = bannerCanvas.getContext('2d');
       
-      const grad = bCtx.createLinearGradient(0, 40, 0, 380);
-      if (isCrimson <= 0.01) {
-        grad.addColorStop(0.0, 'rgba(160, 160, 170, 0.75)');
-        grad.addColorStop(0.5, 'rgba(95, 95, 105, 0.40)');
-        grad.addColorStop(1.0, 'rgba(15, 12, 18, 0.02)');
-      } else {
-        const c1 = THREE.MathUtils.lerp(160, 185, isCrimson);
-        const c2 = THREE.MathUtils.lerp(160, 14, isCrimson);
-        const c3 = THREE.MathUtils.lerp(170, 28, isCrimson);
-        grad.addColorStop(0.0, `rgba(${c1|0}, ${c2|0}, ${c3|0}, 0.85)`);
-        grad.addColorStop(0.5, `rgba(${(c1*0.45)|0}, ${(c2*0.4)|0}, ${(c3*0.4)|0}, 0.45)`);
-        grad.addColorStop(1.0, 'rgba(8, 5, 10, 0.02)');
+      function drawBannerText(isCrimson = 0.0) {
+        bCtx.clearRect(0, 0, bannerCanvas.width, bannerCanvas.height);
+        bCtx.font = '900 340px Anton, sans-serif';
+        bCtx.textAlign = 'center';
+        bCtx.textBaseline = 'middle';
+        bCtx.letterSpacing = '-0.02em';
+        
+        const grad = bCtx.createLinearGradient(0, 40, 0, 380);
+        if (isCrimson <= 0.01) {
+          grad.addColorStop(0.0, 'rgba(160, 160, 170, 0.75)');
+          grad.addColorStop(0.5, 'rgba(95, 95, 105, 0.40)');
+          grad.addColorStop(1.0, 'rgba(15, 12, 18, 0.02)');
+        } else {
+          const c1 = THREE.MathUtils.lerp(160, 185, isCrimson);
+          const c2 = THREE.MathUtils.lerp(160, 14, isCrimson);
+          const c3 = THREE.MathUtils.lerp(170, 28, isCrimson);
+          grad.addColorStop(0.0, `rgba(${c1|0}, ${c2|0}, ${c3|0}, 0.85)`);
+          grad.addColorStop(0.5, `rgba(${(c1*0.45)|0}, ${(c2*0.4)|0}, ${(c3*0.4)|0}, 0.45)`);
+          grad.addColorStop(1.0, 'rgba(8, 5, 10, 0.02)');
+        }
+        bCtx.fillStyle = grad;
+        bCtx.fillText('[DEVELOPER]', bannerCanvas.width / 2, bannerCanvas.height / 2 + 10);
       }
-      bCtx.fillStyle = grad;
-      bCtx.fillText('[DEVELOPER]', bannerCanvas.width / 2, bannerCanvas.height / 2 + 10);
-    }
-        drawBannerText(0.0);
-    if (document.fonts) {
-      document.fonts.load('340px Anton').then(() => {
-        drawBannerText(0.0);
-        if (bannerTexture) bannerTexture.needsUpdate = true;
-      });
-      document.fonts.ready.then(() => {
-        drawBannerText(0.0);
-        if (bannerTexture) bannerTexture.needsUpdate = true;
-      });
-    }
+      drawBannerText(0.0);
+      if (document.fonts) {
+        document.fonts.load('340px Anton').then(() => {
+          drawBannerText(0.0);
+          if (bannerTexture) bannerTexture.needsUpdate = true;
+        });
+        document.fonts.ready.then(() => {
+          drawBannerText(0.0);
+          if (bannerTexture) bannerTexture.needsUpdate = true;
+        });
+      }
 
-    const bannerTexture = new THREE.CanvasTexture(bannerCanvas);
-    bannerTexture.minFilter = THREE.LinearFilter;
+      const bannerTexture = new THREE.CanvasTexture(bannerCanvas);
+      bannerTexture.minFilter = THREE.LinearFilter;
 
-    // Banner Shader Material
-    const bannerMaterial = new THREE.ShaderMaterial({
+      // Banner Shader Material
+      bannerMaterial = new THREE.ShaderMaterial({
       uniforms: {
         uTexture: { value: bannerTexture },
         uSweepY: { value: -200.0 },
@@ -2239,7 +2496,7 @@ frontend:
     scene.add(bannerMesh);
 
     // 3. Photo Plane with Circular Grid Growing Reveal
-    const photoMaterial = new THREE.ShaderMaterial({
+    photoMaterial = new THREE.ShaderMaterial({
       uniforms: {
         uPhotoTexture: { value: photoTexture },
         uSweepY: { value: -100.0 },
@@ -2312,7 +2569,7 @@ frontend:
     dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
     dustGeo.setAttribute('aRand', new THREE.BufferAttribute(dustRand, 1));
 
-    const dustMaterial = new THREE.ShaderMaterial({
+    dustMaterial = new THREE.ShaderMaterial({
       uniforms: {
         uTime: { value: 0.0 }
       },
@@ -2348,9 +2605,6 @@ frontend:
     scene.add(dustPoints);
 
     // 5. 78,000 Surface Dots Shader
-    let dotsPoints = null;
-    let dotsMaterial = null;
-
     function createDotsMesh(buffer) {
       const dataView = new Float32Array(buffer);
       const actualDots = (buffer.byteLength / 32) | 0;
@@ -2553,6 +2807,7 @@ frontend:
 
     // --- Asset Loading with Real Progress ---
     async function loadDotData() {
+      if (!webglSupported) return;
       try {
         const response = await fetch('./dots.bin');
         if (!response.ok) throw new Error(`HTTP error ${response.status}`);
@@ -2585,17 +2840,17 @@ frontend:
 
         if (ringBar) ringBar.style.strokeDashoffset = 0;
         if (ringPct) ringPct.textContent = '100%';
-
         createDotsMesh(allChunks.buffer);
 
+        // Direct open! No "ENTER" or "CLICK TO EXPLORE" on landing page
         setTimeout(() => {
           if (preloader) preloader.classList.add('hidden');
-          if (scrollIndicator) {
-            scrollIndicator.style.opacity = '1';
-            scrollIndicator.style.pointerEvents = 'auto';
+          isLoaded = true;
+          window.isLoaded = true;
+          if (typeof updateHeroScrollState === 'function') {
+            updateHeroScrollState();
           }
-          isLoaded = true; window.isLoaded = true;
-        }, 350);
+        }, 150);
 
       } catch (err) {
         console.error("Error loading dot buffer:", err);
@@ -2603,29 +2858,232 @@ frontend:
       }
     }
     loadDotData();
+    } // end if (webglSupported)
 
-    // --- Full Page Custom Cursor & 3D Interactive Spotlight Engine ---
+    // ==========================================================================
+    // TARGET CURSOR ENGINE (EXACT ADAPTIVE CORNER SPRING RETICLE FROM VIDEO)
+    // ==========================================================================
+    const CORNER_ANGLES = [0, 90, 180, 270];
+    const QUARTER = Math.PI / 2;
+
+    function spring(state, goal, stiffness, damping, dt) {
+      const steps = 2;
+      const h = dt / steps;
+      for (let i = 0; i < steps; i++) {
+        state.v += (stiffness * (goal - state.x) - damping * state.v) * h;
+        state.x += state.v * h;
+      }
+    }
+
+    const tcRoot = document.getElementById('target-cursor');
+    const tcCorners = [
+      document.getElementById('tc-corner-0'),
+      document.getElementById('tc-corner-1'),
+      document.getElementById('tc-corner-2'),
+      document.getElementById('tc-corner-3')
+    ];
+    const tcDot = document.getElementById('custom-cursor-dot');
+    const tcLabel = document.getElementById('tc-label');
+
+    const tcSettings = {
+      targetSelector: 'button, a, [role="button"], input, textarea, select, .project-card, .badge-card, .tilt-card, .filter-btn, .pill-tag, .social-icon-btn, .nav-link, .hero-chip, .code-preview-frame, .badge-item, .work-card, .btn-pill, .status-pill, .copy-email-btn, .badge-verify-btn, .term-chip-btn, .hack-core, .equip-tool-btn, .modal-close, .scroll-indicator, .aws-tab-btn, .spec-chip',
+      cursorColor: '#ffffff',
+      cursorColorOnTarget: '#e5283b',
+      spinDuration: 6.0, // 6s per revolution when roaming
+      hoverDuration: 0.2,
+      parallaxOn: true,
+      size: 38,
+      cornerSize: 14,
+      thickness: 2,
+      padding: 6,
+      matchRadius: true,
+      dotSize: 4.5,
+      showLabel: true,
+      clickEffect: true
+    };
+
+    const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2, inside: false, seen: false, pressed: false };
+    const centerX = { x: window.innerWidth / 2, v: 0 };
+    const centerY = { x: window.innerHeight / 2, v: 0 };
+    const halfW = { x: tcSettings.size / 2, v: 0 };
+    const halfH = { x: tcSettings.size / 2, v: 0 };
+    const radius = { x: tcSettings.cornerSize, v: 0 };
+    const turn = { x: 0, v: 0 };
+    const lock = { x: 0, v: 0 };
+    const press = { x: 0, v: 0 };
+    const presence = { x: 0, v: 0 };
+
+    let currentTarget = null;
+    let targetRadius = 0;
+    let quarter = 0;
+    let spinSpeed = 0;
+    let tcLastTime = 0;
+    let lastLabelText = '';
+    let lastColorApplied = '';
+
+    function findTargetElement(x, y, element) {
+      const node = element || document.elementFromPoint(x, y);
+      return node?.closest ? node.closest(tcSettings.targetSelector) : null;
+    }
+
+    function lockOnTarget(nextTarget) {
+      if (nextTarget === currentTarget) return;
+      currentTarget = nextTarget;
+      if (currentTarget) {
+        quarter = Math.round(turn.x / QUARTER);
+        targetRadius = parseFloat(getComputedStyle(currentTarget).borderTopLeftRadius) || 0;
+        spinSpeed = 0;
+        if (typeof playTactileHover === 'function') playTactileHover();
+      }
+    }
+
+    function updateTargetCursor(now) {
+      const dt = tcLastTime ? Math.min(0.05, (now - tcLastTime) / 1000) : 1 / 60;
+      tcLastTime = now;
+
+      if (currentTarget && !currentTarget.isConnected) lockOnTarget(null);
+      const rect = currentTarget ? currentTarget.getBoundingClientRect() : null;
+      const locked = !!rect && pointer.inside;
+      const snapW = 4.6 / tcSettings.hoverDuration;
+      const snapK = snapW * snapW;
+      const snapC = 2 * 0.62 * snapW;
+
+      spring(presence, pointer.inside ? 1 : 0, 260, 32, dt);
+      spring(lock, locked ? 1 : 0, snapK, 2 * snapW, dt);
+      spring(press, pointer.pressed && tcSettings.clickEffect ? 1 : 0, 900, 40, dt);
+
+      let goalX = pointer.x;
+      let goalY = pointer.y;
+      let goalW = tcSettings.size / 2;
+      let goalH = tcSettings.size / 2;
+      let goalR = tcSettings.cornerSize;
+
+      if (locked) {
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const lean = tcSettings.parallaxOn ? 0.08 : 0;
+        goalX = cx + (pointer.x - cx) * lean;
+        goalY = cy + (pointer.y - cy) * lean;
+        const odd = Math.abs(quarter) % 2 === 1;
+        const w = rect.width / 2 + tcSettings.padding;
+        const h = rect.height / 2 + tcSettings.padding;
+        goalW = odd ? h : w;
+        goalH = odd ? w : h;
+        goalR = tcSettings.matchRadius ? Math.min(targetRadius + tcSettings.padding, tcSettings.cornerSize) : 0;
+      }
+
+      if (!pointer.inside && presence.x < 0.01) pointer.seen = false;
+      if (!pointer.seen) {
+        centerX.x = goalX;
+        centerY.x = goalY;
+        halfW.x = goalW;
+        halfH.x = goalH;
+        pointer.seen = pointer.inside;
+      }
+
+      const follow = locked ? snapK : 2200;
+      const followC = locked ? snapC : 2 * Math.sqrt(2200);
+      spring(centerX, goalX, follow, followC, dt);
+      spring(centerY, goalY, follow, followC, dt);
+      spring(halfW, goalW, snapK, snapC, dt);
+      spring(halfH, goalH, snapK, snapC, dt);
+      spring(radius, goalR, snapK, 2 * snapW, dt);
+
+      if (locked) {
+        spring(turn, quarter * QUARTER, snapK, snapC, dt);
+        spinSpeed = 0;
+      } else {
+        const speed = tcSettings.spinDuration > 0 ? (Math.PI * 2) / tcSettings.spinDuration : 0;
+        spinSpeed = speed;
+        turn.x += spinSpeed * dt;
+      }
+
+      const squeeze = 1 - press.x * 0.14;
+      const cos = Math.cos(turn.x);
+      const sin = Math.sin(turn.x);
+      const w = Math.max(0, halfW.x) * squeeze;
+      const h = Math.max(0, halfH.x) * squeeze;
+      const local = [
+        [-w, -h],
+        [w, -h],
+        [w, h],
+        [-w, h]
+      ];
+      const r = Math.max(0, Math.min(radius.x, tcSettings.cornerSize));
+      const degrees = (turn.x * 180) / Math.PI;
+      let left = Infinity;
+      let top = Infinity;
+
+      tcCorners.forEach((corner, i) => {
+        if (!corner) return;
+        const [lx, ly] = local[i];
+        const x = centerX.x + lx * cos - ly * sin;
+        const y = centerY.x + lx * sin + ly * cos;
+        left = Math.min(left, x);
+        top = Math.min(top, y);
+        corner.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) rotate(${(CORNER_ANGLES[i] + degrees).toFixed(2)}deg)`;
+        corner.style.width = `${tcSettings.cornerSize}px`;
+        corner.style.height = `${tcSettings.cornerSize}px`;
+        corner.style.borderWidth = `${tcSettings.thickness}px 0 0 ${tcSettings.thickness}px`;
+        corner.style.borderTopLeftRadius = `${r.toFixed(2)}px`;
+      });
+
+      if (tcDot) {
+        const dotScale = 1 - press.x * 0.35;
+        tcDot.style.transform = `translate3d(${pointer.x}px, ${pointer.y}px, 0) translate(-50%, -50%) scale(${dotScale.toFixed(3)})`;
+        tcDot.style.width = `${tcSettings.dotSize}px`;
+        tcDot.style.height = `${tcSettings.dotSize}px`;
+      }
+
+      if (tcLabel) {
+        let text = '';
+        if (tcSettings.showLabel && currentTarget) {
+          text = currentTarget.getAttribute('data-cursor-label') ||
+                 currentTarget.getAttribute('aria-label') ||
+                 (currentTarget.tagName === 'BUTTON' ? currentTarget.innerText?.trim()?.slice(0, 18) : '') || '';
+        }
+        if (text && text !== lastLabelText) {
+          tcLabel.textContent = text;
+          lastLabelText = text;
+        }
+        const shown = text ? Math.max(0, Math.min(1, lock.x)) : 0;
+        tcLabel.style.transform = `translate3d(${left.toFixed(2)}px, ${(top - 8).toFixed(2)}px, 0) translateY(-100%) translateY(${((1 - shown) * 4).toFixed(2)}px)`;
+        tcLabel.style.opacity = shown.toFixed(3);
+      }
+
+      const mix = Math.round(Math.max(0, Math.min(1, lock.x)) * 100);
+      const color = mix > 10 ? tcSettings.cursorColorOnTarget : tcSettings.cursorColor;
+      if (color !== lastColorApplied && tcRoot) {
+        tcRoot.style.setProperty('--target-cursor-color', color);
+        lastColorApplied = color;
+      }
+      if (tcRoot) {
+        tcRoot.style.opacity = pointer.inside ? Math.max(0.1, Math.min(1, presence.x)).toFixed(3) : '0';
+      }
+
+      requestAnimationFrame(updateTargetCursor);
+    }
+    requestAnimationFrame(updateTargetCursor);
+
+    // Mouse Movement Listener (Coordinates & Head Turn)
     window.addEventListener('mousemove', (e) => {
       hasMoved = true;
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
       mouseX = e.clientX;
       mouseY = e.clientY;
       mouseScreen.x = mouseX / window.innerWidth;
       mouseScreen.y = mouseY / window.innerHeight;
+      pointer.inside = true;
 
-      // Update Custom Cursor Dot directly
-      if (cursorDot) {
-        cursorDot.style.left = `${mouseX}px`;
-        cursorDot.style.top = `${mouseY}px`;
-      }
-
-      // Update full page cursor spotlight position
+      // Spotlight coordinates for 3D canvas
       document.documentElement.style.setProperty('--mouse-x', `${mouseX}px`);
       document.documentElement.style.setProperty('--mouse-y', `${mouseY}px`);
 
+      // 3D head turning in hero
       if (revealProgress < 0.95) {
         const nx = (mouseScreen.x - 0.5) * 2.0;
         const ny = (mouseScreen.y - 0.5) * 2.0;
-
         targetYaw = nx * 0.523;
         targetPitch = -ny * 0.261;
 
@@ -2634,55 +3092,27 @@ frontend:
         const worldX = 512.0 + (mouseScreen.x - 0.5) * visW;
         const worldY = 288.0 - (mouseScreen.y - 0.5) * VISIBLE_HEIGHT;
         targetCursorWorld.set(worldX, worldY);
-
-        // Micro-spark sound when placing cursor over 3D particle face
-        if (Math.random() < 0.04) {
-          playParticleGrain(750 + Math.random() * 500);
-        }
       }
+
+      lockOnTarget(findTargetElement(pointer.x, pointer.y, e.target));
+    }, { passive: true });
+
+    window.addEventListener('mousedown', () => {
+      pointer.pressed = true;
+      if (typeof playTactileClick === 'function') playTactileClick();
     });
 
-    // Animate trailing ring with smooth interpolation
-    function updateCursorRing() {
-      ringX += (mouseX - ringX) * 0.22;
-      ringY += (mouseY - ringY) * 0.22;
-      if (cursorRing) {
-        cursorRing.style.left = `${ringX.toFixed(1)}px`;
-        cursorRing.style.top = `${ringY.toFixed(1)}px`;
-      }
-      requestAnimationFrame(updateCursorRing);
-    }
-    requestAnimationFrame(updateCursorRing);
-
-    // Interactive hover & placement detection with tactile audio feedback
-    const INTERACTIVE_SELECTOR = 'a, button, input, textarea, select, [role="button"], .badge-card, .project-card, .scroll-indicator, .tilt-card, .spec-chip, .filter-btn, .pill-tag, .social-icon-btn, .nav-link, .hero-chip, .code-preview-frame, .badge-item, .work-card, .btn-pill, .status-pill';
-
-    document.addEventListener('mouseover', (e) => {
-      const target = e.target.closest(INTERACTIVE_SELECTOR);
-      if (target) {
-        document.body.classList.add('cursor-hover');
-        playCursorHoverSound(target);
-      } else {
-        document.body.classList.remove('cursor-hover');
-      }
+    window.addEventListener('mouseup', () => {
+      pointer.pressed = false;
     });
 
-    document.addEventListener('mousedown', (e) => {
-      document.body.classList.add('cursor-active');
-      playCursorClickSound(e.target);
+    document.documentElement.addEventListener('mouseleave', () => {
+      pointer.inside = false;
+      lockOnTarget(null);
     });
 
-    document.addEventListener('mouseup', () => {
-      document.body.classList.remove('cursor-active');
-    });
-
-    document.addEventListener('mouseleave', () => {
-      if (cursorDot) cursorDot.style.opacity = '0';
-      if (cursorRing) cursorRing.style.opacity = '0';
-    });
-    document.addEventListener('mouseenter', () => {
-      if (cursorDot) cursorDot.style.opacity = '1';
-      if (cursorRing) cursorRing.style.opacity = '1';
+    document.documentElement.addEventListener('mouseenter', () => {
+      pointer.inside = true;
     });
 
     // 3D Card Interactive Tilt for Bento Grid
@@ -2710,316 +3140,126 @@ frontend:
       initCardTilt();
     }
 
-    
-            // ==========================================================================
-    // INTERACTIVE PHOTO SCROLL SILKY AUDIO ENGINE (Web Audio API)
-    // Produces a buttery-smooth, fluid, futuristic harmonic glide (NO rough clicks!)
-    // ==========================================================================
-    let scrollAudioCtx = null;
-    let scrollAirGain = null;
-    let scrollAirFilter = null;
-    let scrollOsc1 = null;
-    let scrollOsc2 = null;
-    let lastScrollY = window.scrollY;
-    let lastScrollTime = performance.now();
-    let scrollVelocity = 0.0;
-    let isChimePlayed = false;
-    let isReverseChimePlayed = false;
 
-    function initScrollAudio() {
-      if (scrollAudioCtx) return;
-      try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (!AudioContext) return;
-        scrollAudioCtx = new AudioContext();
-
-        // 1. Smooth, Gentle Velvet Resonant Filter (Lowpass, warmth & zero roughness)
-        scrollAirFilter = scrollAudioCtx.createBiquadFilter();
-        scrollAirFilter.type = 'lowpass';
-        scrollAirFilter.frequency.setValueAtTime(360.0, scrollAudioCtx.currentTime);
-        scrollAirFilter.Q.setValueAtTime(1.2, scrollAudioCtx.currentTime); // Soft, gentle Q
-
-        // Master Smooth Glide Gain
-        scrollAirGain = scrollAudioCtx.createGain();
-        scrollAirGain.gain.setValueAtTime(0.0, scrollAudioCtx.currentTime);
-
-        // 2. Pure Warm Celestial Sines (A3 220Hz + A4 440Hz — Pure soothing harmony, NO buzzing!)
-        scrollOsc1 = scrollAudioCtx.createOscillator();
-        scrollOsc1.type = 'sine';
-        scrollOsc1.frequency.setValueAtTime(220.0, scrollAudioCtx.currentTime);
-
-        scrollOsc2 = scrollAudioCtx.createOscillator();
-        scrollOsc2.type = 'sine';
-        scrollOsc2.frequency.setValueAtTime(440.0, scrollAudioCtx.currentTime);
-
-        scrollOsc1.connect(scrollAirFilter);
-        scrollOsc2.connect(scrollAirFilter);
-        scrollAirFilter.connect(scrollAirGain);
-        scrollAirGain.connect(scrollAudioCtx.destination);
-
-        scrollOsc1.start();
-        scrollOsc2.start();
-
-        window.scrollAudioCtx = scrollAudioCtx;
-        window.scrollDroneGain = scrollAirGain;
-        window.scrollAirGain = scrollAirGain;
-        window.scrollAirFilter = scrollAirFilter;
-        window.scrollOsc1 = scrollOsc1;
-        window.scrollOsc2 = scrollOsc2;
-        window.initScrollAudio = initScrollAudio;
-      } catch (e) {
-        console.warn("AudioContext init error:", e);
-      }
-    }
-    window.initScrollAudio = initScrollAudio;
-    window.handleScrollSound = handleScrollSound;
-
-    // Crystalline Glass Spark (Pentatonic Particle Assembling Droplet)
-    const CRYSTAL_NOTES = [523.25, 659.25, 783.99, 987.77, 1046.50, 1318.51, 1567.98];
-    function playCrystalDrop(progress = 0.5) {
-      if (!scrollAudioCtx || window.portfolioAudioMuted) return;
-      try {
-        const t = scrollAudioCtx.currentTime;
-        const osc = scrollAudioCtx.createOscillator();
-        const gain = scrollAudioCtx.createGain();
-
-        const noteIndex = Math.min(CRYSTAL_NOTES.length - 1, Math.max(0, Math.floor((progress || 0) * CRYSTAL_NOTES.length)));
-        const freq = CRYSTAL_NOTES[noteIndex];
-
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, t);
-
-        gain.gain.setValueAtTime(0.016, t);
-        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.055);
-
-        osc.connect(gain);
-        gain.connect(scrollAudioCtx.destination);
-        osc.start(t);
-        osc.stop(t + 0.06);
-      } catch (e) {}
-    }
-
-    function playParticleGrain(freq) {
-      playCrystalDrop(window.revealProgress || 0.5);
-    }
-
-    // Futuristic Holographic Completion Chime (Lush 5-Note Crystalline Arpeggio)
-    function playHoloChime(reverse = false) {
-      if (!scrollAudioCtx || window.portfolioAudioMuted) return;
-      try {
-        const now = scrollAudioCtx.currentTime;
-        const notes = reverse
-          ? [783.99, 659.25, 523.25, 392.00]
-          : [523.25, 659.25, 783.99, 987.77, 1046.50];
-
-        notes.forEach((freq, idx) => {
-          const osc = scrollAudioCtx.createOscillator();
-          const gain = scrollAudioCtx.createGain();
-          osc.type = 'sine';
-          const startTime = now + idx * 0.058;
-          osc.frequency.setValueAtTime(freq, startTime);
-          gain.gain.setValueAtTime(0.045, startTime);
-          gain.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.5);
-          osc.connect(gain);
-          gain.connect(scrollAudioCtx.destination);
-          osc.start(startTime);
-          osc.stop(startTime + 0.5);
-        });
-      } catch (e) {}
-    }
 
     // ==========================================================================
-    // TACTILE CURSOR SOUND ENGINE (Hover & Click Micro-Acoustics)
-    // Produces subtle, luxury micro-haptic chirps & crisp mechanical clicks
+    // TWO-STEP PHOTO REVEAL & PAGE NAVIGATION ENGINE
+    // Step 1: First scroll exclusively reveals photo (0% to 100%).
+    //         Even on a long continuous swipe/fling, it STOPS at 100% reveal.
+    // Step 2: Next distinct scroll advances smoothly to the next page (#intro)!
     // ==========================================================================
-    let lastHoveredElement = null;
-    let lastHoverTime = 0;
+    let photoFullyRevealed = false;
+    let isAwaitingNewScrollGesture = false;
+    let isTransitioningToPage = false;
+    let wheelRestTimer = null;
 
-    function playCursorHoverSound(target) {
-      if (window.portfolioAudioMuted) return;
-      const now = performance.now();
-      if (target === lastHoveredElement && (now - lastHoverTime) < 220) return;
-      if ((now - lastHoverTime) < 45) return; // Debounce rapid movements
-      lastHoveredElement = target;
-      lastHoverTime = now;
-
-      if (!scrollAudioCtx) initScrollAudio();
-      if (scrollAudioCtx && scrollAudioCtx.state === 'suspended') {
-        scrollAudioCtx.resume();
-      }
-      if (!scrollAudioCtx) return;
-
-      try {
-        const t = scrollAudioCtx.currentTime;
-        const osc = scrollAudioCtx.createOscillator();
-        const gain = scrollAudioCtx.createGain();
-
-        // High-tech subtle tactile micro-chirp (visionOS / luxury tactile feedback)
-        const baseFreq = 1050 + Math.random() * 90;
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(baseFreq, t);
-        osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.3, t + 0.022);
-
-        gain.gain.setValueAtTime(0.018, t);
-        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.024);
-
-        osc.connect(gain);
-        gain.connect(scrollAudioCtx.destination);
-        osc.start(t);
-        osc.stop(t + 0.025);
-      } catch (e) {}
-    }
-
-    // Crisp Tactile Cursor Placement / Click Sound
-    function playCursorClickSound(target) {
-      if (window.portfolioAudioMuted) return;
-      if (!scrollAudioCtx) initScrollAudio();
-      if (scrollAudioCtx && scrollAudioCtx.state === 'suspended') {
-        scrollAudioCtx.resume();
-      }
-      if (!scrollAudioCtx) return;
-
-      try {
-        const t = scrollAudioCtx.currentTime;
-        // Dual component mechanical cyber click
-        const osc = scrollAudioCtx.createOscillator();
-        const gain = scrollAudioCtx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(1380, t);
-        osc.frequency.exponentialRampToValueAtTime(280, t + 0.028);
-
-        gain.gain.setValueAtTime(0.026, t);
-        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.028);
-
-        osc.connect(gain);
-        gain.connect(scrollAudioCtx.destination);
-        osc.start(t);
-        osc.stop(t + 0.03);
-
-        const subOsc = scrollAudioCtx.createOscillator();
-        const subGain = scrollAudioCtx.createGain();
-        subOsc.type = 'sine';
-        subOsc.frequency.setValueAtTime(240, t);
-        subGain.gain.setValueAtTime(0.02, t);
-        subGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.032);
-        subOsc.connect(subGain);
-        subGain.connect(scrollAudioCtx.destination);
-        subOsc.start(t);
-        subOsc.stop(t + 0.032);
-      } catch (e) {}
-    }
-
-    window.playCursorHoverSound = playCursorHoverSound;
-    window.playCursorClickSound = playCursorClickSound;
-
-
-    // Modulate sound based on scroll activity and reveal progress
-    function handleScrollSound(delta) {
-      if (window.portfolioAudioMuted) return;
-      if (!scrollAudioCtx) {
-        initScrollAudio();
-      }
-      if (scrollAudioCtx && scrollAudioCtx.state === 'suspended') {
-        scrollAudioCtx.resume();
-      }
-      if (!scrollAudioCtx) return;
-
-      const vh = window.innerHeight;
-      const scrollY = window.scrollY;
-
-      const now = performance.now();
-      const dt = Math.max(1, now - lastScrollTime);
-      const dy = Math.abs(scrollY - lastScrollY);
-      scrollVelocity = Math.min(1.0, (dy / dt) * 0.2 + Math.abs(delta || 0) * 0.0028);
-
-      lastScrollY = scrollY;
-      lastScrollTime = now;
-    }
-
-    // Unlock AudioContext on first user interaction
-    ['click', 'keydown', 'wheel', 'touchstart', 'scroll'].forEach(evt => {
-      window.addEventListener(evt, () => {
-        if (!scrollAudioCtx) initScrollAudio();
-        if (scrollAudioCtx && scrollAudioCtx.state === 'suspended') {
-          scrollAudioCtx.resume();
-        }
-      }, { once: true, passive: true });
-    });
-
-    // ==========================================================================
-    // BULLETPROOF GATED PHOTO REVEAL ENGINE
-    // The next page CANNOT scroll until the full photo is 100% revealed & visible!
-    // ==========================================================================
-    let isHeroLocked = true;
     document.body.classList.add('hero-locked');
 
-    function checkHeroLockState() {
-      // Unlock page scrolling only when photo is fully revealed
-      // NOTE: Navbar remains HIDDEN on photo; it only appears after photo ends and we arrive at next page
-      if (targetRevealProgress >= 0.98 && revealProgress >= 0.96) {
-        if (isHeroLocked) {
-          isHeroLocked = false;
-          document.body.classList.remove('hero-locked');
-        }
-      } else {
-        // Re-lock at the top if photo is being returned to dots
-        if (window.scrollY <= 5 && !isHeroLocked) {
-          isHeroLocked = true;
-          document.body.classList.add('hero-locked');
-          if (navbarEl) navbarEl.classList.add('navbar-hidden');
-        }
-      }
+    function onPhotoRevealedComplete() {
+      if (photoFullyRevealed) return;
+      photoFullyRevealed = true;
+      isAwaitingNewScrollGesture = true; // Block any spillover from the current long scroll!
+      clearTimeout(wheelRestTimer);
+      wheelRestTimer = setTimeout(() => {
+        isAwaitingNewScrollGesture = false; // User has paused / ended the first scroll gesture
+      }, 220);
     }
 
-    // Intercept Wheel Gestures for Strict Hero Reveal Gating
+    function advanceToNextPage() {
+      if (isTransitioningToPage) return;
+      isTransitioningToPage = true;
+      document.body.classList.remove('hero-locked');
+
+      if (navbarEl) navbarEl.classList.remove('navbar-hidden');
+
+      const hintEl = document.getElementById('terminal-hint-trigger');
+      if (hintEl) hintEl.classList.remove('hint-hidden');
+
+      const introSec = document.getElementById('intro');
+      if (introSec) {
+        introSec.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: window.innerHeight * 1.05, behavior: 'smooth' });
+      }
+
+      setTimeout(() => {
+        isTransitioningToPage = false;
+      }, 750);
+    }
+
+    // Intercept Wheel Gestures for Strict Two-Step Gating
     window.addEventListener('wheel', (e) => {
       const scrollY = window.scrollY;
 
-      // 1. If at the top and photo is not fully revealed:
-      if (scrollY <= 5 && targetRevealProgress < 0.999) {
+      // 1. Photo is NOT fully revealed:
+      if (scrollY <= 5 && !photoFullyRevealed) {
         if (e.deltaY > 0) {
-          // Scrolling down advances photo reveal
+          // Scrolling down advances photo reveal (slower, more gradual and cinematic)
           e.preventDefault();
-          const speed = 0.0022; // Smooth ~450px scroll travel to 100%
+          const speed = 0.00095;
           targetRevealProgress = Math.min(1.0, targetRevealProgress + Math.abs(e.deltaY) * speed);
-          handleScrollSound(e.deltaY);
-          if (targetRevealProgress >= 1.0) checkHeroLockState();
+          handleRevealSound(e.deltaY);
+
+          if (targetRevealProgress >= 0.999) {
+            targetRevealProgress = 1.0;
+            onPhotoRevealedComplete();
+          }
           return;
         } else if (e.deltaY < 0 && targetRevealProgress > 0.0) {
           // Scrolling up reduces photo reveal back to dots
           e.preventDefault();
-          const speed = 0.0022;
+          const speed = 0.00095;
           targetRevealProgress = Math.max(0.0, targetRevealProgress - Math.abs(e.deltaY) * speed);
-          handleScrollSound(e.deltaY);
-          checkHeroLockState();
+          handleRevealSound(e.deltaY);
           return;
         }
       }
 
-      // 2. If at top and photo is fully revealed:
-      if (scrollY <= 5 && targetRevealProgress >= 0.98) {
-        if (e.deltaY < 0 && scrollY <= 0) {
-          // Scrolling up while at top reverses photo back to dots
+      // 2. Photo IS fully revealed at top:
+      if (scrollY <= 5 && photoFullyRevealed) {
+        if (e.deltaY < 0) {
+          // Scrolling up reverses photo back to dots
           e.preventDefault();
-          const speed = 0.0022;
-          targetRevealProgress = Math.max(0.0, targetRevealProgress - Math.abs(e.deltaY) * speed);
-          handleScrollSound(e.deltaY);
-          checkHeroLockState();
+          photoFullyRevealed = false;
+          isAwaitingNewScrollGesture = false;
+          clearTimeout(wheelRestTimer);
+          document.body.classList.add('hero-locked');
+          targetRevealProgress = Math.max(0.0, targetRevealProgress - 0.04);
+          handleRevealSound(e.deltaY);
           return;
         }
-        // Scrolling down naturally scrolls the page into the website
-        handleScrollSound(e.deltaY);
-      } else {
-        handleScrollSound(e.deltaY);
+
+        if (e.deltaY > 0) {
+          e.preventDefault();
+
+          // If the user is STILL in the middle of that long first scroll gesture:
+          if (isAwaitingNewScrollGesture) {
+            clearTimeout(wheelRestTimer);
+            wheelRestTimer = setTimeout(() => {
+              isAwaitingNewScrollGesture = false; // User has finished the first scroll gesture!
+            }, 220);
+            return; // EAT the event! Do NOT go to the next page!
+          }
+
+          // User has finished the first scroll, and now performs a separate SECOND scroll:
+          advanceToNextPage();
+          return;
+        }
       }
+
+      // 3. Normal page browsing (scrollY > 5):
+      // Natural browser scrolling occurs with NO scroll audio!
     }, { passive: false });
 
     // Touch Event Handling for Mobile / Trackpad Swiping
     let touchStartY = 0;
+    let touchFirstSwipeConsumed = false;
+
     window.addEventListener('touchstart', (e) => {
       touchStartY = e.touches[0].clientY;
-      if (!scrollAudioCtx) initScrollAudio();
-      if (scrollAudioCtx && scrollAudioCtx.state === 'suspended') scrollAudioCtx.resume();
+      touchFirstSwipeConsumed = false;
+      if (!revealAudioCtx) initRevealAudio();
+      if (revealAudioCtx && revealAudioCtx.state === 'suspended') revealAudioCtx.resume();
     }, { passive: true });
 
     window.addEventListener('touchmove', (e) => {
@@ -3027,36 +3267,67 @@ frontend:
       const currentY = e.touches[0].clientY;
       const deltaY = touchStartY - currentY; // positive = swipe up = scroll down
 
-      if (scrollY <= 5 && (targetRevealProgress < 0.999 || (deltaY < 0 && targetRevealProgress > 0.0))) {
+      if (scrollY <= 5 && !photoFullyRevealed) {
+        if (deltaY > 0) {
+          e.preventDefault();
+          const speed = 0.0016;
+          targetRevealProgress = Math.min(1.0, targetRevealProgress + deltaY * speed);
+          touchStartY = currentY;
+          handleRevealSound(deltaY);
+          if (targetRevealProgress >= 0.999) {
+            targetRevealProgress = 1.0;
+            onPhotoRevealedComplete();
+            touchFirstSwipeConsumed = true;
+          }
+          return;
+        }
+      }
+
+      if (scrollY <= 5 && photoFullyRevealed && deltaY > 15) {
+        if (touchFirstSwipeConsumed || isAwaitingNewScrollGesture) {
+          e.preventDefault();
+          return;
+        }
         e.preventDefault();
-        const speed = 0.0035;
-        targetRevealProgress = Math.min(1.0, Math.max(0.0, targetRevealProgress + deltaY * speed));
-        touchStartY = currentY;
-        handleScrollSound(deltaY);
-        if (targetRevealProgress >= 1.0) checkHeroLockState();
-      } else {
-        touchStartY = currentY;
-        handleScrollSound(deltaY);
+        advanceToNextPage();
       }
     }, { passive: false });
+
+    window.addEventListener('touchend', () => {
+      touchFirstSwipeConsumed = false;
+      isAwaitingNewScrollGesture = false;
+    });
 
     // Keyboard Navigation (ArrowDown, ArrowUp, Space, PageDown, PageUp)
     window.addEventListener('keydown', (e) => {
       const scrollY = window.scrollY;
-      if (scrollY <= 5 && targetRevealProgress < 0.999) {
+      if (scrollY <= 5 && !photoFullyRevealed) {
         if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
           e.preventDefault();
-          targetRevealProgress = Math.min(1.0, targetRevealProgress + 0.18);
-          handleScrollSound(100);
-          if (targetRevealProgress >= 1.0) checkHeroLockState();
+          targetRevealProgress = Math.min(1.0, targetRevealProgress + 0.08);
+          handleRevealSound(100);
+          if (targetRevealProgress >= 0.999) {
+            targetRevealProgress = 1.0;
+            onPhotoRevealedComplete();
+          }
+        }
+      } else if (scrollY <= 5 && photoFullyRevealed) {
+        if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
+          if (!isAwaitingNewScrollGesture) {
+            e.preventDefault();
+            advanceToNextPage();
+          }
         }
       }
+
       if (scrollY <= 5 && targetRevealProgress > 0.001) {
         if (e.key === 'ArrowUp' || e.key === 'PageUp') {
           e.preventDefault();
-          targetRevealProgress = Math.max(0.0, targetRevealProgress - 0.18);
-          handleScrollSound(-100);
-          checkHeroLockState();
+          photoFullyRevealed = false;
+          isAwaitingNewScrollGesture = false;
+          document.body.classList.add('hero-locked');
+          targetRevealProgress = Math.max(0.0, targetRevealProgress - 0.08);
+          handleRevealSound(-100);
         }
       }
     });
@@ -3065,25 +3336,14 @@ frontend:
     function updateHeroScrollState() {
       if (!isLoaded) return;
       const scrollY = window.scrollY;
-      handleScrollSound(scrollY - lastScrollY);
+      const hintEl = document.getElementById('terminal-hint-trigger');
 
-      // NAVBAR VISIBILITY RULE:
-      // When photo is fully revealed at the top, navbar DOES NOT show.
-      // After photo is ended and we arrive at another page (scrollY > 60), navbar shows!
       if (scrollY > 60) {
         if (navbarEl) navbarEl.classList.remove('navbar-hidden');
+        if (hintEl) hintEl.classList.remove('hint-hidden');
       } else {
         if (navbarEl) navbarEl.classList.add('navbar-hidden');
-      }
-
-      if (uiContainer) {
-        if (scrollY > window.innerHeight * 0.25) {
-          uiContainer.style.opacity = '0';
-          uiContainer.style.pointerEvents = 'none';
-        } else {
-          uiContainer.style.opacity = '1';
-          uiContainer.style.pointerEvents = 'auto';
-        }
+        if (hintEl) hintEl.classList.add('hint-hidden');
       }
     }
 
@@ -3099,30 +3359,14 @@ frontend:
     window.addEventListener('resize', updateHeroScrollState, { passive: true });
 
     // Initial check on load: ensure hero is locked and navbar is hidden
-    checkHeroLockState();
     updateHeroScrollState();
-
-    // Scroll Indicator Click Action
-    if (scrollIndicator) {
-      scrollIndicator.addEventListener('click', () => {
-        if (!isLoaded) return;
-        if (targetRevealProgress < 0.98) {
-          targetRevealProgress = 1.0;
-        } else {
-          isHeroLocked = false;
-          document.body.classList.remove('hero-locked');
-          const introSec = document.getElementById('intro');
-          if (introSec) introSec.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    }
 
     // Nav Links Unlock Page Immediately if Clicked
     document.querySelectorAll('.nav-link, .btn-pill, .trigger-resume-modal').forEach(link => {
       link.addEventListener('click', () => {
         targetRevealProgress = 1.0;
         revealProgress = 1.0;
-        isHeroLocked = false;
+        photoFullyRevealed = true;
         document.body.classList.remove('hero-locked');
       });
     });
@@ -3137,7 +3381,9 @@ frontend:
       lastTime = now;
 
       if (!isLoaded || !dotsMaterial) {
+        if (renderer && scene && camera) {
         renderer.render(scene, camera);
+      }
         return;
       }
 
@@ -3168,74 +3414,50 @@ frontend:
 
       // 3. Smooth Lerp on Reveal Progress Driven by Scroll
       const prevReveal = revealProgress;
-      revealProgress += (targetRevealProgress - revealProgress) * 0.095;
-      if (Math.abs(targetRevealProgress - revealProgress) < 0.0005) {
+      revealProgress += (targetRevealProgress - revealProgress) * 0.07;
+      if (Math.abs(targetRevealProgress - revealProgress) < 0.0003) {
         revealProgress = targetRevealProgress;
       }
       const revealDelta = Math.abs(revealProgress - prevReveal);
 
-      // Continuously evaluate hero lock state as revealProgress lerps
-      checkHeroLockState();
+      if (revealProgress >= 0.99 && !photoFullyRevealed) {
+        onPhotoRevealedComplete();
+      }
 
-      // --- Interactive Photo Scroll Audio Modulation Engine ---
-      // Buttery-smooth, soothing harmonic glide (pure sine tones smoothly tracking revealProgress)
-      if (scrollAudioCtx && scrollAirGain) {
-        if (window.portfolioAudioMuted) {
-          scrollAirGain.gain.setValueAtTime(0.0, scrollAudioCtx.currentTime);
+      // --- Photo Reveal Audio Modulation (Envato Scroll Data 04) ---
+      // Sound plays ONLY during photo reveal, matching the 3D particle assembly!
+      if (revealAudioCtx) {
+        if (window.portfolioAudioMuted || photoFullyRevealed || window.scrollY > 5 || targetRevealProgress >= 0.999) {
+          if (scrollDataGain) {
+            scrollDataGain.gain.setTargetAtTime(0.0001, revealAudioCtx.currentTime, 0.04);
+          }
         } else {
-          const vh = window.innerHeight;
-          const timeSinceScroll = performance.now() - lastScrollTime;
-          const isHeroZone = window.scrollY <= vh * 1.5;
-          const isParticlesMoving = (revealDelta > 0.0008 || timeSinceScroll < 120);
+          const timeSinceRevealScroll = performance.now() - lastRevealTime;
+          const isParticlesMoving = (revealDelta > 0.0002 || timeSinceRevealScroll < 200) && targetRevealProgress < 0.999;
 
-          if (isHeroZone && isParticlesMoving) {
-            const audioNow = scrollAudioCtx.currentTime;
+          if (isParticlesMoving) {
+            const audioNow = revealAudioCtx.currentTime;
 
-            // Pitch glides smoothly upwards as photo reveals: A3 (220Hz) -> E4 (330Hz)
-            const baseFreq = THREE.MathUtils.lerp(220.0, 330.0, revealProgress);
-            scrollOsc1.frequency.setTargetAtTime(baseFreq, audioNow, 0.04);
-            scrollOsc2.frequency.setTargetAtTime(baseFreq * 2.0, audioNow, 0.04);
+            // 1. Envato Scroll Data 04 dynamic playback
+            if (scrollDataGain) {
+              const targetVol = Math.min(0.24, Math.max(0.06, revealVelocity * 0.22));
+              scrollDataGain.gain.setTargetAtTime(targetVol, audioNow, 0.04);
 
-            // Filter smoothly opens: 320Hz -> 780Hz
-            const filterFreq = THREE.MathUtils.lerp(320.0, 780.0, revealProgress);
-            scrollAirFilter.frequency.setTargetAtTime(filterFreq, audioNow, 0.04);
-
-            // Volume: gentle, whisper-soft, perfectly fluid (max 0.024)
-            const dynamicVol = Math.min(0.024, Math.max(scrollVelocity * 0.02, revealDelta * 1.4));
-            scrollAirGain.gain.setTargetAtTime(dynamicVol, audioNow, 0.035);
-
-            // Gentle crystalline glass sparkle as particles snap into photo coordinates
-            if (Math.random() < 0.18 && dynamicVol > 0.006) {
-              playCrystalDrop(revealProgress);
+              if (scrollDataSource && scrollDataSource.playbackRate) {
+                const targetRate = THREE.MathUtils.lerp(0.95, 1.15, revealProgress);
+                scrollDataSource.playbackRate.setTargetAtTime(targetRate, audioNow, 0.05);
+              }
             }
+
           } else {
-            scrollAirGain.gain.setTargetAtTime(0.0, scrollAudioCtx.currentTime, 0.09);
+            if (scrollDataGain) {
+              scrollDataGain.gain.setTargetAtTime(0.0001, revealAudioCtx.currentTime, 0.08);
+            }
           }
         }
       }
 
-      // Holographic Completion Chime on 100% reveal or return to dots
-      if (revealProgress >= 0.98 && !isChimePlayed) {
-        isChimePlayed = true;
-        isReverseChimePlayed = false;
-        playHoloChime(false);
-      } else if (revealProgress <= 0.05 && !isReverseChimePlayed && isChimePlayed) {
-        isReverseChimePlayed = true;
-        isChimePlayed = false;
-        playHoloChime(true);
-      }
 
-      // Update scroll indicator UI dynamically
-      if (scrollThumb && scrollLabel) {
-        scrollThumb.style.width = `${(revealProgress * 100).toFixed(1)}%`;
-        if (revealProgress <= 0.04) {
-          scrollLabel.textContent = 'Scroll to reveal photo';
-        } else if (revealProgress >= 0.96) {
-          scrollLabel.textContent = 'Photo revealed • Scroll for website ↓';
-        } else {
-          scrollLabel.textContent = `Revealing... ${(revealProgress * 100).toFixed(0)}%`;
-        }
-      }
 
       // Sweep moves from top (Y=610) to bottom (Y=-40) in Three.js coords
       const sweepY = THREE.MathUtils.lerp(610.0, -40.0, revealProgress);
@@ -3244,7 +3466,8 @@ frontend:
       dotsMaterial.uniforms.uRevealProgress.value = revealProgress;
       window.revealProgress = revealProgress;
       window.targetRevealProgress = targetRevealProgress;
-      window.isChimePlayed = isChimePlayed;
+      window.photoFullyRevealed = photoFullyRevealed;
+      window.isAwaitingNewScrollGesture = isAwaitingNewScrollGesture;
 
       photoMaterial.uniforms.uSweepY.value = sweepY;
       photoMaterial.uniforms.uRevealProgress.value = revealProgress;
@@ -3263,7 +3486,9 @@ frontend:
       dotsMaterial.uniforms.uPitch.value = currentPitch;
       dotsMaterial.uniforms.uCursorPos.value.copy(currentCursorWorld);
 
-      renderer.render(scene, camera);
+      if (renderer && scene && camera) {
+        renderer.render(scene, camera);
+      }
     }
 
     requestAnimationFrame(animate);
