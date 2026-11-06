@@ -262,6 +262,85 @@
       100% { transform: scale(1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
     }
 
+    /* Floating Cyber Sound Mode HUD Pill (Bottom-Left Symmetry with Terminal Hint) */
+    .floating-sound-hud {
+      position: fixed;
+      bottom: 1.75rem;
+      left: 1.75rem;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.55rem 1.05rem;
+      border-radius: var(--radius-pill);
+      background: rgba(16, 12, 18, 0.82) !important;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(210, 20, 36, 0.42) !important;
+      color: #dedee8 !important;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 18px rgba(163, 14, 25, 0.2);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+    }
+
+    .floating-sound-hud:hover {
+      background: rgba(28, 14, 22, 0.95) !important;
+      border-color: rgba(235, 25, 45, 0.8) !important;
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75), 0 0 25px rgba(210, 20, 36, 0.4);
+    }
+
+    .floating-sound-hud.muted {
+      border-color: rgba(255, 255, 255, 0.12) !important;
+      color: #727280 !important;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .sound-eq-icon {
+      display: flex;
+      align-items: flex-end;
+      gap: 2.5px;
+      height: 13px;
+      width: 15px;
+    }
+
+    .sound-eq-bar {
+      width: 2.5px;
+      height: 4px;
+      background: #e5283b;
+      border-radius: 1px;
+      transition: height 0.15s ease;
+    }
+
+    .floating-sound-hud.muted .sound-eq-bar {
+      background: #555562 !important;
+      height: 2px !important;
+      animation: none !important;
+    }
+
+    .sound-eq-bar.active {
+      animation: soundEqDance 0.45s infinite alternate ease-in-out;
+    }
+
+    .sound-eq-bar.b1 { animation-delay: 0.05s; }
+    .sound-eq-bar.b2 { animation-delay: 0.25s; }
+    .sound-eq-bar.b3 { animation-delay: 0.12s; }
+    .sound-eq-bar.b4 { animation-delay: 0.32s; }
+
+    @keyframes soundEqDance {
+      0% { height: 3px; }
+      100% { height: 13px; }
+    }
+
+    .sound-hud-label {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
     /* ==========================================================================
        ATMOSPHERIC CYBER BACKGROUND: NEBULAE, GRID & CURSOR SPOTLIGHT
        ========================================================================== */
@@ -1255,7 +1334,15 @@
         right: 1rem !important;
         padding: 0.45rem 0.85rem !important;
         font-size: 0.74rem !important;
-        max-width: calc(100vw - 2rem) !important;
+        max-width: calc(50vw - 1.5rem) !important;
+      }
+
+      .floating-sound-hud {
+        bottom: 1rem !important;
+        left: 1rem !important;
+        padding: 0.45rem 0.85rem !important;
+        font-size: 0.74rem !important;
+        max-width: calc(50vw - 1.5rem) !important;
       }
 
       .terminal-modal-overlay,
@@ -2463,6 +2550,7 @@ frontend:
   <div id="toast-notification" class="toast-notification"></div>
 
   <!-- Scripts -->
+  <script src="js/audio.js"></script>
   <script src="js/canvas.js"></script>
   <script src="js/terminal.js"></script>
   <script src="js/main.js"></script>
@@ -2543,184 +2631,16 @@ frontend:
     initFilmGrain();
 
     // ==========================================================================
-    // CYBER AUDIO ENGINE: ENVATO "SCROLL DATA 04" & TACTILE AUDIO FEEDBACK
-    // Preloads immediately on startup so audio is decoded & ready in memory!
-    // Unlocks seamlessly on the very first user interaction or enter click.
+    // CYBER AUDIO ENGINE INTERFACE
+    // Connected directly to window.CyberAudio (js/audio.js)
+    // Features Dual-Layer synthesis, Envato stream, and zero-latency auto-unlock.
     // ==========================================================================
-    let revealAudioCtx = null;
-    let scrollDataBuffer = null;
-    let scrollDataSource = null;
-    let scrollDataGain = null;
-    let scrollDataFilter = null;
-    let isScrollDataPlaying = false;
-    let isAudioLoading = false;
-    let lastRevealTime = performance.now();
-    let revealVelocity = 0.0;
-    let userHasInteracted = false;
-
-    function initRevealAudio() {
-      if (revealAudioCtx) return;
-      try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (!AudioContext) return;
-        revealAudioCtx = new AudioContext();
-        window.scrollAudioCtx = revealAudioCtx;
-        window.initScrollAudio = initRevealAudio;
-
-        // Preload Envato "Scroll Data 04" audio track immediately
-        loadScrollDataAudio();
-      } catch (e) {
-        console.warn("Reveal audio error:", e);
-      }
-    }
-    window.initScrollAudio = initRevealAudio;
-
-    function loadScrollDataAudio() {
-      if (scrollDataBuffer || isAudioLoading || !revealAudioCtx) return;
-      isAudioLoading = true;
-      fetch('assets/scroll-data.m4a')
-        .then(response => {
-          if (!response.ok) throw new Error('HTTP ' + response.status);
-          return response.arrayBuffer();
-        })
-        .then(buf => revealAudioCtx.decodeAudioData(buf))
-        .then(decoded => {
-          scrollDataBuffer = decoded;
-          isAudioLoading = false;
-          setupScrollDataNodes();
-        })
-        .catch(err => {
-          console.warn('Scroll data audio load/decode error:', err);
-          isAudioLoading = false;
-        });
-    }
-
-    function setupScrollDataNodes() {
-      if (!revealAudioCtx || !scrollDataBuffer || isScrollDataPlaying) return;
-      try {
-        scrollDataSource = revealAudioCtx.createBufferSource();
-        scrollDataSource.buffer = scrollDataBuffer;
-        scrollDataSource.loop = true;
-
-        scrollDataFilter = revealAudioCtx.createBiquadFilter();
-        scrollDataFilter.type = 'highpass';
-        scrollDataFilter.frequency.setValueAtTime(110.0, revealAudioCtx.currentTime);
-
-        scrollDataGain = revealAudioCtx.createGain();
-        scrollDataGain.gain.setValueAtTime(0.0001, revealAudioCtx.currentTime);
-
-        scrollDataSource.connect(scrollDataFilter);
-        scrollDataFilter.connect(scrollDataGain);
-        scrollDataGain.connect(revealAudioCtx.destination);
-
-        scrollDataSource.start(0);
-        isScrollDataPlaying = true;
-      } catch (e) {
-        console.warn('setupScrollDataNodes error:', e);
-      }
-    }
-
-    function unlockAudio() {
-      userHasInteracted = true;
-      if (window.portfolioAudioMuted) return;
-      if (!revealAudioCtx) initRevealAudio();
-      if (revealAudioCtx && revealAudioCtx.state === 'suspended') {
-        revealAudioCtx.resume().then(() => {
-          if (revealAudioCtx.state === 'running') {
-            removeAudioUnlockListeners();
-          }
-        }).catch(() => {});
-      }
-    }
-    window.unlockAudio = unlockAudio;
-
-    const AUDIO_UNLOCK_EVENTS = [
-      'click', 'pointerdown', 'pointermove', 'mousedown', 'mouseup',
-      'touchstart', 'touchend', 'touchmove', 'keydown', 'wheel', 'scroll', 'mousemove'
-    ];
-
-    function handleAudioUnlockEvent() {
-      unlockAudio();
-    }
-
-    function removeAudioUnlockListeners() {
-      AUDIO_UNLOCK_EVENTS.forEach(evt => {
-        window.removeEventListener(evt, handleAudioUnlockEvent, { capture: true });
-      });
-    }
-
-    AUDIO_UNLOCK_EVENTS.forEach(evt => {
-      window.addEventListener(evt, handleAudioUnlockEvent, { capture: true, passive: true });
-    });
-
-    // Subtle tactile click sound on cursor press / enter
-    function playTactileClick() {
-      if (window.portfolioAudioMuted) return;
-      if (!revealAudioCtx) initRevealAudio();
-      if (revealAudioCtx && revealAudioCtx.state === 'suspended') revealAudioCtx.resume();
-      if (!revealAudioCtx || revealAudioCtx.state !== 'running') return;
-      try {
-        const t = revealAudioCtx.currentTime;
-        const osc = revealAudioCtx.createOscillator();
-        const gain = revealAudioCtx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(1150, t);
-        osc.frequency.exponentialRampToValueAtTime(320, t + 0.024);
-        gain.gain.setValueAtTime(0.022, t);
-        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.025);
-        osc.connect(gain);
-        gain.connect(revealAudioCtx.destination);
-        osc.start(t);
-        osc.stop(t + 0.026);
-      } catch (e) {}
-    }
-
-    // Subtle lock-on blip when snapping to targets
-    function playTactileHover() {
-      if (window.portfolioAudioMuted) return;
-      if (!revealAudioCtx) initRevealAudio();
-      if (revealAudioCtx && revealAudioCtx.state === 'suspended') revealAudioCtx.resume();
-      if (!revealAudioCtx || revealAudioCtx.state !== 'running') return;
-      try {
-        const t = revealAudioCtx.currentTime;
-        const osc = revealAudioCtx.createOscillator();
-        const gain = revealAudioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(1280, t);
-        osc.frequency.exponentialRampToValueAtTime(1540, t + 0.018);
-        gain.gain.setValueAtTime(0.014, t);
-        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.02);
-        osc.connect(gain);
-        gain.connect(revealAudioCtx.destination);
-        osc.start(t);
-        osc.stop(t + 0.022);
-      } catch (e) {}
-    }
-
-    // ONLY called during photo reveal scrolling!
     function handleRevealSound(delta) {
-      if (window.portfolioAudioMuted) return;
-      unlockAudio();
-      if (revealAudioCtx && revealAudioCtx.state === 'suspended') {
-        revealAudioCtx.resume().catch(() => {});
+      if (window.CyberAudio) {
+        window.CyberAudio.playRevealStep(revealProgress, Math.min(1.0, Math.abs(delta || 100) / 100));
       }
-      if (!revealAudioCtx) return;
-
-      if (!scrollDataBuffer && !isAudioLoading) {
-        loadScrollDataAudio();
-      } else if (scrollDataBuffer && !isScrollDataPlaying) {
-        setupScrollDataNodes();
-      }
-
-      const now = performance.now();
-      const dt = Math.max(1, now - lastRevealTime);
-      revealVelocity = Math.min(1.0, (Math.abs(delta || 0) / dt) * 0.28);
-      lastRevealTime = now;
     }
     window.handleScrollSound = handleRevealSound;
-
-    // Immediately kick off preload so audio is ready in memory
-    initRevealAudio();
 
     // --- Three.js Setup ---
     let renderer = null;
@@ -3561,6 +3481,9 @@ frontend:
     function onPhotoRevealedComplete() {
       if (photoFullyRevealed) return;
       photoFullyRevealed = true;
+      if (window.CyberAudio) {
+        window.CyberAudio.playRevealComplete();
+      }
       isAwaitingNewScrollGesture = true; // Block any spillover from the current long scroll!
       clearTimeout(wheelRestTimer);
       wheelRestTimer = setTimeout(() => {
@@ -3571,6 +3494,9 @@ frontend:
     function advanceToNextPage() {
       if (isTransitioningToPage) return;
       isTransitioningToPage = true;
+      if (window.CyberAudio) {
+        window.CyberAudio.playPageTransition();
+      }
       document.body.classList.remove('hero-locked');
 
       if (navbarEl) navbarEl.classList.remove('navbar-hidden');
@@ -3853,36 +3779,12 @@ frontend:
         onPhotoRevealedComplete();
       }
 
-      // --- Photo Reveal Audio Modulation (Envato Scroll Data 04) ---
-      // Sound plays ONLY during photo reveal, matching the 3D particle assembly!
-      if (revealAudioCtx) {
-        if (window.portfolioAudioMuted || photoFullyRevealed || window.scrollY > 5 || targetRevealProgress >= 0.999) {
-          if (scrollDataGain) {
-            scrollDataGain.gain.setTargetAtTime(0.0001, revealAudioCtx.currentTime, 0.04);
-          }
-        } else {
-          const timeSinceRevealScroll = performance.now() - lastRevealTime;
-          const isParticlesMoving = (revealDelta > 0.0002 || timeSinceRevealScroll < 200) && targetRevealProgress < 0.999;
-
-          if (isParticlesMoving) {
-            const audioNow = revealAudioCtx.currentTime;
-
-            // 1. Envato Scroll Data 04 dynamic playback
-            if (scrollDataGain) {
-              const targetVol = Math.min(0.24, Math.max(0.06, revealVelocity * 0.22));
-              scrollDataGain.gain.setTargetAtTime(targetVol, audioNow, 0.04);
-
-              if (scrollDataSource && scrollDataSource.playbackRate) {
-                const targetRate = THREE.MathUtils.lerp(0.95, 1.15, revealProgress);
-                scrollDataSource.playbackRate.setTargetAtTime(targetRate, audioNow, 0.05);
-              }
-            }
-
-          } else {
-            if (scrollDataGain) {
-              scrollDataGain.gain.setTargetAtTime(0.0001, revealAudioCtx.currentTime, 0.08);
-            }
-          }
+      // --- Photo Reveal Audio Modulation (CyberAudio Engine) ---
+      if (window.CyberAudio) {
+        if (!photoFullyRevealed && revealDelta > 0.0001 && targetRevealProgress > 0.001) {
+          window.CyberAudio.playRevealStep(revealProgress, Math.min(1.0, revealDelta * 120.0));
+        } else if (photoFullyRevealed || revealProgress >= 0.999 || window.scrollY > 5) {
+          window.CyberAudio.stopRevealSound();
         }
       }
 

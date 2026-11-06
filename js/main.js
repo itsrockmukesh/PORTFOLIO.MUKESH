@@ -138,38 +138,22 @@ function initNavbar() {
    ========================================================================== */
 function initSoundToggle() {
   const soundBtn = document.getElementById('sound-toggle-btn');
-  if (!soundBtn) return;
+  if (!soundBtn || soundBtn.dataset.soundBound) return;
+  soundBtn.dataset.soundBound = 'true';
 
-  soundBtn.addEventListener('click', () => {
-    window.portfolioAudioMuted = !window.portfolioAudioMuted;
-    soundBtn.classList.toggle('muted', window.portfolioAudioMuted);
-
-    if (window.portfolioAudioMuted) {
-      soundBtn.setAttribute('title', 'Sound Muted (Click to enable)');
-      showToast('🔇 Cyber audio muted');
-    } else {
-      soundBtn.setAttribute('title', 'Sound Enabled (Click to mute)');
-      showToast('🔊 Cyber audio enabled');
-      playHapticTone(660);
+  soundBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (window.CyberAudio) {
+      window.CyberAudio.toggleMute();
     }
   });
 }
 
 function playHapticTone(freq = 520) {
   if (window.portfolioAudioMuted) return;
-  try {
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-    gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-    osc.start();
-    osc.stop(audioCtx.currentTime + 0.08);
-  } catch (e) {}
+  if (window.CyberAudio) {
+    window.CyberAudio.playClick();
+  }
 }
 
 /* ==========================================================================
@@ -226,7 +210,7 @@ function initArchTabs() {
       if (targetPane) {
         targetPane.classList.add('active');
       }
-      playHapticTone(650);
+      if (window.CyberAudio) window.CyberAudio.playTabSwitch();
     });
   });
 }
@@ -246,7 +230,7 @@ function initResumeModal() {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       modal.classList.add('active');
-      playHapticTone(800);
+      if (window.CyberAudio) window.CyberAudio.playBadgeOpen();
     });
   });
 
@@ -388,7 +372,11 @@ function initContactForm() {
         feedbackEl.innerHTML = `✓ Thank you <strong>${escapeHtml(name)}</strong>! Opening your email client to send message...`;
       }
 
-      playHapticTone(880);
+      if (window.CyberAudio) {
+        window.CyberAudio.playSuccess();
+      } else {
+        playHapticTone(880);
+      }
       showToast('🚀 Opening email client to deliver your message!');
 
       setTimeout(() => {
@@ -406,7 +394,11 @@ function initContactForm() {
       const email = 'techmukesh3124@gmail.com';
       navigator.clipboard.writeText(email).then(() => {
         showToast('📋 Email copied to clipboard: ' + email);
-        playHapticTone(900);
+        if (window.CyberAudio) {
+          window.CyberAudio.playClick();
+        } else {
+          playHapticTone(900);
+        }
       });
     });
   });
