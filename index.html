@@ -380,6 +380,7 @@
       background: #060408;
       z-index: 3;
       overflow: hidden;
+      touch-action: none;
     }
 
     .hero-sticky-stage {
@@ -389,6 +390,7 @@
       height: 100%;
       overflow: hidden;
       z-index: 3;
+      touch-action: none;
     }
 
     #webgl-canvas {
@@ -399,6 +401,7 @@
       height: 100%;
       z-index: 1;
       pointer-events: auto;
+      touch-action: none;
     }
 
     #film-grain {
@@ -3507,11 +3510,23 @@ frontend:
       if (hintEl) hintEl.classList.remove('hint-hidden');
 
       const introSec = document.getElementById('intro');
-      if (introSec) {
-        introSec.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        window.scrollTo({ top: window.innerHeight * 1.05, behavior: 'smooth' });
-      }
+
+      // RequestAnimationFrame ensures mobile Safari reflows overflow-y before executing scroll
+      requestAnimationFrame(() => {
+        if (introSec) {
+          introSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          window.scrollTo({ top: window.innerHeight * 1.05, behavior: 'smooth' });
+        }
+
+        // Reliable fallback for mobile browsers where smooth scrollIntoView may be throttled
+        setTimeout(() => {
+          if (window.scrollY < 20) {
+            const targetY = introSec ? (introSec.getBoundingClientRect().top + window.pageYOffset) : window.innerHeight;
+            window.scrollTo({ top: targetY, behavior: 'smooth' });
+          }
+        }, 120);
+      });
 
       setTimeout(() => {
         isTransitioningToPage = false;
@@ -3583,62 +3598,101 @@ frontend:
     }, { passive: false });
 
     // Touch Event Handling for Mobile / Trackpad Swiping
-    let touchStartY = 0;
+    let touchGestureStartY = 0;
+    let touchLastY = 0;
+    let touchStartTime = 0;
     let touchFirstSwipeConsumed = false;
 
     window.addEventListener('touchstart', (e) => {
-      touchStartY = e.touches[0].clientY;
+      if (!e.touches || e.touches.length === 0) return;
+      touchGestureStartY = e.touches[0].clientY;
+      touchLastY = touchGestureStartY;
+      touchStartTime = performance.now();
       touchFirstSwipeConsumed = false;
-      if (!revealAudioCtx) initRevealAudio();
-      if (revealAudioCtx && revealAudioCtx.state === 'suspended') revealAudioCtx.resume();
+
+      if (window.CyberAudio && window.CyberAudio.unlock) {
+        window.CyberAudio.unlock();
+      }
     }, { passive: true });
 
     window.addEventListener('touchmove', (e) => {
-      const scrollY = window.scrollY;
+      if (!e.touches || e.touches.length === 0) return;
+      const scrollY = window.scrollY || window.pageYOffset || 0;
       const currentY = e.touches[0].clientY;
-      const deltaY = touchStartY - currentY; // positive = swipe up = scroll down
+      const frameDeltaY = touchLastY - currentY; // positive = swipe up
+      const totalDeltaY = touchGestureStartY - currentY; // total distance in this swipe
+      touchLastY = currentY;
 
+      // 1. Photo is NOT fully revealed:
       if (scrollY <= 5 && !photoFullyRevealed) {
-        if (deltaY > 0) {
+        if (frameDeltaY > 0) {
           e.preventDefault();
-          const speed = 0.0022;
-          targetRevealProgress = Math.min(1.0, targetRevealProgress + deltaY * speed);
-          touchStartY = currentY;
-          handleRevealSound(deltaY);
-          if (targetRevealProgress >= 0.999) {
+          const speed = 0.0038; // Smooth & responsive on mobile
+          targetRevealProgress = Math.min(1.0, targetRevealProgress + frameDeltaY * speed);
+          handleRevealSound(frameDeltaY);
+
+          // Fast swipe / full reveal completion
+          if (targetRevealProgress >= 0.96 || totalDeltaY > 180) {
             targetRevealProgress = 1.0;
             onPhotoRevealedComplete();
             touchFirstSwipeConsumed = true;
           }
           return;
-        } else if (deltaY < -6 && targetRevealProgress > 0.02) {
+        } else if (frameDeltaY < -4 && targetRevealProgress > 0.02) {
           e.preventDefault();
-          targetRevealProgress = Math.max(0.0, targetRevealProgress + deltaY * 0.0022);
-          touchStartY = currentY;
-          handleRevealSound(deltaY);
+          targetRevealProgress = Math.max(0.0, targetRevealProgress + frameDeltaY * 0.0035);
+          handleRevealSound(frameDeltaY);
           return;
         }
       }
 
-      if (scrollY <= 5 && photoFullyRevealed && deltaY > 15) {
-        if (touchFirstSwipeConsumed || isAwaitingNewScrollGesture) {
+      // 2. Photo IS fully revealed at top:
+      if (scrollY <= 5 && photoFullyRevealed) {
+        if (frameDeltaY < -6) {
+          // Swiping down reverses photo back to dots
           e.preventDefault();
+          photoFullyRevealed = false;
+          isAwaitingNewScrollGesture = false;
+          document.body.classList.add('hero-locked');
+          targetRevealProgress = Math.max(0.0, targetRevealProgress - 0.08);
+          handleRevealSound(frameDeltaY);
           return;
         }
-        e.preventDefault();
-        advanceToNextPage();
+
+        // Swiping up advances to next page
+        if (frameDeltaY > 3 || totalDeltaY > 25) {
+          if (touchFirstSwipeConsumed || isAwaitingNewScrollGesture) {
+            e.preventDefault();
+            return;
+          }
+          e.preventDefault();
+          advanceToNextPage();
+          return;
+        }
       }
     }, { passive: false });
 
-    window.addEventListener('touchend', () => {
+    window.addEventListener('touchend', (e) => {
+      const touchDuration = performance.now() - touchStartTime;
+      const totalDeltaY = e.changedTouches && e.changedTouches.length > 0
+        ? touchGestureStartY - e.changedTouches[0].clientY
+        : 0;
+
+      // Quick flick detection (fast upward flick completes photo reveal)
+      if (window.scrollY <= 5 && !photoFullyRevealed && totalDeltaY > 55 && touchDuration < 320) {
+        targetRevealProgress = 1.0;
+        handleRevealSound(90);
+        onPhotoRevealedComplete();
+      }
+
       touchFirstSwipeConsumed = false;
       isAwaitingNewScrollGesture = false;
-    });
+    }, { passive: true });
 
     // Touch/Click interaction on Scroll Indicator Pill
     const scrollIndicatorEl = document.querySelector('.scroll-indicator');
     if (scrollIndicatorEl) {
-      scrollIndicatorEl.addEventListener('click', (e) => {
+      const handleIndicatorTap = (e) => {
         e.preventDefault();
         e.stopPropagation();
         if (!photoFullyRevealed) {
@@ -3652,7 +3706,9 @@ frontend:
         } else {
           advanceToNextPage();
         }
-      });
+      };
+      scrollIndicatorEl.addEventListener('click', handleIndicatorTap);
+      scrollIndicatorEl.addEventListener('touchend', handleIndicatorTap, { passive: false });
     }
 
     // Keyboard Navigation (ArrowDown, ArrowUp, Space, PageDown, PageUp)
