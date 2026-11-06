@@ -105,7 +105,8 @@ function initNavbar() {
   });
 
   if (mobileMenuBtn && navLinksContainer) {
-    mobileMenuBtn.addEventListener('click', () => {
+    mobileMenuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
       navLinksContainer.classList.toggle('open');
     });
 
@@ -113,6 +114,21 @@ function initNavbar() {
       link.addEventListener('click', () => {
         navLinksContainer.classList.remove('open');
       });
+    });
+
+    // Close mobile drawer when clicking any item inside it or clicking outside
+    navLinksContainer.querySelectorAll('button, a').forEach(item => {
+      item.addEventListener('click', () => {
+        navLinksContainer.classList.remove('open');
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (navLinksContainer.classList.contains('open') &&
+          !navLinksContainer.contains(e.target) &&
+          !mobileMenuBtn.contains(e.target)) {
+        navLinksContainer.classList.remove('open');
+      }
     });
   }
 }
