@@ -137,16 +137,7 @@ function initNavbar() {
    3. SOUND TOGGLE & SYNTHESIZER
    ========================================================================== */
 function initSoundToggle() {
-  const soundBtn = document.getElementById('sound-toggle-btn');
-  if (!soundBtn || soundBtn.dataset.soundBound) return;
-  soundBtn.dataset.soundBound = 'true';
-
-  soundBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (window.CyberAudio) {
-      window.CyberAudio.toggleMute();
-    }
-  });
+  // Sound toggle button removed from UI per user request
 }
 
 function playHapticTone(freq = 520) {

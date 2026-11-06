@@ -262,15 +262,83 @@
       100% { transform: scale(1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
     }
 
-    /* Sound Mode Buttons - Hidden from UI as requested */
-    #sound-toggle-btn,
-    .sound-toggle-btn,
-    #floating-sound-hud,
-    .floating-sound-hud {
-      display: none !important;
-      visibility: hidden !important;
-      opacity: 0 !important;
-      pointer-events: none !important;
+    /* Small Sound On / Off Button beside Terminal */
+    .btn-pill-sound {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.42rem;
+      padding: 0.35rem 0.72rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #dedee8;
+      background: rgba(22, 16, 24, 0.85);
+      border: 1px solid rgba(210, 20, 36, 0.45);
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+      user-select: none;
+    }
+
+    .btn-pill-sound:hover {
+      background: rgba(35, 18, 28, 0.95);
+      border-color: rgba(235, 25, 45, 0.85);
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(229, 40, 59, 0.25);
+    }
+
+    .btn-pill-sound .sound-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #00ff88;
+      box-shadow: 0 0 8px #00ff88;
+      transition: all 0.2s ease;
+    }
+
+    .btn-pill-sound.muted {
+      border-color: rgba(255, 255, 255, 0.15);
+      color: #7a7a88;
+      background: rgba(16, 16, 18, 0.7);
+    }
+
+    .btn-pill-sound.muted .sound-dot {
+      background: #ff3344;
+      box-shadow: 0 0 6px #ff3344;
+    }
+
+    .floating-controls-dock {
+      position: fixed;
+      bottom: 1.75rem;
+      right: 1.75rem;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .floating-controls-dock.hint-hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(20px);
+    }
+
+    .floating-controls-dock .secret-terminal-hint {
+      position: static !important;
+      bottom: auto !important;
+      right: auto !important;
+    }
+
+    @media (max-width: 768px) {
+      .floating-controls-dock {
+        bottom: 1rem !important;
+        right: 1rem !important;
+        gap: 0.45rem !important;
+      }
     }
 
     /* ==========================================================================
@@ -1324,10 +1392,6 @@
         padding: 0.35rem 0.65rem !important;
         font-size: 0.76rem !important;
       }
-      .sound-toggle-btn {
-        width: 32px !important;
-        height: 32px !important;
-      }
       .mobile-menu-btn {
         padding: 0.35rem !important;
       }
@@ -1378,20 +1442,24 @@
         <li><a href="#aws-showcase" class="nav-link">AWS Setup</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
         <li class="mobile-drawer-only">
-          <button class="btn-pill btn-pill-terminal btn-sm" style="width:100%; justify-content:center; margin-top:0.4rem;" onclick="if(window.openSecretTerminal) window.openSecretTerminal();">
-            <span>&gt;_</span> Launch Terminal
-          </button>
+          <div style="display:flex; gap:0.5rem; width:100%; margin-top:0.4rem;">
+            <button class="btn-pill btn-pill-terminal btn-sm" style="flex:1; justify-content:center;" onclick="if(window.openSecretTerminal) window.openSecretTerminal();">
+              <span>&gt;_</span> Terminal
+            </button>
+            <button class="btn-pill btn-pill-sound btn-sm sound-toggle-btn" style="flex:1; justify-content:center;" title="Sound: ON/OFF" aria-label="Toggle Sound">
+              <span class="sound-dot"></span>
+              <span class="sound-label-text">SOUND ON</span>
+            </button>
+          </div>
         </li>
       </ul>
 
       <!-- Action Items on Right -->
       <div class="nav-actions">
-        <!-- Sound FX Synth Toggle (Hidden as requested) -->
-        <button id="sound-toggle-btn" class="sound-toggle-btn" title="Toggle Cyber Audio Feedback" aria-label="Toggle Audio" style="display: none !important;" aria-hidden="true">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-          </svg>
+        <!-- Small Sound On / Off Button beside Terminal Button -->
+        <button id="sound-toggle-btn" class="btn-pill btn-pill-sound btn-sm sound-toggle-btn" title="Sound is ON (Click to turn OFF)" aria-label="Toggle Sound">
+          <span class="sound-dot"></span>
+          <span class="sound-label-text">SOUND ON</span>
         </button>
 
         <!-- Quick Terminal Hint in Nav -->
@@ -1417,15 +1485,22 @@
   </nav>
 
   <!-- ==========================================================================
-       CREATIVE INTERACTIVE FEATURE — FLOATING TERMINAL HINT PILL
-       Shows only hint to open (Press ~). Hidden during initial photo reveal stage,
+       CREATIVE INTERACTIVE FEATURE — FLOATING TERMINAL & SOUND DOCK (BOTTOM-RIGHT)
+       Shows hint to open (~). Hidden during initial photo reveal stage,
        and automatically slides up when photo reveal completes & we go to next page!
        ========================================================================== -->
-  <div id="terminal-hint-trigger" class="secret-terminal-hint hint-hidden" title="Hint: Press [~] on keyboard to open terminal">
-    <div class="hint-dot"></div>
-    <span class="hint-text">Hint: Press</span>
-    <span class="hint-key">~</span>
-    <span class="hint-text">for Terminal</span>
+  <div id="floating-controls-dock" class="floating-controls-dock hint-hidden">
+    <!-- Small Sound Button beside Floating Terminal Hint -->
+    <button id="floating-sound-btn" class="btn-pill btn-pill-sound btn-sm sound-toggle-btn" title="Sound is ON (Click to turn OFF)" aria-label="Toggle Sound">
+      <span class="sound-dot"></span>
+      <span class="sound-label-text">SOUND ON</span>
+    </button>
+    <div id="terminal-hint-trigger" class="secret-terminal-hint" title="Hint: Press [~] on keyboard to open terminal">
+      <div class="hint-dot"></div>
+      <span class="hint-text">Hint: Press</span>
+      <span class="hint-key">~</span>
+      <span class="hint-text">for Terminal</span>
+    </div>
   </div>
 
   <main>
@@ -3428,7 +3503,7 @@ frontend:
 
       if (navbarEl) navbarEl.classList.remove('navbar-hidden');
 
-      const hintEl = document.getElementById('terminal-hint-trigger');
+      const hintEl = document.getElementById('floating-controls-dock') || document.getElementById('terminal-hint-trigger');
       if (hintEl) hintEl.classList.remove('hint-hidden');
 
       const introSec = document.getElementById('intro');
@@ -3618,7 +3693,7 @@ frontend:
     function updateHeroScrollState() {
       if (!isLoaded) return;
       const scrollY = window.scrollY;
-      const hintEl = document.getElementById('terminal-hint-trigger');
+      const hintEl = document.getElementById('floating-controls-dock') || document.getElementById('terminal-hint-trigger');
 
       if (scrollY > 60) {
         if (navbarEl) navbarEl.classList.remove('navbar-hidden');

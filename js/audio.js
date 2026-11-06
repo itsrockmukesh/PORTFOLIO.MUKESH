@@ -461,25 +461,59 @@
         window.portfolioAudioMuted = !window.portfolioAudioMuted;
       }
 
+      updateSoundUI();
+
       if (window.portfolioAudioMuted) {
         CyberAudio.stopRevealSound();
         if (masterGain && ctx) {
           masterGain.gain.setValueAtTime(0.0001, ctx.currentTime);
+        }
+        if (typeof window.showToast === 'function') {
+          window.showToast('🔇 Sound: OFF');
         }
       } else {
         unlockAudio();
         if (masterGain && ctx) {
           masterGain.gain.setValueAtTime(1.0, ctx.currentTime);
         }
+        if (typeof window.showToast === 'function') {
+          window.showToast('🔊 Sound: ON');
+        }
+        CyberAudio.playClick();
       }
     }
   };
 
+  // Synchronize all Sound On/Off Buttons across the page
+  function updateSoundUI() {
+    const isMuted = !!window.portfolioAudioMuted;
+    const soundBtns = document.querySelectorAll('.sound-toggle-btn, #sound-toggle-btn, #floating-sound-btn');
+    soundBtns.forEach(btn => {
+      btn.classList.toggle('muted', isMuted);
+      const textEl = btn.querySelector('.sound-label-text');
+      if (textEl) {
+        textEl.textContent = isMuted ? 'SOUND OFF' : 'SOUND ON';
+      }
+      btn.setAttribute('title', isMuted ? 'Sound is OFF (Click to turn ON)' : 'Sound is ON (Click to turn OFF)');
+      btn.setAttribute('aria-label', isMuted ? 'Turn Sound ON' : 'Turn Sound OFF');
+    });
+  }
+
   // Attach click listeners to all buttons and interactive cards
   function initInteractiveSoundListeners() {
+    // Sound Toggle Button click listener (Delegated for all instances)
+    document.addEventListener('click', (e) => {
+      const soundBtn = e.target.closest('.sound-toggle-btn, #sound-toggle-btn, #floating-sound-btn');
+      if (soundBtn) {
+        e.stopPropagation();
+        CyberAudio.toggleMute();
+      }
+    });
+
+    // Regular buttons click sound
     document.addEventListener('click', (e) => {
       const btn = e.target.closest('button, .btn-pill, .filter-btn, .aws-tab-btn, .badge-verify-btn, a[href^="#"]');
-      if (btn && !btn.id?.includes('sound-toggle')) {
+      if (btn && !btn.closest('.sound-toggle-btn, #sound-toggle-btn, #floating-sound-btn')) {
         CyberAudio.playClick();
       }
     }, { capture: true, passive: true });
@@ -495,32 +529,17 @@
         }
       }, { passive: true });
     }
-
-    hideSoundButtons();
-  }
-
-  function hideSoundButtons() {
-    const soundBtn = document.getElementById('sound-toggle-btn');
-    if (soundBtn) {
-      soundBtn.style.display = 'none';
-      soundBtn.setAttribute('aria-hidden', 'true');
-    }
-    const hud = document.getElementById('floating-sound-hud');
-    if (hud) {
-      hud.style.display = 'none';
-      hud.setAttribute('aria-hidden', 'true');
-    }
   }
 
   // Run on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       initInteractiveSoundListeners();
-      hideSoundButtons();
+      updateSoundUI();
     });
   } else {
     initInteractiveSoundListeners();
-    hideSoundButtons();
+    updateSoundUI();
   }
 
   // Export to window
