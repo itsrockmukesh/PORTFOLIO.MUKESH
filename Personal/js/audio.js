@@ -1,11 +1,13 @@
 /**
- * Cyber Audio Engine — Zero-Latency, Soft Ambiance & Interactive SFX Synthesizer
+ * Cyber Audio Engine — Precision Optical Focus & Ambient Digital Sound
  * 
- * Updates:
- * - Instantaneous 0ms latency: Pure Web Audio synthesis (No network loading delays)
- * - Ultra-soft, gentle volume: Subtle modern cyber micro-grain pulses (non-intrusive)
- * - Zero trailing lag: Sounds play strictly while the user is actively scrolling and cut off instantly on pause
- * - Sound mode button hidden from UI as requested (Audio active in background by default)
+ * Features:
+ * - Authentic Envato "Scroll Data" stream at calibrated, comfortable volume (0.08 - 0.15)
+ * - Microscopic optical camera focus ratchet ticks per scroll notch (18ms micro-pulse)
+ * - Authentic camera shutter focus lock (*snap*) on 100% photo reveal completion
+ * - Preloaded in memory at startup for instantaneous 0ms latency
+ * - Instant fade to silence (35ms) when scrolling pauses — zero trailing lag
+ * - Sound mode buttons completely hidden from UI (active by default in background)
  */
 
 (function() {
@@ -17,7 +19,17 @@
   let ctx = null;
   let masterGain = null;
   let isUnlocked = false;
+
+  // Scroll Audio Buffer State (Preloaded Envato Stream)
+  let scrollDataBuffer = null;
+  let scrollDataSource = null;
+  let scrollDataGain = null;
+  let scrollDataFilter = null;
+  let isScrollDataLoading = false;
+  let isScrollDataPlaying = false;
+
   let lastScrollTickTime = 0;
+  let revealFadeTimer = null;
   let lastToggleTime = 0;
 
   function getAudioContext() {
@@ -37,9 +49,85 @@
     return ctx;
   }
 
+  // Preload and decode Envato audio immediately on startup
+  function preloadScrollDataAudio() {
+    if (scrollDataBuffer || isScrollDataLoading) return;
+    const c = getAudioContext();
+    if (!c) return;
+
+    isScrollDataLoading = true;
+    fetch('assets/scroll-data.m4a')
+      .then(res => {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.arrayBuffer();
+      })
+      .then(buf => c.decodeAudioData(buf))
+      .then(decoded => {
+        scrollDataBuffer = decoded;
+        isScrollDataLoading = false;
+        setupScrollDataNodes();
+      })
+      .catch(() => {
+        isScrollDataLoading = false;
+      });
+  }
+
+  function setupScrollDataNodes() {
+    if (!ctx || !scrollDataBuffer || isScrollDataPlaying) return;
+    try {
+      scrollDataSource = ctx.createBufferSource();
+      scrollDataSource.buffer = scrollDataBuffer;
+      scrollDataSource.loop = true;
+
+      scrollDataFilter = ctx.createBiquadFilter();
+      scrollDataFilter.type = 'highpass';
+      scrollDataFilter.frequency.setValueAtTime(120.0, ctx.currentTime);
+
+      scrollDataGain = ctx.createGain();
+      scrollDataGain.gain.setValueAtTime(0.0001, ctx.currentTime);
+
+      scrollDataSource.connect(scrollDataFilter);
+      scrollDataFilter.connect(scrollDataGain);
+      scrollDataGain.connect(masterGain || ctx.destination);
+
+      scrollDataSource.start(0);
+      isScrollDataPlaying = true;
+    } catch (e) {}
+  }
+
+  // Subtle Optical Focus Micro-Tick (Simulates precision camera lens ring ratchet)
+  function playFocusTick(prog, vel) {
+    if (!ctx || ctx.state !== 'running') return;
+    const now = ctx.currentTime;
+    try {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+
+      osc.type = 'triangle';
+      const freq = 1200 + prog * 420;
+      osc.frequency.setValueAtTime(freq, now);
+      osc.frequency.exponentialRampToValueAtTime(280, now + 0.016);
+
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(1450, now);
+      filter.Q.setValueAtTime(2.5, now);
+
+      const peak = 0.018 + vel * 0.016; // Soft 0.018 - 0.034 max
+      gain.gain.setValueAtTime(peak, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.018);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(masterGain || ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.020);
+    } catch (e) {}
+  }
+
   // ==========================================================================
   // AUTOPLAY AUTO-UNLOCK ENGINE (ZERO CLICKS REQUIRED)
-  // Activates AudioContext instantly on the very first touch, wheel, pointer or key event
   // ==========================================================================
   function unlockAudio() {
     if (isUnlocked && ctx && ctx.state === 'running') return;
@@ -50,10 +138,12 @@
       c.resume().then(() => {
         if (c.state === 'running') {
           isUnlocked = true;
+          preloadScrollDataAudio();
         }
       }).catch(() => {});
     } else if (c.state === 'running') {
       isUnlocked = true;
+      preloadScrollDataAudio();
     }
   }
 
@@ -62,9 +152,10 @@
     window.addEventListener(evt, unlockAudio, { capture: true, passive: true });
   });
 
-  // Pre-initialize
+  // Start preloading immediately
   try {
     getAudioContext();
+    preloadScrollDataAudio();
   } catch (e) {}
 
   // ==========================================================================
@@ -79,7 +170,7 @@
     unlock: unlockAudio,
 
     // 1. Photo Reveal Scrolling Sound:
-    // Pure synthesized micro-grain pulse (0ms latency, warm frequencies, gentle volume)
+    // Blend of authentic digital data stream at gentle volume (0.08 - 0.15) + optical focus micro-ticks
     playRevealStep(progress = 0, velocity = 0.5) {
       if (window.portfolioAudioMuted) return;
       unlockAudio();
@@ -87,98 +178,113 @@
       if (!c || c.state !== 'running') return;
 
       const now = c.currentTime;
+      const clampedProg = Math.max(0.0, Math.min(1.0, progress || 0));
+      const clampedVel = Math.max(0.1, Math.min(1.0, velocity || 0.5));
 
-      // Throttle micro-ticks to 26ms so rapid trackpad events don't crackle
-      if (now - lastScrollTickTime < 0.026) return;
-      lastScrollTickTime = now;
+      // Layer A: Preloaded Envato Stream at comfortable, non-intrusive volume
+      if (!scrollDataBuffer && !isScrollDataLoading) preloadScrollDataAudio();
+      if (scrollDataBuffer && !isScrollDataPlaying) setupScrollDataNodes();
 
-      try {
-        const clampedProg = Math.max(0.0, Math.min(1.0, progress || 0));
-        const clampedVel = Math.max(0.1, Math.min(1.0, velocity || 0.5));
+      if (scrollDataGain) {
+        const targetVol = 0.075 + clampedVel * 0.065; // Soft 0.075 - 0.14 max
+        scrollDataGain.gain.cancelScheduledValues(now);
+        scrollDataGain.gain.setTargetAtTime(targetVol, now, 0.02);
 
-        // Soft, gentle cyber frequency (360Hz base to 580Hz as photo resolves)
-        const baseFreq = 360 + clampedProg * 220;
-        const tickDuration = 0.038; // 38ms micro-pulse: stops immediately with the finger
+        if (scrollDataSource && scrollDataSource.playbackRate) {
+          const rate = 0.96 + clampedProg * 0.15;
+          scrollDataSource.playbackRate.setTargetAtTime(rate, now, 0.03);
+        }
+      }
 
-        // Dual soft oscillators (warm sine + subtle triangle)
-        const osc1 = c.createOscillator();
-        const osc2 = c.createOscillator();
-        osc1.type = 'sine';
-        osc2.type = 'triangle';
-        osc1.frequency.setValueAtTime(baseFreq, now);
-        osc2.frequency.setValueAtTime(baseFreq * 1.5, now);
+      // Layer B: Subtle Optical Focus Micro-Tick per notch (no artificial beep tones)
+      if (now - lastScrollTickTime >= 0.024) {
+        lastScrollTickTime = now;
+        playFocusTick(clampedProg, clampedVel);
+      }
 
-        // Low-pass filter to remove any harshness or buzz
-        const filter = c.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(800 + clampedProg * 350, now);
-        filter.Q.setValueAtTime(1.0, now);
-
-        // Very soft, quiet gain (0.025 - 0.055 peak, comfortable and pleasant)
-        const gain = c.createGain();
-        const peakGain = 0.025 + clampedVel * 0.028;
-        gain.gain.setValueAtTime(0.0001, now);
-        gain.gain.linearRampToValueAtTime(peakGain, now + 0.004); // 4ms soft attack
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + tickDuration); // 34ms decay
-
-        osc1.connect(filter);
-        osc2.connect(filter);
-        filter.connect(gain);
-        gain.connect(masterGain || c.destination);
-
-        osc1.start(now);
-        osc2.start(now);
-        osc1.stop(now + tickDuration + 0.005);
-        osc2.stop(now + tickDuration + 0.005);
-      } catch (e) {}
+      // Cut off immediately within 50ms when scrolling pauses (zero trailing lag)
+      clearTimeout(revealFadeTimer);
+      revealFadeTimer = setTimeout(() => {
+        CyberAudio.stopRevealSound();
+      }, 50);
     },
 
     stopRevealSound() {
-      // Micro-pulses decay automatically in 38ms with zero hanging latency
+      const c = getAudioContext();
+      if (!c) return;
+      const now = c.currentTime;
+      if (scrollDataGain) {
+        scrollDataGain.gain.cancelScheduledValues(now);
+        scrollDataGain.gain.setTargetAtTime(0.0001, now, 0.035);
+      }
     },
 
-    // 2. Photo Assembled 100% — Gentle Holographic Lock-On Chime
+    // 2. Photo Assembled 100% — Camera Shutter Focus Snap (*kchhk*) + subtle chime
     playRevealComplete() {
       if (window.portfolioAudioMuted) return;
       unlockAudio();
       const c = getAudioContext();
       if (!c || c.state !== 'running') return;
 
+      CyberAudio.stopRevealSound();
+
       try {
         const t = c.currentTime;
 
-        // Gentle sub-bass pulse (55Hz -> 28Hz) - soft 0.08 gain
-        const subOsc = c.createOscillator();
-        const subGain = c.createGain();
-        subOsc.type = 'sine';
-        subOsc.frequency.setValueAtTime(55, t);
-        subOsc.frequency.exponentialRampToValueAtTime(28, t + 0.25);
-        subGain.gain.setValueAtTime(0.08, t);
-        subGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.28);
-        subOsc.connect(subGain);
-        subGain.connect(masterGain || c.destination);
-        subOsc.start(t);
-        subOsc.stop(t + 0.30);
+        // Shutter Blade 1 (Primary focus click)
+        const osc1 = c.createOscillator();
+        const g1 = c.createGain();
+        osc1.type = 'triangle';
+        osc1.frequency.setValueAtTime(1600, t);
+        osc1.frequency.exponentialRampToValueAtTime(320, t + 0.020);
+        g1.gain.setValueAtTime(0.045, t);
+        g1.gain.exponentialRampToValueAtTime(0.0001, t + 0.022);
+        osc1.connect(g1);
+        g1.connect(masterGain || c.destination);
+        osc1.start(t);
+        osc1.stop(t + 0.025);
 
-        // Soft harmonic chime (E5, B5, E6) - gentle 0.035 gain
-        const freqs = [659.25, 987.77, 1318.51];
-        freqs.forEach((f, idx) => {
-          const osc = c.createOscillator();
-          const gain = c.createGain();
-          const delay = idx * 0.04;
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(f, t + delay);
-          gain.gain.setValueAtTime(0.035 / (idx + 1), t + delay);
-          gain.gain.exponentialRampToValueAtTime(0.0001, t + delay + 0.32);
-          osc.connect(gain);
-          gain.connect(masterGain || c.destination);
-          osc.start(t + delay);
-          osc.stop(t + delay + 0.35);
-        });
+        // Shutter Blade 2 (Mechanical snap after 38ms)
+        const osc2 = c.createOscillator();
+        const g2 = c.createGain();
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(1180, t + 0.038);
+        osc2.frequency.exponentialRampToValueAtTime(240, t + 0.065);
+        g2.gain.setValueAtTime(0.05, t + 0.038);
+        g2.gain.exponentialRampToValueAtTime(0.0001, t + 0.068);
+        osc2.connect(g2);
+        g2.connect(masterGain || c.destination);
+        osc2.start(t + 0.038);
+        osc2.stop(t + 0.072);
+
+        // Camera Body Resonance (Soft 55Hz acoustic thump)
+        const sub = c.createOscillator();
+        const subG = c.createGain();
+        sub.type = 'sine';
+        sub.frequency.setValueAtTime(58, t + 0.038);
+        sub.frequency.exponentialRampToValueAtTime(26, t + 0.18);
+        subG.gain.setValueAtTime(0.06, t + 0.038);
+        subG.gain.exponentialRampToValueAtTime(0.0001, t + 0.20);
+        sub.connect(subG);
+        subG.connect(masterGain || c.destination);
+        sub.start(t + 0.038);
+        sub.stop(t + 0.22);
+
+        // Subtle crystal focus confirmation harmonic (E6: 1318.5Hz)
+        const chime = c.createOscillator();
+        const chimeG = c.createGain();
+        chime.type = 'sine';
+        chime.frequency.setValueAtTime(1318.5, t + 0.055);
+        chimeG.gain.setValueAtTime(0.025, t + 0.055);
+        chimeG.gain.exponentialRampToValueAtTime(0.0001, t + 0.35);
+        chime.connect(chimeG);
+        chimeG.connect(masterGain || c.destination);
+        chime.start(t + 0.055);
+        chime.stop(t + 0.38);
       } catch (e) {}
     },
 
-    // 3. Soft Spatial Page Transition Whoosh (When advancing to #intro)
+    // 3. Soft Spatial Page Transition Whoosh
     playPageTransition() {
       if (window.portfolioAudioMuted) return;
       unlockAudio();
@@ -208,7 +314,7 @@
 
         const gain = c.createGain();
         gain.gain.setValueAtTime(0.0001, t);
-        gain.gain.linearRampToValueAtTime(0.045, t + dur * 0.3); // Soft 0.045 gain
+        gain.gain.linearRampToValueAtTime(0.045, t + dur * 0.3);
         gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
 
         noise.connect(filter);
@@ -220,7 +326,7 @@
       } catch (e) {}
     },
 
-    // 4. Subtle Tactile Mechanical Click (Buttons & Pills)
+    // 4. Subtle Tactile Mechanical Click
     playClick() {
       if (window.portfolioAudioMuted) return;
       unlockAudio();
@@ -234,7 +340,7 @@
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(1150, t);
         osc.frequency.exponentialRampToValueAtTime(260, t + 0.022);
-        gain.gain.setValueAtTime(0.038, t); // Soft 0.038 gain
+        gain.gain.setValueAtTime(0.038, t);
         gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.024);
         osc.connect(gain);
         gain.connect(masterGain || c.destination);
@@ -257,7 +363,7 @@
         osc.type = 'sine';
         osc.frequency.setValueAtTime(1600, t);
         osc.frequency.exponentialRampToValueAtTime(2000, t + 0.014);
-        gain.gain.setValueAtTime(0.012, t); // Very gentle 0.012 gain
+        gain.gain.setValueAtTime(0.012, t);
         gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.016);
         osc.connect(gain);
         gain.connect(masterGain || c.destination);
@@ -341,7 +447,7 @@
       } catch (e) {}
     },
 
-    // 9. Sound Mode Toggle (Maintained for programmatic use if needed)
+    // 9. Sound Mode Toggle (For programmatic usage)
     toggleMute(forceState) {
       const now = performance.now();
       if (typeof forceState !== 'boolean' && (now - lastToggleTime < 250)) {
@@ -356,6 +462,7 @@
       }
 
       if (window.portfolioAudioMuted) {
+        CyberAudio.stopRevealSound();
         if (masterGain && ctx) {
           masterGain.gain.setValueAtTime(0.0001, ctx.currentTime);
         }
@@ -370,7 +477,6 @@
 
   // Attach click listeners to all buttons and interactive cards
   function initInteractiveSoundListeners() {
-    // Buttons click
     document.addEventListener('click', (e) => {
       const btn = e.target.closest('button, .btn-pill, .filter-btn, .aws-tab-btn, .badge-verify-btn, a[href^="#"]');
       if (btn && !btn.id?.includes('sound-toggle')) {
@@ -378,7 +484,6 @@
       }
     }, { capture: true, passive: true });
 
-    // Hover blip for desktop
     if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
       let lastHoverTime = 0;
       document.addEventListener('mouseover', (e) => {
@@ -391,7 +496,6 @@
       }, { passive: true });
     }
 
-    // Ensure any sound buttons in DOM are hidden as requested
     hideSoundButtons();
   }
 
