@@ -262,83 +262,15 @@
       100% { transform: scale(1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
     }
 
-    /* Floating Cyber Sound Mode HUD Pill (Bottom-Left Symmetry with Terminal Hint) */
+    /* Sound Mode Buttons - Hidden from UI as requested */
+    #sound-toggle-btn,
+    .sound-toggle-btn,
+    #floating-sound-hud,
     .floating-sound-hud {
-      position: fixed;
-      bottom: 1.75rem;
-      left: 1.75rem;
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      padding: 0.55rem 1.05rem;
-      border-radius: var(--radius-pill);
-      background: rgba(16, 12, 18, 0.82) !important;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(210, 20, 36, 0.42) !important;
-      color: #dedee8 !important;
-      cursor: pointer;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 18px rgba(163, 14, 25, 0.2);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      user-select: none;
-    }
-
-    .floating-sound-hud:hover {
-      background: rgba(28, 14, 22, 0.95) !important;
-      border-color: rgba(235, 25, 45, 0.8) !important;
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75), 0 0 25px rgba(210, 20, 36, 0.4);
-    }
-
-    .floating-sound-hud.muted {
-      border-color: rgba(255, 255, 255, 0.12) !important;
-      color: #727280 !important;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-    }
-
-    .sound-eq-icon {
-      display: flex;
-      align-items: flex-end;
-      gap: 2.5px;
-      height: 13px;
-      width: 15px;
-    }
-
-    .sound-eq-bar {
-      width: 2.5px;
-      height: 4px;
-      background: #e5283b;
-      border-radius: 1px;
-      transition: height 0.15s ease;
-    }
-
-    .floating-sound-hud.muted .sound-eq-bar {
-      background: #555562 !important;
-      height: 2px !important;
-      animation: none !important;
-    }
-
-    .sound-eq-bar.active {
-      animation: soundEqDance 0.45s infinite alternate ease-in-out;
-    }
-
-    .sound-eq-bar.b1 { animation-delay: 0.05s; }
-    .sound-eq-bar.b2 { animation-delay: 0.25s; }
-    .sound-eq-bar.b3 { animation-delay: 0.12s; }
-    .sound-eq-bar.b4 { animation-delay: 0.32s; }
-
-    @keyframes soundEqDance {
-      0% { height: 3px; }
-      100% { height: 13px; }
-    }
-
-    .sound-hud-label {
-      font-family: var(--font-mono);
-      font-size: 0.76rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
     }
 
     /* ==========================================================================
@@ -1337,13 +1269,6 @@
         max-width: calc(50vw - 1.5rem) !important;
       }
 
-      .floating-sound-hud {
-        bottom: 1rem !important;
-        left: 1rem !important;
-        padding: 0.45rem 0.85rem !important;
-        font-size: 0.74rem !important;
-        max-width: calc(50vw - 1.5rem) !important;
-      }
 
       .terminal-modal-overlay,
       .resume-modal-overlay {
@@ -1461,8 +1386,8 @@
 
       <!-- Action Items on Right -->
       <div class="nav-actions">
-        <!-- Sound FX Synth Toggle -->
-        <button id="sound-toggle-btn" class="sound-toggle-btn" title="Toggle Cyber Audio Feedback" aria-label="Toggle Audio">
+        <!-- Sound FX Synth Toggle (Hidden as requested) -->
+        <button id="sound-toggle-btn" class="sound-toggle-btn" title="Toggle Cyber Audio Feedback" aria-label="Toggle Audio" style="display: none !important;" aria-hidden="true">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
             <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
@@ -2633,9 +2558,11 @@ frontend:
     // ==========================================================================
     // CYBER AUDIO ENGINE INTERFACE
     // Connected directly to window.CyberAudio (js/audio.js)
-    // Features Dual-Layer synthesis, Envato stream, and zero-latency auto-unlock.
+    // Instantaneous 0ms latency, soft warm micro-pulses, zero hanging lag.
     // ==========================================================================
+    let lastActiveGestureTime = 0;
     function handleRevealSound(delta) {
+      lastActiveGestureTime = performance.now();
       if (window.CyberAudio) {
         window.CyberAudio.playRevealStep(revealProgress, Math.min(1.0, Math.abs(delta || 100) / 100));
       }
@@ -3780,10 +3707,11 @@ frontend:
       }
 
       // --- Photo Reveal Audio Modulation (CyberAudio Engine) ---
+      // Only plays while user is actively performing a scroll/touch gesture (Zero latency & zero trailing lag)
       if (window.CyberAudio) {
-        if (!photoFullyRevealed && revealDelta > 0.0001 && targetRevealProgress > 0.001) {
-          window.CyberAudio.playRevealStep(revealProgress, Math.min(1.0, revealDelta * 120.0));
-        } else if (photoFullyRevealed || revealProgress >= 0.999 || window.scrollY > 5) {
+        if (!photoFullyRevealed && (now - lastActiveGestureTime < 80) && targetRevealProgress > 0.001) {
+          window.CyberAudio.playRevealStep(revealProgress, Math.min(1.0, revealDelta * 80.0));
+        } else if (photoFullyRevealed || revealProgress >= 0.999 || window.scrollY > 5 || (now - lastActiveGestureTime >= 80)) {
           window.CyberAudio.stopRevealSound();
         }
       }
