@@ -2974,5 +2974,16 @@ a {
   }
 }
 
+/* Sound Mode Buttons - Explicitly hidden from UI */
+#sound-toggle-btn,
+.sound-toggle-btn,
+#floating-sound-hud,
+.floating-sound-hud {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 
 

@@ -1,15 +1,11 @@
 /**
- * Cyber Audio Engine — Universal Web Audio Synthesizer & Controller
- * Features:
- * - Direct Autoplay Auto-Unlock (Zero Clicks Needed, unlocks on touch/wheel/pointer/key)
- * - Photo Reveal Sound: Dual-Layer (Envato "Scroll Data" stream + Procedural Granular Shimmer)
- * - Reveal Completion Holographic Lock-On Chime
- * - Cinematic Spatial Page Transition Whoosh
- * - Tactile Mechanical Clicks for all Buttons, Tabs & Pills
- * - Subtle Micro-Chirp Hover Feedback for Target Cursor
- * - Google Cloud Badge Verification Chime
- * - Terminal Sub-Bass Boom & Mechanical Keystroke Acoustics
- * - Floating Always-Visible Sound HUD with Live Animated Wave Equalizer
+ * Cyber Audio Engine — Zero-Latency, Soft Ambiance & Interactive SFX Synthesizer
+ * 
+ * Updates:
+ * - Instantaneous 0ms latency: Pure Web Audio synthesis (No network loading delays)
+ * - Ultra-soft, gentle volume: Subtle modern cyber micro-grain pulses (non-intrusive)
+ * - Zero trailing lag: Sounds play strictly while the user is actively scrolling and cut off instantly on pause
+ * - Sound mode button hidden from UI as requested (Audio active in background by default)
  */
 
 (function() {
@@ -21,25 +17,8 @@
   let ctx = null;
   let masterGain = null;
   let isUnlocked = false;
-
-  // Scroll Audio State
-  let scrollDataBuffer = null;
-  let scrollDataSource = null;
-  let scrollDataGain = null;
-  let scrollDataFilter = null;
-  let isScrollDataLoading = false;
-  let isScrollDataPlaying = false;
-
-  // Synthesizer Nodes for Photo Reveal Granular Stream
-  let synthOsc1 = null;
-  let synthOsc2 = null;
-  let synthGain = null;
-  let synthFilter = null;
-  let isSynthPlaying = false;
-
-  // Last scroll tracker
-  let lastScrollSoundTime = 0;
-  let revealSoundFadeTimer = null;
+  let lastScrollTickTime = 0;
+  let lastToggleTime = 0;
 
   function getAudioContext() {
     if (!ctx) {
@@ -58,95 +37,9 @@
     return ctx;
   }
 
-  // Preload Envato Scroll Data audio
-  function loadScrollDataAudio() {
-    if (scrollDataBuffer || isScrollDataLoading) return;
-    const c = getAudioContext();
-    if (!c) return;
-
-    isScrollDataLoading = true;
-    fetch('assets/scroll-data.m4a')
-      .then(res => {
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        return res.arrayBuffer();
-      })
-      .then(buf => c.decodeAudioData(buf))
-      .then(decoded => {
-        scrollDataBuffer = decoded;
-        isScrollDataLoading = false;
-        setupScrollDataNodes();
-      })
-      .catch(err => {
-        console.warn('Scroll data audio load/decode error (synth fallback active):', err);
-        isScrollDataLoading = false;
-      });
-  }
-
-  function setupScrollDataNodes() {
-    if (!ctx || !scrollDataBuffer || isScrollDataPlaying) return;
-    try {
-      scrollDataSource = ctx.createBufferSource();
-      scrollDataSource.buffer = scrollDataBuffer;
-      scrollDataSource.loop = true;
-
-      scrollDataFilter = ctx.createBiquadFilter();
-      scrollDataFilter.type = 'highpass';
-      scrollDataFilter.frequency.setValueAtTime(120.0, ctx.currentTime);
-
-      scrollDataGain = ctx.createGain();
-      scrollDataGain.gain.setValueAtTime(0.0001, ctx.currentTime);
-
-      scrollDataSource.connect(scrollDataFilter);
-      scrollDataFilter.connect(scrollDataGain);
-      scrollDataGain.connect(masterGain || ctx.destination);
-
-      scrollDataSource.start(0);
-      isScrollDataPlaying = true;
-    } catch (e) {
-      console.warn('setupScrollDataNodes error:', e);
-    }
-  }
-
-  // Procedural Granular Synthesizer Setup (0ms latency fallback + harmonic shimmer)
-  function setupSynthNodes() {
-    if (!ctx || isSynthPlaying) return;
-    try {
-      const t = ctx.currentTime;
-
-      // High-frequency harmonic pulse oscillator
-      synthOsc1 = ctx.createOscillator();
-      synthOsc1.type = 'sawtooth';
-      synthOsc1.frequency.setValueAtTime(920, t);
-
-      // Warm sub-harmonic body oscillator
-      synthOsc2 = ctx.createOscillator();
-      synthOsc2.type = 'triangle';
-      synthOsc2.frequency.setValueAtTime(180, t);
-
-      synthFilter = ctx.createBiquadFilter();
-      synthFilter.type = 'bandpass';
-      synthFilter.Q.setValueAtTime(4.5, t);
-      synthFilter.frequency.setValueAtTime(1200, t);
-
-      synthGain = ctx.createGain();
-      synthGain.gain.setValueAtTime(0.0001, t);
-
-      synthOsc1.connect(synthFilter);
-      synthOsc2.connect(synthFilter);
-      synthFilter.connect(synthGain);
-      synthGain.connect(masterGain || ctx.destination);
-
-      synthOsc1.start(0);
-      synthOsc2.start(0);
-      isSynthPlaying = true;
-    } catch (e) {
-      console.warn('setupSynthNodes error:', e);
-    }
-  }
-
   // ==========================================================================
   // AUTOPLAY AUTO-UNLOCK ENGINE (ZERO CLICKS REQUIRED)
-  // Activates AudioContext on the very first touch, wheel, pointer or key event
+  // Activates AudioContext instantly on the very first touch, wheel, pointer or key event
   // ==========================================================================
   function unlockAudio() {
     if (isUnlocked && ctx && ctx.state === 'running') return;
@@ -157,14 +50,10 @@
       c.resume().then(() => {
         if (c.state === 'running') {
           isUnlocked = true;
-          loadScrollDataAudio();
-          setupSynthNodes();
         }
       }).catch(() => {});
     } else if (c.state === 'running') {
       isUnlocked = true;
-      loadScrollDataAudio();
-      setupSynthNodes();
     }
   }
 
@@ -173,10 +62,9 @@
     window.addEventListener(evt, unlockAudio, { capture: true, passive: true });
   });
 
-  // Also kick off immediately on script load
+  // Pre-initialize
   try {
     getAudioContext();
-    loadScrollDataAudio();
   } catch (e) {}
 
   // ==========================================================================
@@ -190,121 +78,107 @@
 
     unlock: unlockAudio,
 
-    // 1. Photo Reveal Scrolling Sound (Called continuously as particles move)
-    playRevealStep(progress, velocity = 0.5) {
+    // 1. Photo Reveal Scrolling Sound:
+    // Pure synthesized micro-grain pulse (0ms latency, warm frequencies, gentle volume)
+    playRevealStep(progress = 0, velocity = 0.5) {
       if (window.portfolioAudioMuted) return;
       unlockAudio();
       const c = getAudioContext();
       if (!c || c.state !== 'running') return;
 
       const now = c.currentTime;
-      lastScrollSoundTime = performance.now();
 
-      // Ensure nodes are initialized
-      if (!scrollDataBuffer && !isScrollDataLoading) loadScrollDataAudio();
-      if (scrollDataBuffer && !isScrollDataPlaying) setupScrollDataNodes();
-      if (!isSynthPlaying) setupSynthNodes();
+      // Throttle micro-ticks to 26ms so rapid trackpad events don't crackle
+      if (now - lastScrollTickTime < 0.026) return;
+      lastScrollTickTime = now;
 
-      const clampedProg = Math.max(0.0, Math.min(1.0, progress || 0));
-      const clampedVel = Math.max(0.1, Math.min(1.0, velocity || 0.5));
+      try {
+        const clampedProg = Math.max(0.0, Math.min(1.0, progress || 0));
+        const clampedVel = Math.max(0.1, Math.min(1.0, velocity || 0.5));
 
-      // Layer A: Envato Scroll Data audio loop (Volume 0.55 - 0.75 for clear cyber impact)
-      if (scrollDataGain) {
-        const targetVol = THREE_Math_clamp(0.48 + clampedVel * 0.28, 0.40, 0.78);
-        scrollDataGain.gain.cancelScheduledValues(now);
-        scrollDataGain.gain.setTargetAtTime(targetVol, now, 0.03);
+        // Soft, gentle cyber frequency (360Hz base to 580Hz as photo resolves)
+        const baseFreq = 360 + clampedProg * 220;
+        const tickDuration = 0.038; // 38ms micro-pulse: stops immediately with the finger
 
-        if (scrollDataSource && scrollDataSource.playbackRate) {
-          const rate = 0.96 + clampedProg * 0.22;
-          scrollDataSource.playbackRate.setTargetAtTime(rate, now, 0.04);
-        }
-      }
+        // Dual soft oscillators (warm sine + subtle triangle)
+        const osc1 = c.createOscillator();
+        const osc2 = c.createOscillator();
+        osc1.type = 'sine';
+        osc2.type = 'triangle';
+        osc1.frequency.setValueAtTime(baseFreq, now);
+        osc2.frequency.setValueAtTime(baseFreq * 1.5, now);
 
-      // Layer B: Procedural Cyber Granular Synth (Ascending harmonic shimmer)
-      if (synthGain && synthFilter && synthOsc1) {
-        const synthVol = THREE_Math_clamp(0.12 + clampedVel * 0.14, 0.08, 0.26);
-        synthGain.gain.cancelScheduledValues(now);
-        synthGain.gain.setTargetAtTime(synthVol, now, 0.03);
+        // Low-pass filter to remove any harshness or buzz
+        const filter = c.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(800 + clampedProg * 350, now);
+        filter.Q.setValueAtTime(1.0, now);
 
-        const centerFreq = 850 + clampedProg * 1150 + (Math.random() - 0.5) * 80;
-        synthFilter.frequency.setTargetAtTime(centerFreq, now, 0.03);
-        synthOsc1.frequency.setTargetAtTime(750 + clampedProg * 800, now, 0.03);
-      }
+        // Very soft, quiet gain (0.025 - 0.055 peak, comfortable and pleasant)
+        const gain = c.createGain();
+        const peakGain = 0.025 + clampedVel * 0.028;
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.linearRampToValueAtTime(peakGain, now + 0.004); // 4ms soft attack
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + tickDuration); // 34ms decay
 
-      // Animate floating sound HUD equalizer bars
-      animateEqualizerBars(true);
+        osc1.connect(filter);
+        osc2.connect(filter);
+        filter.connect(gain);
+        gain.connect(masterGain || c.destination);
 
-      // Auto fade-out when user stops scrolling
-      clearTimeout(revealSoundFadeTimer);
-      revealSoundFadeTimer = setTimeout(() => {
-        CyberAudio.stopRevealSound();
-      }, 110);
+        osc1.start(now);
+        osc2.start(now);
+        osc1.stop(now + tickDuration + 0.005);
+        osc2.stop(now + tickDuration + 0.005);
+      } catch (e) {}
     },
 
     stopRevealSound() {
-      const c = getAudioContext();
-      if (!c) return;
-      const now = c.currentTime;
-
-      if (scrollDataGain) {
-        scrollDataGain.gain.cancelScheduledValues(now);
-        scrollDataGain.gain.setTargetAtTime(0.0001, now, 0.06);
-      }
-      if (synthGain) {
-        synthGain.gain.cancelScheduledValues(now);
-        synthGain.gain.setTargetAtTime(0.0001, now, 0.05);
-      }
-
-      animateEqualizerBars(false);
+      // Micro-pulses decay automatically in 38ms with zero hanging latency
     },
 
-    // 2. Photo Assembled 100% — Crystalline Holographic Lock-On Chime + Sub Punch
+    // 2. Photo Assembled 100% — Gentle Holographic Lock-On Chime
     playRevealComplete() {
       if (window.portfolioAudioMuted) return;
       unlockAudio();
       const c = getAudioContext();
       if (!c || c.state !== 'running') return;
 
-      CyberAudio.stopRevealSound();
-
       try {
         const t = c.currentTime;
 
-        // Sub-bass physical impact punch (75Hz -> 28Hz)
+        // Gentle sub-bass pulse (55Hz -> 28Hz) - soft 0.08 gain
         const subOsc = c.createOscillator();
         const subGain = c.createGain();
         subOsc.type = 'sine';
-        subOsc.frequency.setValueAtTime(78, t);
-        subOsc.frequency.exponentialRampToValueAtTime(28, t + 0.35);
-        subGain.gain.setValueAtTime(0.35, t);
-        subGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.38);
+        subOsc.frequency.setValueAtTime(55, t);
+        subOsc.frequency.exponentialRampToValueAtTime(28, t + 0.25);
+        subGain.gain.setValueAtTime(0.08, t);
+        subGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.28);
         subOsc.connect(subGain);
         subGain.connect(masterGain || c.destination);
         subOsc.start(t);
-        subOsc.stop(t + 0.40);
+        subOsc.stop(t + 0.30);
 
-        // Triple harmonic crystal chime: D5 (587Hz), A5 (880Hz), D6 (1175Hz)
-        const freqs = [587.33, 880.0, 1174.66, 1760.0];
+        // Soft harmonic chime (E5, B5, E6) - gentle 0.035 gain
+        const freqs = [659.25, 987.77, 1318.51];
         freqs.forEach((f, idx) => {
           const osc = c.createOscillator();
           const gain = c.createGain();
-          const delay = idx * 0.045;
-          osc.type = idx === 3 ? 'sine' : 'triangle';
+          const delay = idx * 0.04;
+          osc.type = 'sine';
           osc.frequency.setValueAtTime(f, t + delay);
-          osc.frequency.exponentialRampToValueAtTime(f * 1.02, t + delay + 0.45);
-          gain.gain.setValueAtTime(0.09 / (idx + 1), t + delay);
-          gain.gain.exponentialRampToValueAtTime(0.0001, t + delay + 0.55);
+          gain.gain.setValueAtTime(0.035 / (idx + 1), t + delay);
+          gain.gain.exponentialRampToValueAtTime(0.0001, t + delay + 0.32);
           osc.connect(gain);
           gain.connect(masterGain || c.destination);
           osc.start(t + delay);
-          osc.stop(t + delay + 0.58);
+          osc.stop(t + delay + 0.35);
         });
-      } catch (e) {
-        console.warn('playRevealComplete error:', e);
-      }
+      } catch (e) {}
     },
 
-    // 3. Cinematic Spatial Page Transition Whoosh (When moving from hero stage to #intro)
+    // 3. Soft Spatial Page Transition Whoosh (When advancing to #intro)
     playPageTransition() {
       if (window.portfolioAudioMuted) return;
       unlockAudio();
@@ -313,9 +187,8 @@
 
       try {
         const t = c.currentTime;
-        const dur = 0.42;
+        const dur = 0.32;
 
-        // Modulated noise sweep
         const bufferSize = c.sampleRate * dur;
         const buffer = c.createBuffer(1, bufferSize, c.sampleRate);
         const data = buffer.getChannelData(0);
@@ -328,14 +201,14 @@
 
         const filter = c.createBiquadFilter();
         filter.type = 'bandpass';
-        filter.Q.setValueAtTime(3.0, t);
-        filter.frequency.setValueAtTime(260, t);
-        filter.frequency.exponentialRampToValueAtTime(1450, t + dur * 0.45);
-        filter.frequency.exponentialRampToValueAtTime(320, t + dur);
+        filter.Q.setValueAtTime(2.0, t);
+        filter.frequency.setValueAtTime(240, t);
+        filter.frequency.exponentialRampToValueAtTime(950, t + dur * 0.4);
+        filter.frequency.exponentialRampToValueAtTime(280, t + dur);
 
         const gain = c.createGain();
         gain.gain.setValueAtTime(0.0001, t);
-        gain.gain.linearRampToValueAtTime(0.24, t + dur * 0.35);
+        gain.gain.linearRampToValueAtTime(0.045, t + dur * 0.3); // Soft 0.045 gain
         gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
 
         noise.connect(filter);
@@ -343,11 +216,11 @@
         gain.connect(masterGain || c.destination);
 
         noise.start(t);
-        noise.stop(t + dur + 0.02);
+        noise.stop(t + dur + 0.01);
       } catch (e) {}
     },
 
-    // 4. Tactile Mechanical Click (Buttons, Filter Pills, Modal Triggers)
+    // 4. Subtle Tactile Mechanical Click (Buttons & Pills)
     playClick() {
       if (window.portfolioAudioMuted) return;
       unlockAudio();
@@ -359,18 +232,18 @@
         const osc = c.createOscillator();
         const gain = c.createGain();
         osc.type = 'triangle';
-        osc.frequency.setValueAtTime(1250, t);
-        osc.frequency.exponentialRampToValueAtTime(280, t + 0.024);
-        gain.gain.setValueAtTime(0.12, t);
-        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.026);
+        osc.frequency.setValueAtTime(1150, t);
+        osc.frequency.exponentialRampToValueAtTime(260, t + 0.022);
+        gain.gain.setValueAtTime(0.038, t); // Soft 0.038 gain
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.024);
         osc.connect(gain);
         gain.connect(masterGain || c.destination);
         osc.start(t);
-        osc.stop(t + 0.028);
+        osc.stop(t + 0.026);
       } catch (e) {}
     },
 
-    // 5. Subtle Target Cursor Reticle Hover / Lock-On Blip
+    // 5. Subtle Target Cursor Reticle Hover Blip
     playHover() {
       if (window.portfolioAudioMuted) return;
       unlockAudio();
@@ -382,14 +255,14 @@
         const osc = c.createOscillator();
         const gain = c.createGain();
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(1680, t);
-        osc.frequency.exponentialRampToValueAtTime(2150, t + 0.016);
-        gain.gain.setValueAtTime(0.022, t);
-        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.018);
+        osc.frequency.setValueAtTime(1600, t);
+        osc.frequency.exponentialRampToValueAtTime(2000, t + 0.014);
+        gain.gain.setValueAtTime(0.012, t); // Very gentle 0.012 gain
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.016);
         osc.connect(gain);
         gain.connect(masterGain || c.destination);
         osc.start(t);
-        osc.stop(t + 0.020);
+        osc.stop(t + 0.018);
       } catch (e) {}
     },
 
@@ -406,15 +279,15 @@
         chord.forEach((freq, idx) => {
           const osc = c.createOscillator();
           const gain = c.createGain();
-          const delay = idx * 0.04;
+          const delay = idx * 0.035;
           osc.type = 'sine';
           osc.frequency.setValueAtTime(freq, t + delay);
-          gain.gain.setValueAtTime(0.08 / (idx + 1), t + delay);
-          gain.gain.exponentialRampToValueAtTime(0.0001, t + delay + 0.45);
+          gain.gain.setValueAtTime(0.035 / (idx + 1), t + delay);
+          gain.gain.exponentialRampToValueAtTime(0.0001, t + delay + 0.35);
           osc.connect(gain);
           gain.connect(masterGain || c.destination);
           osc.start(t + delay);
-          osc.stop(t + delay + 0.48);
+          osc.stop(t + delay + 0.38);
         });
       } catch (e) {}
     },
@@ -431,14 +304,14 @@
         const osc = c.createOscillator();
         const gain = c.createGain();
         osc.type = 'square';
-        osc.frequency.setValueAtTime(940, t);
-        osc.frequency.exponentialRampToValueAtTime(420, t + 0.022);
-        gain.gain.setValueAtTime(0.06, t);
-        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.024);
+        osc.frequency.setValueAtTime(820, t);
+        osc.frequency.exponentialRampToValueAtTime(380, t + 0.020);
+        gain.gain.setValueAtTime(0.028, t);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.022);
         osc.connect(gain);
         gain.connect(masterGain || c.destination);
         osc.start(t);
-        osc.stop(t + 0.026);
+        osc.stop(t + 0.024);
       } catch (e) {}
     },
 
@@ -455,24 +328,24 @@
         notes.forEach((freq, idx) => {
           const osc = c.createOscillator();
           const gain = c.createGain();
-          const delay = idx * 0.065;
+          const delay = idx * 0.055;
           osc.type = 'triangle';
           osc.frequency.setValueAtTime(freq, t + delay);
-          gain.gain.setValueAtTime(0.09, t + delay);
-          gain.gain.exponentialRampToValueAtTime(0.0001, t + delay + 0.38);
+          gain.gain.setValueAtTime(0.04, t + delay);
+          gain.gain.exponentialRampToValueAtTime(0.0001, t + delay + 0.32);
           osc.connect(gain);
           gain.connect(masterGain || c.destination);
           osc.start(t + delay);
-          osc.stop(t + delay + 0.40);
+          osc.stop(t + delay + 0.34);
         });
       } catch (e) {}
     },
 
-    // 9. Sound Mode Toggle (Mute / Unmute)
+    // 9. Sound Mode Toggle (Maintained for programmatic use if needed)
     toggleMute(forceState) {
       const now = performance.now();
       if (typeof forceState !== 'boolean' && (now - lastToggleTime < 250)) {
-        return; // Guard against rapid duplicate events (e.g. multi-delegation)
+        return;
       }
       lastToggleTime = now;
 
@@ -481,74 +354,19 @@
       } else {
         window.portfolioAudioMuted = !window.portfolioAudioMuted;
       }
-      updateSoundUI();
 
       if (window.portfolioAudioMuted) {
-        CyberAudio.stopRevealSound();
         if (masterGain && ctx) {
           masterGain.gain.setValueAtTime(0.0001, ctx.currentTime);
-        }
-        if (typeof window.showToast === 'function') {
-          window.showToast('🔇 Cyber audio muted');
         }
       } else {
         unlockAudio();
         if (masterGain && ctx) {
           masterGain.gain.setValueAtTime(1.0, ctx.currentTime);
         }
-        if (typeof window.showToast === 'function') {
-          window.showToast('🔊 Cyber audio enabled (Dual-layer active)');
-        }
-        // Play power-up confirmation chime
-        CyberAudio.playBadgeOpen();
       }
     }
   };
-
-  let lastToggleTime = 0;
-
-  // Helper clamp
-  function THREE_Math_clamp(val, min, max) {
-    return Math.max(min, Math.min(max, val));
-  }
-
-  // Animate Equalizer Bars in HUD
-  function animateEqualizerBars(isActive) {
-    const bars = document.querySelectorAll('.sound-eq-bar');
-    bars.forEach((b, i) => {
-      if (isActive) {
-        b.classList.add('active');
-      } else {
-        b.classList.remove('active');
-      }
-    });
-  }
-
-  // Update All Sound Buttons & HUD elements
-  function updateSoundUI() {
-    const isMuted = window.portfolioAudioMuted;
-    
-    // 1. Floating HUD
-    const hud = document.getElementById('floating-sound-hud');
-    if (hud) {
-      hud.classList.toggle('muted', isMuted);
-      const label = hud.querySelector('.sound-hud-label');
-      if (label) {
-        label.textContent = isMuted ? 'SOUND: OFF' : 'SOUND: ON';
-      }
-      hud.setAttribute('title', isMuted ? 'Sound Muted (Click to enable)' : 'Sound Enabled (Click to mute)');
-    }
-
-    // 2. Navbar button
-    const navBtn = document.getElementById('sound-toggle-btn');
-    if (navBtn) {
-      navBtn.classList.toggle('muted', isMuted);
-      navBtn.setAttribute('title', isMuted ? 'Sound Muted (Click to enable)' : 'Sound Enabled (Click to mute)');
-      navBtn.innerHTML = isMuted
-        ? `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="1" y1="1" x2="23" y2="23"></line><path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path><path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>`
-        : `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
-    }
-  }
 
   // Attach click listeners to all buttons and interactive cards
   function initInteractiveSoundListeners() {
@@ -573,59 +391,32 @@
       }, { passive: true });
     }
 
-    // Sound toggle buttons
-    const navBtn = document.getElementById('sound-toggle-btn');
-    if (navBtn && !navBtn.dataset.soundBound) {
-      navBtn.dataset.soundBound = 'true';
-      navBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        CyberAudio.toggleMute();
-      });
-    }
-
-    const hud = document.getElementById('floating-sound-hud');
-    if (hud && !hud.dataset.soundBound) {
-      hud.dataset.soundBound = 'true';
-      hud.addEventListener('click', (e) => {
-        e.stopPropagation();
-        CyberAudio.toggleMute();
-      });
-    }
+    // Ensure any sound buttons in DOM are hidden as requested
+    hideSoundButtons();
   }
 
-  // Inject Floating Sound HUD Pill into DOM if not present
-  function ensureFloatingSoundHUD() {
-    if (document.getElementById('floating-sound-hud')) return;
-
-    const hud = document.createElement('button');
-    hud.id = 'floating-sound-hud';
-    hud.className = 'floating-sound-hud';
-    hud.setAttribute('title', 'Cyber Sound Engine (Click to mute/unmute)');
-    hud.setAttribute('aria-label', 'Toggle Sound Mode');
-    hud.innerHTML = `
-      <div class="sound-eq-icon">
-        <span class="sound-eq-bar b1"></span>
-        <span class="sound-eq-bar b2"></span>
-        <span class="sound-eq-bar b3"></span>
-        <span class="sound-eq-bar b4"></span>
-      </div>
-      <span class="sound-hud-label">SOUND: ON</span>
-    `;
-
-    document.body.appendChild(hud);
+  function hideSoundButtons() {
+    const soundBtn = document.getElementById('sound-toggle-btn');
+    if (soundBtn) {
+      soundBtn.style.display = 'none';
+      soundBtn.setAttribute('aria-hidden', 'true');
+    }
+    const hud = document.getElementById('floating-sound-hud');
+    if (hud) {
+      hud.style.display = 'none';
+      hud.setAttribute('aria-hidden', 'true');
+    }
   }
 
   // Run on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-      ensureFloatingSoundHUD();
       initInteractiveSoundListeners();
-      updateSoundUI();
+      hideSoundButtons();
     });
   } else {
-    ensureFloatingSoundHUD();
     initInteractiveSoundListeners();
-    updateSoundUI();
+    hideSoundButtons();
   }
 
   // Export to window
