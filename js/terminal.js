@@ -688,27 +688,26 @@ Feel free to send a message via the website contact form or connect on LinkedIn 
   }
   window.showTerminalHint = showTerminalHintOnly;
 
-  // Click Triggers: ONLY show hint to open, do NOT open terminal on click
-  if (hintTrigger) {
-    hintTrigger.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+  // Click Triggers: On touch / mobile (<860px or touchscreen), directly open terminal! On desktop, show hint.
+  function handleTriggerInteraction(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const isTouchOrMobile = window.innerWidth <= 860 || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    if (isTouchOrMobile) {
+      openTerminal();
+    } else {
       showTerminalHintOnly();
-    });
+    }
+  }
+
+  if (hintTrigger) {
+    hintTrigger.addEventListener('click', handleTriggerInteraction);
   }
   if (navTrigger) {
-    navTrigger.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      showTerminalHintOnly();
-    });
+    navTrigger.addEventListener('click', handleTriggerInteraction);
   }
   if (heroTrigger) {
-    heroTrigger.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      showTerminalHintOnly();
-    });
+    heroTrigger.addEventListener('click', handleTriggerInteraction);
   }
   if (closeBtn) closeBtn.addEventListener('click', closeTerminal);
 
