@@ -32,6 +32,12 @@
   let audioCtx = null;
 
   function getAudioContext() {
+    if (window.CyberAudio && window.CyberAudio.context) {
+      if (window.CyberAudio.context.state === 'suspended') {
+        window.CyberAudio.unlock();
+      }
+      return window.CyberAudio.context;
+    }
     if (!audioCtx) {
       audioCtx = window.scrollAudioCtx || new (window.AudioContext || window.webkitAudioContext)();
     }
